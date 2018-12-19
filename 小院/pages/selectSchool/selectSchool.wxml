@@ -1,0 +1,6 @@
+<!--pages/selectSchool/selectSchool.wxml-->
+<view class ="container">
+  <view>
+    <input></input>
+  </view>
+</view>

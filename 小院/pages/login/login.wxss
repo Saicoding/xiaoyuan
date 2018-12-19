@@ -1,0 +1,90 @@
+/* pages/login/login.wxss */
+.container{
+  width:100%;
+  height:100%;
+  padding:0;
+  margin: 0;
+}
+
+.head{
+  width:100%;
+  height:509rpx;
+}
+
+.input-block{
+  width:90%;
+  border-bottom: 1rpx solid #c8d2d9;
+  height:80rpx;
+  margin:0rpx auto;
+}
+
+.icon-img,.myinput,.pwd-opt-icon{
+  display: float;
+  float:left;
+  height:50rpx;
+  margin-top:15rpx;
+}
+
+.myinput{
+  margin-top:0rpx;
+  width:530rpx;
+  height:80rpx;
+  font-size:25rpx;
+  margin-left:10rpx;
+}
+
+.icon-img{
+  width:50rpx;
+  height:50rpx;
+}
+
+.pwd-opt{
+  width:92%;
+  height:80rpx;
+  margin:0rpx auto;
+  clear: both;
+}
+
+.pwd-opt-icon{
+  width:60rpx;
+  height:60rpx;
+  margin-top:10rpx;
+}
+
+.pwd-opt-text{
+  display: float;
+  float:left;
+  height:80rpx;
+  font-size:25rpx;
+  line-height: 80rpx;
+}
+
+.login{
+  width:90%;
+  height:80rpx;
+  line-height: 80rpx;
+  font-size:30rpx;
+  margin:0rpx auto;
+  text-align: center;
+  color:white;
+  border-radius: 10rpx;
+  margin-top:30rpx;
+}
+
+.login-icon,.login-text{
+  display: float;
+  float:left;
+}
+
+.login-icon{
+  width:50rpx;
+  height:40rpx;
+  margin-top:20rpx;
+  margin-left:200rpx;
+}
+
+.login-bottom{
+  text-align: center;
+  font-size:25rpx;
+  margin-top:30rpx;
+}
