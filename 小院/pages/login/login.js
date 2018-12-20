@@ -68,46 +68,6 @@ Page({
   },
 
   /**
-  * 根据是否选择学校来处理登录逻辑
-  */
-  processSelectScholl: function (user, ifGoPage) {
-    let self = this;
-    let x_id = user.x_id;//是否绑定学校
-
-    if (x_id == 0) {//如果没有绑定学校
-      self.setData({//将user设为本页面的变量，后续跳转到绑定学校页面需要用到
-        user: user
-      })
-
-      let loginrandom = user.Login_random;
-      let zcode = user.zcode;
-
-      wx.showModal({
-        title: '提示',
-        content: '请绑定您所在学校',
-        showCancel: false,
-        success(res) {
-          wx.navigateTo({//导航到选择学校页面
-            url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
-          })
-        }
-      })
-    } else {//如果选择学校
-      wx.setStorage({
-        key: 'user',
-        data: user
-      })
-      wx.navigateBack({}) //先回到登录前的页面
-
-      if (ifGoPage == 'true') {
-        wx.navigateTo({
-          url: url,
-        })
-      }
-    }
-  },
-
-  /**
    * 账号密码登录
    */
   login:function(){
@@ -137,9 +97,12 @@ Page({
     }else{
       let md5Pwd = MD5.md5(pwdText).toLowerCase();//小写md5加密密码
 
+      console.log("action=Login&user=" + userText + "&pwd=" + md5Pwd)
       app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd,true,false,"登录中").then(res=>{
+        console.log('ok')
+        console.log(res)
         let user = res.data.data[0];
-        
+        console.log(user)
         let rememberPwd = self.data.rememberPwd;//是否记住密码
         if (rememberPwd){//如果选择了记住密码就存储本地缓存
           let loginUser = {
@@ -194,6 +157,43 @@ Page({
       let user = res.data.list[0];
       self.processSelectScholl(user, ifGoPage);
     })
+  },
+
+  /**
+ * 根据是否选择学校来处理登录逻辑
+ */
+  processSelectScholl: function (user, ifGoPage) {
+    let self = this;
+    let x_id = user.x_id;//是否绑定学校
+
+    if (x_id == 0) {//如果没有绑定学校
+      self.setData({//将user设为本页面的变量，后续跳转到绑定学校页面需要用到
+        user: user
+      })
+
+      let loginrandom = user.Login_random;
+      let zcode = user.zcode;
+
+      wx.showModal({
+        title: '提示',
+        content: '请绑定您所在学校',
+        showCancel: false,
+        success(res) {
+          wx.navigateTo({//导航到选择学校页面
+            url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
+          })
+        }
+      })
+    } else {//如果选择学校
+      wx.setStorageSync('user', user)
+      wx.navigateBack({}) //先回到登录前的页面
+
+      if (ifGoPage == 'true') {
+        wx.navigateTo({
+          url: url,
+        })
+      }
+    }
   },
 
   /**

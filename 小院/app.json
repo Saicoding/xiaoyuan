@@ -2,7 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/login/login",
-    "pages/selectSchool/selectSchool"
+    "pages/selectSchool/selectSchool",
+    "pages/guangchang/guangchang",
+    "pages/huodong/huodong",
+    "pages/zixun/zixun",
+    "pages/mine/mine"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -10,4 +14,50 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "tabBar": {
+    "selectedColor": "#13b7f6",
+    "color": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/zixun/zixun",
+        "selectedColor": "#13b7f6",
+        "iconPath": "/imgs/zixun1.png",
+        "selectedIconPath": "/imgs/zixun2.png",
+        "color": "#000000",
+        "text": "资讯"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "selectedColor": "#13b7f6",
+        "iconPath": "/imgs/mike1.png",
+        "selectedIconPath": "/imgs/mike2.png",
+        "color": "#000000",
+        "text": "觅课"
+      },
+      {
+        "pagePath": "pages/huodong/huodong",
+        "selectedColor": "#13b7f6",
+        "iconPath": "/imgs/huodong1.png",
+        "selectedIconPath": "/imgs/huodong2.png",
+        "color": "#000000",
+        "text": "活动"
+      },
+      {
+        "pagePath": "pages/guangchang/guangchang",
+        "selectedColor": "#13b7f6",
+        "iconPath": "/imgs/guangchang1.png",
+        "selectedIconPath": "/imgs/guangchang2.png",
+        "color": "#000000",
+        "text": "广场"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "selectedColor": "#13b7f6",
+        "iconPath": "/imgs/mine1.png",
+        "selectedIconPath": "/imgs/mine2.png",
+        "color": "#000000",
+        "text": "我的"
+      }
+    ]
+  }
 }

@@ -23,7 +23,7 @@ App({
       }
     })
 
-    wx.clearStorage();
+    // wx.clearStorage();
   },
 
   /** 
@@ -59,6 +59,7 @@ App({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function(res) { //服务器返回数据
+        console.log(res)
           let status = res.data.code;
           let message = res.data.Message;
           if (status == 1) { //请求成功
