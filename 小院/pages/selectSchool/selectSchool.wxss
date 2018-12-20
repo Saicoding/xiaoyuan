@@ -1,1 +1,52 @@
 /* pages/selectSchool/selectSchool.wxss */
+.container{
+
+}
+
+.search{
+  width:100%;
+  height:80rpx;
+  border-bottom:1rpx solid rgb(99, 164, 250);
+  font-size:25rpx;
+}
+
+.search-input{
+  width:90%;
+  height:60rpx;
+  margin:20rpx auto;
+  border:1rpx solid rgb(201, 199, 199);
+  border-radius: 11rpx;
+  padding-left:20rpx;
+  letter-spacing: 4rpx;
+}
+
+.load-img{
+  display: block;
+  width:96rpx;
+  height:112rpx;
+  margin:200rpx auto;
+}
+
+.schools{
+  padding-bottom: 50rpx;
+}
+
+.words{
+  width:100%;
+  height:130rpx;
+  border-bottom:1rpx solid rgb(99, 164, 250);
+  font-size:35rpx;
+  line-height: 130rpx;
+  padding-left:30rpx;
+  color:rgb(0, 137, 250);
+}
+
+.school{
+  width:90%;
+  border-bottom: 1rpx solid rgb(221, 220, 220);
+  margin:0 auto;
+  height:80rpx;
+  line-height: 80rpx;
+  font-size:25rpx;
+  padding-left:30rpx;
+}

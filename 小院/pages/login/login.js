@@ -36,8 +36,7 @@ Page({
         app.post(API_URL, "action=getSessionKey&code=" + code, false, false, "").then((res) => {
           let sesstion_key = res.data.sessionKey;
           let openid = res.data.openid;
-          console.log(sesstion_key)
-          console.log(openid)
+
           self.setData({
             sesstion_key: sesstion_key,
             openid: openid
@@ -73,19 +72,23 @@ Page({
   */
   processSelectScholl: function (user, ifGoPage) {
     let self = this;
-    let bindSchool = wx.getStorageSync('school');//是否绑定学校
-    if (bindSchool == "") {//如果没有绑定学校
+    let x_id = user.x_id;//是否绑定学校
+
+    if (x_id == 0) {//如果没有绑定学校
       self.setData({//将user设为本页面的变量，后续跳转到绑定学校页面需要用到
         user: user
       })
-      
+
+      let loginrandom = user.Login_random;
+      let zcode = user.zcode;
+
       wx.showModal({
         title: '提示',
         content: '请绑定您所在学校',
         showCancel: false,
         success(res) {
           wx.navigateTo({//导航到选择学校页面
-            url: '/pages/selectSchool/selectSchool',
+            url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
           })
         }
       })
@@ -136,7 +139,7 @@ Page({
 
       app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd,true,false,"登录中").then(res=>{
         let user = res.data.data[0];
-
+        
         let rememberPwd = self.data.rememberPwd;//是否记住密码
         if (rememberPwd){//如果选择了记住密码就存储本地缓存
           let loginUser = {
@@ -163,7 +166,6 @@ Page({
     * 微信授权登录
     */
   wxLogin: function (e) {
-    console.log(e)
     let self = this;
     let wxid = ""; //openId
     let session_key = ""; //

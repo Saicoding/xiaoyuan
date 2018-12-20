@@ -47,6 +47,8 @@ Page({
         url: '/pages/login/login',
       })
     }
+
+    console.log(this.data.x_id)
   },
 
   getUserInfo: function(e) {

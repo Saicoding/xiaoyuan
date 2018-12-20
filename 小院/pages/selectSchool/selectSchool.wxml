@@ -1,6 +1,19 @@
 <!--pages/selectSchool/selectSchool.wxml-->
 <view class ="container">
-  <view>
-    <input></input>
+  <view class = "search">
+    <input class ="search-input" bindinput="textInput" placeholder='搜索学校名称关键字' confirm-type ="搜索" bindconfirm = "search"></input>
+  </view>
+</view>
+
+<image wx:if="{{!isLoaded}}" class ="load-img" src="/imgs/timg.gif" mode = 'aspectFit'></image>
+
+<view class ="schools">
+  <view wx:for ="{{letterSchools}}" wx:for-item ="letterSchool" wx:key = "key">
+    <view class ="words">
+      {{letterSchool[0].word}}
+    </view>
+    <view data-schoolName="{{school.Colleage}}" data-schoolId="{{school.id}}" bindtap = "bindSchool" class ="school" wx:for = "{{letterSchool}}" wx:for-item = "school" wx:key = "s">
+      {{school.Colleage}}
+    </view>
   </view>
 </view>

@@ -7,6 +7,7 @@ App({
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
+            lang:"zh_CN",
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
@@ -59,7 +60,6 @@ App({
         },
         success: function(res) { //服务器返回数据
           let status = res.data.code;
-          console.log(res)
           let message = res.data.Message;
           if (status == 1) { //请求成功
             resolve(res);
