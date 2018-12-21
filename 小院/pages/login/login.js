@@ -5,6 +5,8 @@ let WXBizDataCrypt = require('../../utils/cryptojs/RdWXBizDataCrypt.js');
 let appId = "wxfc4ecbaf91acfaf6";
 let app = getApp();
 
+let buttonClicked = false;
+
 Page({
   /**
    * 页面的初始数据
@@ -64,13 +66,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    buttonClicked = false;
   },
 
   /**
    * 账号密码登录
    */
   login:function(){
+   //限制连续点击
+    if (buttonClicked) return;
+    buttonClicked = true;
+
     let self = this;
     let userText = self.data.userText;//当前输入的账户
     let pwdText = self.data.pwdText;//当前输入的密码
@@ -127,6 +133,9 @@ Page({
     * 微信授权登录
     */
   wxLogin: function (e) {
+    //限制连续点击
+    if (buttonClicked) return;
+    buttonClicked = true;
     let self = this;
     let wxid = ""; //openId
     let session_key = ""; //

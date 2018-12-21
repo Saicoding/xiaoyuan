@@ -21,11 +21,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.removeStorageSync('first');
     let requesttime = util.formatTime2(new Date()); //请求时间（第一次请求的时间）
-    console.log(requesttime)
+
     this.setData({//最后请求的时间
-      requesttime: requesttime
+      requesttime: requesttime,
+      first:true//第一次载入默认首次载入
     })
   },
 
@@ -37,16 +37,18 @@ Page({
     let user = wx.getStorageSync('user');
 
     let isReLoad = self.data.isReLoad; //是否是重复登录
-    let first = wx.getStorageSync('first'); //是否是第一次渲染页面
+    let first = self.data.first; //是否是第一次渲染页面
 
     buttonClicked = false;
 
-    if ((isReLoad || first == "") && user != "") { //如果重复登录或者第一次渲染才执行
+    console.log(isReLoad)
+    console.log(first)
+
+    if ((isReLoad || first) && user != "") { //如果重复登录或者第一次渲染才执行
 
       wx.setNavigationBarTitle({ //设置标题
         title: user.colleage
       })
-      console.log(user)
 
       //用户信息
       let loginrandom = user.Login_random;
@@ -63,21 +65,41 @@ Page({
       })
 
       let url = encodeURIComponent('/pages/index/index');
+      wx.setStorageSync('first', false);
       console.log("action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1")
       app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1",false,false,"","","",self).then(res => {
-        wx.setStorageSync("first", "false");
         let news = res.data.data[0].list; //所有资讯
         let allpage = res.data.data[0].allpage //所有页码
 
         self.setData({
           isLoaded: true,
+          isReLoad:false,
           page: 1,
           news: news,
-          allpage: allpage
+          allpage: allpage,
+          first:false
         })
       })
     }
+  },
 
+  /**
+   * 观看资讯详情
+   */
+  viewNewsDetail:function(e){
+    if(buttonClicked) return;//如果点击了一次就不执行
+    buttonClicked = true;//已经点击
+
+    let id = e.currentTarget.dataset.id;//点击的新闻ID
+
+    //用户信息
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    wx.navigateTo({
+      url: '/pages/zixun/zixunDetail/zixunDetail?id='+id,
+    })
   },
 
   /**
@@ -112,7 +134,7 @@ Page({
     let news = self.data.news;
     page++;
 
-    app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page).then(res => {
+    app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page, false, false, "", "", "", self).then(res => {
       let newNews = res.data.data[0].list;
       news = news.concat(newNews);
 
@@ -146,17 +168,16 @@ Page({
 
     let requesttime = util.formatTime2(new Date()); //请求时间（最后请求的时间）
 
-    console.log("action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1" + "&requesttime=" + requesttime)
-
-    app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1"  + "&requesttime=" + requesttime).then(res => {
-      console.log(res)
-      let newNews = res.data.data;
-      console.log(newNews)
+    app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1" + "&requesttime=" + requesttime, false, false, "", "", "", self).then(res => {
+      let newNews = res.data.data[0].list;
       news = newNews.concat(news);
 
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
 
+      self.setData({
+        news: news
+      })
 
     })
   },

@@ -6,7 +6,8 @@
     "pages/guangchang/guangchang",
     "pages/huodong/huodong",
     "pages/zixun/zixun",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/zixun/zixunDetail/zixunDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",
