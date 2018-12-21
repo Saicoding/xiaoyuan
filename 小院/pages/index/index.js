@@ -1,13 +1,19 @@
 //index.js
 //获取应用实例
-const app = getApp()
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
 
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    banners:[
+      "/imgs/banner/1.png",
+      "/imgs/banner/2.png",
+      "/imgs/banner/3.png",
+    ]
   },
 
   onLoad: function () {
@@ -42,13 +48,17 @@ Page({
   onShow:function(){
     let user = wx.getStorageSync('user');//先看下本地是否有用户信息，如果有信息说明已经登录
 
+    let colleage = user.colleage;
+
     if (!user) {//如果user = "" ,
       wx.navigateTo({
         url: '/pages/login/login',
       })
+    }else{
+      wx.setNavigationBarTitle({//如果有用户名，就设置标题
+        title: colleage
+      })  
     }
-
-    console.log(this.data.x_id)
   },
 
   getUserInfo: function(e) {

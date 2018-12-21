@@ -77,18 +77,17 @@ Page({
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
 
     let info = "";
-
-    if (userText == "" && pwdText == ""){
+    
+    console.log(pwdText)
+    if (!userText  && !pwdText){
       info = "用户名和密码不能为空"
-    } else if (userText == ""){
+    } else if (!userText){
       info = "用户名不能为空";
-    } else if(pwdText == ""){
+    } else if (!pwdText){
       info = "密码不能为空"
-    } else {
-      info = "未知错误"
     }
 
-    if(info == ""){//如果输入不规范
+    if(info != ""){//如果输入不规范
       wx.showToast({
         icon:"none",
         title: info,
@@ -99,7 +98,6 @@ Page({
 
       console.log("action=Login&user=" + userText + "&pwd=" + md5Pwd)
       app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd,true,false,"登录中").then(res=>{
-        console.log('ok')
         console.log(res)
         let user = res.data.data[0];
         console.log(user)

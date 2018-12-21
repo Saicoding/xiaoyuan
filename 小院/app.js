@@ -37,7 +37,6 @@ App({
    * @return {Promise}    promise 返回promise供后续操作
    */
   post: function(url, data, ifShow, ifCanCancel, title, pageUrl, ifGoPage, self) {
-
     if (ifShow) {
       wx.showLoading({
         title: title,
@@ -70,10 +69,29 @@ App({
               title: message,
               duration:3000
             })
-          } else if (status == -5) { //重复登录
+          } else if (status == -201) { //重复登录
             console.log('重复登录')
+            if (self) {//如果传了这个参数
+              self.setData({
+                isReLoad: true
+              })
+            }
             wx.navigateTo({
-              url: '/pages/login1/login1?url=' + pageUrl + '&ifGoPage=' + ifGoPage
+              url: '/pages/login/login?url=' + pageUrl + '&ifGoPage=' + ifGoPage
+            })
+          } else if (status ==  2011){
+            console.log('没有院校,需要绑定院校');
+            wx.showToast({
+              icon: 'none',
+              title: message,
+              duration: 3000
+            })
+          } else if (status == -5){
+            console.log('找回密码不存在')
+            wx.showToast({
+              icon: 'none',
+              title: message,
+              duration: 3000
             })
           }
           wx.hideLoading();

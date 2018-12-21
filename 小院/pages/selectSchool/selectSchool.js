@@ -96,9 +96,11 @@ Page({
                 let prePage = pages[pages.length - 2];//上一个页面
                 let indexPage = pages[pages.length - 3];//首页
                 let user = prePage.data.user;
+                user.x_id = schoolid;
+                user.colleage = schoolname;
                 
                 indexPage.setData({//首页设置学校ID
-                  x_id: schoolid
+                  user: user
                 })
 
                 wx.setStorageSync('user', user);//保存本地user信息

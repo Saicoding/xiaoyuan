@@ -1,7 +1,4 @@
 /* pages/selectSchool/selectSchool.wxss */
-.container{
-
-}
 
 .search{
   width:100%;
