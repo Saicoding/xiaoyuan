@@ -1,0 +1,7 @@
+/* pages/index/markCourse/markCourse.wxss */
+.load-img {
+  display: block;
+  width: 96rpx;
+  height: 112rpx;
+  margin: 200rpx auto;
+}

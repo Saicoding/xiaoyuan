@@ -1,21 +1,45 @@
+<import src="/wxSearch/wxSearch.wxml" />
+
 <!--index.wxml-->
-<view class="container">
+<view data-com="waimian" class="container" bindtap = "hideSearchChanle">
   <!-- 头部banner -->
-  <swiper class ="swiper" interval = "3000" autoplay = "true" circular = "true" indicator-dots = "true" indicator-color= "rgb(216, 216, 216);" indicator-active-color="white">
-    <block wx:for = "{{banners}}" wx:key = "k"> 
+  <swiper class="swiper" interval="3000" autoplay="true" circular="true" indicator-dots="true" indicator-color="rgb(216, 216, 216);" indicator-active-color="white">
+    <block wx:for="{{banners}}" wx:key="k">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" mode="aspectFit"/>
+        <image src="{{item}}" class="slide-image" mode="aspectFit" />
       </swiper-item>
     </block>
   </swiper>
 
-  <!-- 中间的学校 -->
-  <view class = "schools">
-    <view wx:for = "schools" wx:for-item = "school" wx:key = "s">
-      <view class ="school">
-        <image class = "school-icon" src ="{{school.src}}" mode = "aspectFit"></image>
-        <view class ="school-name">{{school.name}}</view>
+  <!-- 中间的横条 -->
+  <view class="bolder-line">
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="courses">
+    <view wx:for="{{courses}}" wx:for-item="course" wx:key="c">
+      <view class="course">
+        <image class="course-icon" src="{{course.pic}}" mode="aspectFit"></image>
+        <view class="course-name">{{course.title}}</view>
       </view>
     </view>
+
+    <!-- 课程订阅 -->
+    <view bindtap = "markCourse" class="course" hover-class='select1' hover-stay-time='500'>
+      <image class="course-icon" src="/imgs/course_set.png" mode="aspectFit"></image>
+      <view class="course-name">课程订阅</view>
+    </view>
+  </view>
+
+  <!-- 正在学习课程和搜索 -->
+  <view class="learning_search">
+    <view class="learning">
+      <image class="learning-icon" src="/imgs/clock.png" mode="aspectFit"></image>
+      <view class="learning-text">正在学习课程</view>
+    </view>
+
+    <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="中仕学社" />
+    <image class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+    <template is="wxSearch" data="{{wxSearchData}}" />
   </view>
 </view>

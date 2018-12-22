@@ -1,0 +1,2 @@
+<!--pages/index/markCourse/markCourse.wxml-->
+  <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
