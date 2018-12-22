@@ -1,7 +1,7 @@
 /* pages/zixun/zixunDetail/zixunDetail.wxss */
 .container{
-  padding:30rpx 15rpx 30rpx 15rpx;
-  margin:0rpx;
+  width:720rpx;
+  margin:30rpx 15rpx 0rpx 15rpx;
 }
 
 .load-img {
@@ -32,12 +32,11 @@
 }
 
 .content{
-  width:720rpx;
-  font-size:25rpx;
+  width:100%;
+  font-size:30rpx;
   line-height: 40rpx;
   padding-top:20rpx;
-  padding-bottom:0rpx;
-  overflow-x :hidden;
+  padding-bottom:20rpx;
 }
 
 .comment{
@@ -154,7 +153,7 @@
   margin: 0rpx auto;
   text-align: center;
   color: rgb(156, 156, 156);
-  margin-bottom: 50rpx;
+  margin-bottom: 100rpx;
 }
 
 .loading-gif {

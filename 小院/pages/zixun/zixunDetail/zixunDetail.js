@@ -125,6 +125,8 @@ Page({
     if (loadingMore) return; //如果还在载入中,就不继续执行
 
     let pageall = self.data.pageall;
+
+    if (pageall == undefined) return;
     let page = self.data.page;
     let id = self.data.id; //资讯ID
 
