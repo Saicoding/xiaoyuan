@@ -1,6 +1,7 @@
 /* pages/zixun/zixunDetail/zixunDetail.wxss */
 .container{
   padding:30rpx 15rpx 30rpx 15rpx;
+  margin:0rpx;
 }
 
 .load-img {
@@ -30,16 +31,13 @@
   margin-top:15rpx;
 }
 
-.content img{
-  max-width: 100%;
-}
-
 .content{
   width:720rpx;
   font-size:25rpx;
   line-height: 40rpx;
   padding-top:20rpx;
   padding-bottom:100rpx;
+  overflow-x :hidden;
 }
 
 .comment{
@@ -111,4 +109,38 @@
   width:40rpx;
   height:40rpx;
   margin-top:15rpx;
+}
+
+.comments-content-block{
+  display: inline-flex;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+  border-top:1rpx solid rgb(221, 221, 221);
+}
+
+.comment-img{
+  height:80rpx;
+  width:80rpx;
+  border-radius: 80rpx;
+  margin-left:10rpx;
+}
+
+.comment-right{
+  width:600rpx;
+  margin-left:40rpx;
+}
+
+.comment-right-line1{
+  font-size:28rpx;
+}
+
+.comment-right-line2{
+  color:rgb(197, 197, 197);
+  font-size:24rpx;
+  height:70rpx;
+  line-height: 70rpx;
+}
+
+.comment-right-line3{
+  font-size:28rpx;
 }

@@ -10,20 +10,25 @@
 
   <!-- 内容 -->
   <view class="content">
-    <rich-text nodes="{{zixun.content}}"></rich-text>
+    <rich-text  nodes="{{zixun.content}}"></rich-text>
   </view>
 
   <!-- 评论block -->
   <view class="comments">
     <view class="comments-top">
       <image class="comments-top-icon" src="/imgs/line.png"></image>
-      <view class="comments-top-text">评论 1 条</view>
+      <view class="comments-top-text">评论 {{comments.length}} 条</view>
     </view>
 
     <view class="comments-content">
-      <view wx:for = "{{comments}}" wx:for-item = "item" wx:key="k">
+      <view wx:for = "{{comments}}" wx:for-item = "comment" wx:key="k">
         <view class="comments-content-block">
-          {{item}}
+          <image class = "comment-img" src ="{{comment.userpic}}" mode = "aspectFit"></image>
+          <view class = "comment-right">
+            <view class = "comment-right-line1">({{index+1}}楼)</view>
+            <text class = "comment-right-line2" space='nbsp' >{{comment.addtime}}  来自{{comment.nickname}}</text>
+            <view class = "comment-right-line3">{{comment.content}}</view>
+          </view>
         </view>
       </view>
     </view>

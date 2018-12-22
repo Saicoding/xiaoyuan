@@ -41,7 +41,8 @@ Page({
 
           self.setData({
             sesstion_key: sesstion_key,
-            openid: openid
+            openid: openid,
+            hasCode:true
           })
         })
       }
@@ -73,11 +74,13 @@ Page({
    * 账号密码登录
    */
   login:function(){
+    let self = this;
+    let hasCode = self.data.hasCode;
    //限制连续点击
-    if (buttonClicked) return;
+    if (buttonClicked && !hasCode) return;
     buttonClicked = true;
 
-    let self = this;
+  
     let userText = self.data.userText;//当前输入的账户
     let pwdText = self.data.pwdText;//当前输入的密码
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
@@ -133,10 +136,13 @@ Page({
     * 微信授权登录
     */
   wxLogin: function (e) {
-    //限制连续点击
-    if (buttonClicked) return;
-    buttonClicked = true;
     let self = this;
+    //限制连续点击
+    let hasCode = self.data.hasCode;
+    //限制连续点击
+    if (buttonClicked && !hasCode) return;
+    buttonClicked = true;
+
     let wxid = ""; //openId
     let session_key = ""; //
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
