@@ -168,3 +168,7 @@
   margin-left: 10rpx;
   vertical-align: middle;
 }
+
+.select1{
+  background: rgb(163, 46, 46);
+}

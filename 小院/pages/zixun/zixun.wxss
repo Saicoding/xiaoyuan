@@ -95,3 +95,8 @@
   margin-left: 10rpx;
   vertical-align: middle;
 }
+
+.select1{
+  background: rgb(218, 218, 218);
+  opacity: 0.9;
+}

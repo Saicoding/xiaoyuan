@@ -1,10 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-  <swiper class ="swiper" interval = "1000" autoplay = "true" circular = "true">
+  <!-- 头部banner -->
+  <swiper class ="swiper" interval = "3000" autoplay = "true" circular = "true" indicator-dots = "true" indicator-color= "rgb(216, 216, 216);" indicator-active-color="white">
     <block wx:for = "{{banners}}" wx:key = "k"> 
       <swiper-item>
         <image src="{{item}}" class="slide-image" mode="aspectFit"/>
       </swiper-item>
     </block>
   </swiper>
+
+  <!-- 中间的学校 -->
+  <view class = "schools">
+    <view wx:for = "schools" wx:for-item = "school" wx:key = "s">
+      <view class ="school">
+        <image class = "school-icon" src ="{{school.src}}" mode = "aspectFit"></image>
+        <view class ="school-name">{{school.name}}</view>
+      </view>
+    </view>
+  </view>
 </view>

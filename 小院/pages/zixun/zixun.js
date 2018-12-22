@@ -3,7 +3,7 @@ let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let util = require('../../utils/util.js');
 
-let buttonClicked = false;
+let buttonClicked = false;//默认还没有点击可以导航页面的按钮
 
 Page({
 
@@ -62,7 +62,7 @@ Page({
 
       let url = encodeURIComponent('/pages/index/index');
       wx.setStorageSync('first', false);
-      console.log("action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1")
+
       app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res => {
         let news = res.data.data[0].list; //所有资讯
         let allpage = res.data.data[0].allpage //所有页码

@@ -34,11 +34,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    //下拉刷新可能触发重复登录，这时跳转到登录界面时没有停止刷新状态，需要手动设置
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
     let self = this;
 
     //用户信息
     let user = wx.getStorageSync('user');
-    console.log(user)
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
@@ -57,7 +59,6 @@ Page({
       //获取评论
       app.post(API_URL, "action=getBrokeNewsPllist&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id+"&page=1", false, false, "", "", "", self).then(res => {
         let comments = res.data.data[0].list;
-        console.log(comments)
         let pageall = res.data.data[0].pageall;//评论总页数
         let pagenow = res.data.data[0].pagenow;//当前评论页
         // let PLcounts = res.data.data[0].PLcounts;
@@ -97,14 +98,13 @@ Page({
     //保存评论内容到服务器
     app.post(API_URL, "action=addBrokeNewsPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&aid=" + aid + "&content=" + comment_content, false, false, "", "", "", self).then(res => {
 
-      console.log('ok')
-
       //自定义一个时时显示的评论对象
       let mycomment = {};
       mycomment.addtime = "1秒前"; //提交时间
       mycomment.content = comment_content; //评论内容
       mycomment.nickname = user.Nickname;
       mycomment.userpic = user.Pic;
+      mycomment.from = "保密(开发中)";
 
       self.setData({
         comments: comments,
@@ -121,7 +121,6 @@ Page({
   onReachBottom: function () {
     let self = this;
     let loadingMore = self.data.loadingMore;
-    console.log(loadingMore)
     if (loadingMore) return; //如果还在载入中,就不继续执行
 
     let pageall = self.data.pageall;
@@ -193,7 +192,6 @@ Page({
     //获取评论
     app.post(API_URL, "action=getBrokeNewsPllist&loginrandom=" + loginrandom + "&zcode=" + zcode + "&id=" + id, false, false, "", "", "", self).then(res => {
       let comments = res.data.data[0].list;
-      console.log(comments)
       let pageall = res.data.data[0].pageall;
       let pagenow = res.data.data[0].pagenow;
       let PLcounts = res.data.data[0].PLcounts;

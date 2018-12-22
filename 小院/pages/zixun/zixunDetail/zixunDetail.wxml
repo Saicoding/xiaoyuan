@@ -34,8 +34,8 @@
         <view class="comments-content-block">
           <image class="comment-img" src="{{comment.userpic}}" mode="aspectFit"></image>
           <view class="comment-right">
-            <view class="comment-right-line1">({{index+1}}楼)</view>
-            <text class="comment-right-line2" space='nbsp'>{{comment.addtime}}  来自{{comment.nickname}}</text>
+            <view class="comment-right-line1" space='nbsp'>{{comment.nickname}}   ({{index+1}}楼)</view>
+            <text class="comment-right-line2" space='nbsp'>{{comment.addtime}}  来自({{comment.from}})</text>
             <view class="comment-right-line3">{{comment.content}}</view>
           </view>
         </view>
@@ -48,7 +48,7 @@
     <image class="comment-icon" src="/imgs/comment.png" mode="aspectFit"></image>
     <input value="{{currentComment}}" bindinput='inputComment' cursor-spacing="10" class="comment-input"></input>
 
-    <view bindtap="sendComment" class="comment-button">发表</view>
+    <view hover-class='select1' hover-stay-time="500" bindtap="sendComment" class="comment-button">发表</view>
   </view>
 
   <!-- 最下面的加载条 -->

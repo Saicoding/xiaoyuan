@@ -30,8 +30,8 @@
   </view>
 
   <!-- 登录方式按钮，账户登录和微信授权登录 -->
-  <view hover-class='select1' bindtap="login" class="login1">登 录</view>
-  <button hover-class='select2' open-type="getUserInfo" bindgetuserinfo = "wxLogin" class="login2" >
+  <view hover-class='select1' hover-stay-time = "1000" bindtap="login" class="login1">登 录</view>
+  <button hover-class='select2'  hover-stay-time = "1000" open-type="getUserInfo" bindgetuserinfo = "wxLogin" class="login2" >
     <image class="login-icon" src="/imgs/wx-login.png" mode="aspectfit"></image>
     <view  class="login-text" style="margin-left:20rpx;">微信授权登录</view>
   </button>

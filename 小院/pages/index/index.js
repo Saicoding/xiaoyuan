@@ -3,20 +3,21 @@
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 
+let buttonClicked = false;//默认还没有点击可以导航页面的按钮
+
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    banners:[
-      "/imgs/banner/1.png",
-      "/imgs/banner/2.png",
-      "/imgs/banner/3.png",
-    ]
   },
 
   onLoad: function () {
+    this.setData({
+      first: true //第一次载入默认首次载入
+    })
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -46,18 +47,38 @@ Page({
   },
 
   onShow:function(){
+    let self = this;
     let user = wx.getStorageSync('user');//先看下本地是否有用户信息，如果有信息说明已经登录
 
     let colleage = user.colleage;
+    let isReLoad = self.data.isReLoad; //是否是重复登录
+    let first = self.data.first; //是否是第一次渲染页面
 
-    if (!user) {//如果user = "" ,
+    buttonClicked = false;
+
+    if ((isReLoad || first) && user != "") {//如果user = "" ,
+      wx.setNavigationBarTitle({ //设置标题
+        title: user.colleage
+      })
+
+      console.log(user)
+      //用户信息
+      let loginrandom = user.Login_random;
+      let zcode = user.zcode;
+
+      self.setData({
+        isLoaded: false
+      })
+
+      console.log("action=getCoursePic&loginrandom=" + loginrandom + "&zcode=" + zcode);
+      app.post(API_URL, "action=getCoursePic&loginrandom=" + loginrandom + "&zcode=" + zcode,false,false,"","","",self).then(res=>{
+        console.log(res)
+      })
+
+    }else{
       wx.navigateTo({
         url: '/pages/login/login',
       })
-    }else{
-      wx.setNavigationBarTitle({//如果有用户名，就设置标题
-        title: colleage
-      })  
     }
   },
 

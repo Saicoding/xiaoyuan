@@ -87,7 +87,6 @@ Page({
 
     let info = "";
     
-    console.log(pwdText)
     if (!userText  && !pwdText){
       info = "用户名和密码不能为空"
     } else if (!userText){
@@ -105,11 +104,8 @@ Page({
     }else{
       let md5Pwd = MD5.md5(pwdText).toLowerCase();//小写md5加密密码
 
-      console.log("action=Login&user=" + userText + "&pwd=" + md5Pwd)
       app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd,true,false,"登录中").then(res=>{
-        console.log(res)
         let user = res.data.data[0];
-        console.log(user)
         let rememberPwd = self.data.rememberPwd;//是否记住密码
         if (rememberPwd){//如果选择了记住密码就存储本地缓存
           let loginUser = {
@@ -125,7 +121,6 @@ Page({
             key: 'loginUser'
           })
         }
-
         self.processSelectScholl(user, ifGoPage);
  
       })
