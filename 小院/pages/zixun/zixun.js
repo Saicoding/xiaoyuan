@@ -12,9 +12,8 @@ Page({
    */
   data: {
     loadingMore: false, //是否在加载更多
-    loadingText: "" ,//上拉载入更多的文字
-    showLoadingGif:false,//是否显示刷新gif图
-    isRefreshing: false,//是否在下拉刷新
+    loadingText: "", //上拉载入更多的文字
+    showLoadingGif: false, //是否显示刷新gif图
   },
 
   /**
@@ -23,9 +22,9 @@ Page({
   onLoad: function(options) {
     let requesttime = util.formatTime2(new Date()); //请求时间（第一次请求的时间）
 
-    this.setData({//最后请求的时间
+    this.setData({ //最后请求的时间
       requesttime: requesttime,
-      first:true//第一次载入默认首次载入
+      first: true //第一次载入默认首次载入
     })
   },
 
@@ -40,9 +39,6 @@ Page({
     let first = self.data.first; //是否是第一次渲染页面
 
     buttonClicked = false;
-
-    console.log(isReLoad)
-    console.log(first)
 
     if ((isReLoad || first) && user != "") { //如果重复登录或者第一次渲染才执行
 
@@ -67,17 +63,17 @@ Page({
       let url = encodeURIComponent('/pages/index/index');
       wx.setStorageSync('first', false);
       console.log("action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1")
-      app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1",false,false,"","","",self).then(res => {
+      app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res => {
         let news = res.data.data[0].list; //所有资讯
         let allpage = res.data.data[0].allpage //所有页码
 
         self.setData({
           isLoaded: true,
-          isReLoad:false,
+          isReLoad: false,
           page: 1,
           news: news,
           allpage: allpage,
-          first:false
+          first: false
         })
       })
     }
@@ -86,11 +82,11 @@ Page({
   /**
    * 观看资讯详情
    */
-  viewNewsDetail:function(e){
-    if(buttonClicked) return;//如果点击了一次就不执行
-    buttonClicked = true;//已经点击
+  viewNewsDetail: function(e) {
+    if (buttonClicked) return; //如果点击了一次就不执行
+    buttonClicked = true; //已经点击
 
-    let id = e.currentTarget.dataset.id;//点击的新闻ID
+    let id = e.currentTarget.dataset.id; //点击的新闻ID
 
     //用户信息
     let user = wx.getStorageSync('user');
@@ -98,7 +94,7 @@ Page({
     let zcode = user.zcode;
 
     wx.navigateTo({
-      url: '/pages/zixun/zixunDetail/zixunDetail?id='+id,
+      url: '/pages/zixun/zixunDetail/zixunDetail?id=' + id,
     })
   },
 
@@ -109,7 +105,7 @@ Page({
     let self = this;
     let loadingMore = self.data.loadingMore;
     if (loadingMore) return; //如果还在载入中,就不继续执行
-    let requesttime = self.data.requesttime;//最后请求的时间
+    let requesttime = self.data.requesttime; //最后请求的时间
 
     let allpage = self.data.allpage;
     let page = self.data.page;
@@ -122,7 +118,7 @@ Page({
     }
 
     self.setData({ //正在载入
-      showLoadingGif:true,
+      showLoadingGif: true,
       loadingText: "载入更多资讯 ..."
     })
 
@@ -139,7 +135,7 @@ Page({
       news = news.concat(newNews);
 
       self.setData({
-        showLoadingGif:false,
+        showLoadingGif: false,
         loadingText: "载入完成"
       })
 
@@ -155,9 +151,9 @@ Page({
   },
 
   /**
- * 页面相关事件处理函数--监听用户下拉动作
- */
-  onPullDownRefresh: function () {
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
     let self = this;
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
@@ -169,16 +165,17 @@ Page({
     let requesttime = util.formatTime2(new Date()); //请求时间（最后请求的时间）
 
     app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1" + "&requesttime=" + requesttime, false, false, "", "", "", self).then(res => {
-      let newNews = res.data.data[0].list;
-      news = newNews.concat(news);
+      if (res.data.data.length > 0) {
+        let newNews = res.data.data[0].list;
+        news = newNews.concat(news);
+
+        self.setData({
+          news: news
+        })
+      }
 
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
-
-      self.setData({
-        news: news
-      })
-
     })
   },
 })

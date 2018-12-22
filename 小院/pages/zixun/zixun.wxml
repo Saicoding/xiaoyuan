@@ -1,8 +1,4 @@
 <!--pages/zixun/zixun.wxml-->
-<!-- <view class="loading-block" wx:if='{{isRefreshing}}'>
-  <image class="loading-gif" src="/imgs/loading.gif"></image>
-  <view class="loading-text">正在刷新...</view>
-</view> -->
 <view class="container">
   <!-- 最上面的日期 -->
   <view class="date">
