@@ -1,2 +1,18 @@
 <!--pages/index/markCourse/markCourse.wxml-->
-  <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+<image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+
+<view wx:if="{{isLoaded}}" class="container">
+  <view wx:for="{{types}}" wx:for-item="type" wx:for-index="tIdx" wx:key="t">
+    <view class="block">
+      <view class="block-title">{{type.title1}}</view>
+      <view class ="block-content">
+      <view wx:for="{{type.list}}" wx:for-item="item" wx:for-index = "iIdx" wx:key="l">
+        <view data-tIdx="{{tIdx}}" data-iIdx="{{iIdx}}" data-id="{{item.id}}" bindtap='changeSelected' class="block-content-item">
+          <image class="block-content-item-icon" src="{{item.selected=='1'?'/imgs/right.png':'/imgs/quan.png'}}" mode="aspectFit"></image>
+          <view class="block-content-item-text">{{item.title}}</view>
+        </view>
+      </view>
+      </view>
+    </view>
+  </view>
+</view>

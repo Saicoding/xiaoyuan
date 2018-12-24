@@ -5,3 +5,46 @@
   height: 112rpx;
   margin: 200rpx auto;
 }
+
+.container{
+  margin-top:10rpx;
+}
+
+.block{
+  clear: both;
+  width:93%;
+  margin:0rpx auto;
+}
+
+.block-content{
+  padding-bottom:20rpx;
+}
+
+.block-title{
+  height:80rpx;
+  color:rgb(179, 179, 179);
+  font-size:28rpx;
+  line-height: 100rpx;
+}
+
+.block-content-item-icon,.block-content-item,.block-content-item-text{
+  display: float;
+  float:left;
+}
+.block-content-item{
+  width:49%;
+  height:70rpx;
+}
+
+.block-content-item-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-top:15rpx;
+}
+
+.block-content-item-text{
+  height:70rpx;
+  font-size:28rpx;
+  margin-left:20rpx;
+  line-height: 70rpx;
+}

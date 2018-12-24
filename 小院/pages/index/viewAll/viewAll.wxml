@@ -1,0 +1,21 @@
+<!--pages/index/viewAll/viewAll.wxml-->
+<view class="container">
+  <view wx:if = "{{!hasKecheng}}" style="text-align:center;font-size:25rpx;margin-top:200rpx;color:rgb(180, 180, 180);">没有正在学习课程</view>
+  <!-- 课程列表 -->
+  <view class="kelist">
+    <view wx:for="{{kelist}}" wx:for-item="kelistItem" wx:key="di">
+      <view data-id="{{kelistItem.id}}" bindtap='GOkedetail' class="kelist-item">
+        <image class="kelist-item-img" src="{{kelistItem.pic}}" mode="aspectFit"></image>
+        <view class="kelist-item-title">{{kelistItem.title}}</view>
+        <text class ="kelist-item-info" space="nbsp">{{kelistItem.keshi}}课时    {{kelistItem.hit}}在学</text>
+      </view>
+    </view>
+  </view>
+  <!-- 加载动画 -->
+  <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
+</view>

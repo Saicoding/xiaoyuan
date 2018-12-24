@@ -8,7 +8,9 @@
     "pages/zixun/zixun",
     "pages/mine/mine",
     "pages/zixun/zixunDetail/zixunDetail",
-    "pages/index/markCourse/markCourse"
+    "pages/index/markCourse/markCourse",
+    "pages/index/viewAll/viewAll",
+    "pages/index/keDetail/keDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",

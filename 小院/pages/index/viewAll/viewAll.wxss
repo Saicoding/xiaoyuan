@@ -1,0 +1,66 @@
+/* pages/index/viewAll/viewAll.wxss */
+.load-img {
+  display: block;
+  width: 96rpx;
+  height: 112rpx;
+  margin: 200rpx auto;
+}
+
+.container{
+  padding-top:20rpx;
+}
+
+.kelist{
+  width:97%;
+  margin:0 auto;
+}
+.kelist-item{
+  display: float;
+  float:left;
+  border-radius: 10rpx;
+  width:340rpx;
+  margin-left:18rpx;
+  margin-bottom:20rpx;
+}
+
+.kelist-item-img,.kelist-item-title,.kelist-item-info{
+  border-radius: 10rpx;
+  width:340rpx;
+}
+
+.kelist-item-img{
+  height:262rpx;
+}
+
+.kelist-item-title{
+  height:50rpx;
+  font-size:25rpx;
+}
+
+.kelist-item-info{
+  font-size:20rpx;
+  color:rgb(180, 180, 180);
+}
+
+.loading-block {
+  width: 100%;
+  height: 80rpx;
+  font-size: 23rpx;
+  line-height: 80rpx;
+  margin: 0rpx auto;
+  text-align: center;
+  color: rgb(156, 156, 156);
+}
+
+.loading-gif {
+  width: 30rpx;
+  height: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loading-text {
+  display: inline-block;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}

@@ -1,7 +1,7 @@
 <import src="/wxSearch/wxSearch.wxml" />
 
 <!--index.wxml-->
-<view data-com="waimian" class="container" bindtap = "hideSearchChanle">
+<view data-com="waimian" class="container" catchtap="hideSearchChanle">
   <!-- 头部banner -->
   <swiper class="swiper" interval="3000" autoplay="true" circular="true" indicator-dots="true" indicator-color="rgb(216, 216, 216);" indicator-active-color="white">
     <block wx:for="{{banners}}" wx:key="k">
@@ -18,14 +18,15 @@
   <!-- 课程列表 -->
   <view class="courses">
     <view wx:for="{{courses}}" wx:for-item="course" wx:key="c">
-      <view class="course">
-        <image class="course-icon" src="{{course.pic}}" mode="aspectFit"></image>
-        <view class="course-name">{{course.title}}</view>
+      <view data-title="{{course.title}}" data-typesid="{{course.id}}" bindtap='GOViewAll' class="course" hover-class='select1' hover-stay-time='500'>
+        <image wx:if="{{!isLoaded}}" class="course-icon" src="/imgs/loading1.gif" style="margin-left:100rpx;" mode="aspectFit"></image>
+        <image wx:if="{{isLoaded}}" class="course-icon" src="{{course.pic}}" mode="aspectFit"></image>
+        <view wx:if="{{isLoaded}}" class="course-name">{{course.title}}</view>
       </view>
     </view>
 
     <!-- 课程订阅 -->
-    <view bindtap = "markCourse" class="course" hover-class='select1' hover-stay-time='500'>
+    <view bindtap="markCourse" class="course" hover-class='select1' hover-stay-time='500'>
       <image class="course-icon" src="/imgs/course_set.png" mode="aspectFit"></image>
       <view class="course-name">课程订阅</view>
     </view>
@@ -33,13 +34,42 @@
 
   <!-- 正在学习课程和搜索 -->
   <view class="learning_search">
-    <view class="learning">
+    <view data-buy="yes" bindtap='GOViewAll' hover-class='select1' hover-stay-time='500' class="learning">
       <image class="learning-icon" src="/imgs/clock.png" mode="aspectFit"></image>
       <view class="learning-text">正在学习课程</view>
     </view>
-
-    <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="中仕学社" />
-    <image class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
-    <template is="wxSearch" data="{{wxSearchData}}" />
+    <view class="search-block">
+      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="中仕学社" />
+      <image data-search="true" bindtap='search' class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+      <template is="wxSearch" data="{{wxSearchData}}" />
+    </view>
   </view>
+
+  <!-- 课程列表 -->
+  <view class="dingzhiList">
+    <view wx:for="{{dingzhiList}}" wx:for-item="dingzhi" wx:key="d">
+      <view class="dingzhiList-block">
+        <view data-typestitle="{{dingzhi.title}}" data-typesids="{{dingzhi.id}}" bindtap='closeDingzhi' class="close">
+          <image class="close-icon" src="/imgs/close.png" mode="aspectFit"></image>
+        </view>
+        <view class="dingzhi-title">{{dingzhi.title}}</view>
+        <view wx:for="{{dingzhi.c_list}}" wx:for-item="dingzhiItem" wx:key="di">
+          <view data-id="{{dingzhiItem.id}}" bindtap='GOkedetail' class="dingzhi-item">
+            <image class="dingzhi-item-img" src="{{dingzhiItem.pic}}" mode="aspectFit"></image>
+            <view class="dingzhi-item-title">{{dingzhiItem.title}}</view>
+          </view>
+        </view>
+        <view data-title="{{dingzhi.title}}" data-typesid="{{dingzhi.id}}" bindtap='GOViewAll' class="dingzhi-viewall">
+          点此查看全部课程
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
+
 </view>

@@ -1,11 +1,12 @@
 .wxSearch{
-  position: relative;
-  top: -50rpx;
+  position: absolute;
   left: 0;
-  width: 100%;
+  top:235rpx;
+  width: 750rpx;
   height: auto;
   border-top: 1px #eee solid;
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 100000;
 }
 .wxSearchInner{
   background-color: #fff;
