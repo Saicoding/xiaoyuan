@@ -14,7 +14,7 @@
   <!-- 课程列表 -->
   <view wx:if="{{isLoaded}}" class="kelist">
     <view wx:for="{{kelist}}" wx:for-item="kelistItem" wx:key="di">
-      <view data-id="{{kelistItem.id}}" bindtap='GOkedetail' class="kelist-item">
+      <view data-title="{{kelistItem.title}}" data-id="{{kelistItem.id}}" bindtap='GOkedetail' class="kelist-item">
         <image class="kelist-item-img" src="{{kelistItem.pic}}" mode="aspectFit"></image>
         <view class="kelist-item-title">{{kelistItem.title}}</view>
         <text class="kelist-item-info" space="nbsp">{{kelistItem.keshi}}课时    {{kelistItem.hit}}在学</text>

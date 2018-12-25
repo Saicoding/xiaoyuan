@@ -54,7 +54,7 @@
         </view>
         <view class="dingzhi-title">{{dingzhi.title}}</view>
         <view wx:for="{{dingzhi.c_list}}" wx:for-item="dingzhiItem" wx:key="di">
-          <view data-id="{{dingzhiItem.id}}" bindtap='GOkedetail' class="dingzhi-item">
+          <view data-title="{{dingzhiItem.title}}" data-id="{{dingzhiItem.id}}" bindtap='GOkedetail' class="dingzhi-item">
             <image class="dingzhi-item-img" src="{{dingzhiItem.pic}}" mode="aspectFit"></image>
             <view class="dingzhi-item-title">{{dingzhiItem.title}}</view>
           </view>

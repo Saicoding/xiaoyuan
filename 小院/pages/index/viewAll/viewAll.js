@@ -111,8 +111,9 @@ Page({
     if (buttonClicked) return;
     buttonClicked = true;
     let kc_id = e.currentTarget.dataset.id;
+    let title = e.currentTarget.dataset.title;
     wx.navigateTo({
-      url: '/pages/index/keDetail/keDetail?kc_id=' + kc_id,
+      url: '/pages/index/keDetail/keDetail?kc_id=' + kc_id+"&title="+title,
     })
   },
 

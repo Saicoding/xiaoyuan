@@ -1,2 +1,58 @@
 <!--pages/index/keDetail/keDetail.wxml-->
-<text>pages/index/keDetail/keDetail.wxml</text>
+<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url}}" bindended="end" bindtimeupdate="timeupdate" bindwaiting="waiting" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}"
+  autoplay="{{autoplay}}">
+  <cover-view wx:if="{{!isWifi && !useFlux}}" class="wifi">
+    <cover-view class="wifi-text1">您正在使用移动网络</cover-view>
+    <cover-view class="wifi-text2">继续观看会耗费通用流量</cover-view>
+    <cover-view bindtap='continueWatch' class="wifi-button">继续观看</cover-view>
+  </cover-view>
+  <!-- <cover-view wx:if="{{!isPlaying }}" bindtap="tooglePlay">
+    <cover-image class="video-icon" src="/imgs/play-icon.png" />
+  </cover-view> -->
+</video>
+
+<!-- 目录列表 -->
+<view class="catalogue">
+  <view data-index="0" bindtap='changeCatelogue' class="catalogue-item" style="border-bottom:{{catalogue[0]==0?'none':'6rpx solid #0096fa'}};color:{{catalogue[0]==0?'black':'#0096fa'}}">目录</view>
+  <view data-index="1" bindtap='changeCatelogue' class="catalogue-item" style="border-bottom:{{catalogue[1]==0?'none':'6rpx solid #0096fa'}};color:{{catalogue[1]==0?'black':'#0096fa'}}">详情</view>
+  <view data-index="2" bindtap='changeCatelogue' class="catalogue-item" style="border-bottom:{{catalogue[2]==0?'none':'6rpx solid #0096fa'}};color:{{catalogue[2]==0?'black':'#0096fa'}}">推荐</view>
+  <view data-index="3" bindtap='changeCatelogue' class="catalogue-item" style="border-bottom:{{catalogue[3]==0?'none':'6rpx solid #0096fa'}};color:{{catalogue[3]==0?'black':'#0096fa'}}">评论</view>
+</view>
+
+<!-- 载入动画 -->
+<image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+
+<!-- 正文 -->
+<view wx:if="{{isLoaded}}" class="content">
+  <!-- 目录 -->
+  <view wx:if="{{catalogue[0]==1}}">
+    <!-- 正在学习人数 -->
+    <view class="learning-block">
+      <view class="learning-block-in">有{{kelist.student_nums}}人正在学习</view>
+    </view>
+
+    <!-- 节数 -->
+    <view class="jienum-block">共{{kelist.keshi}}节</view>
+
+    <!-- 详情列表 -->
+    <scroll-view scroll-y style="height:{{windowHeight-700}}rpx" class="list" scroll-top="{{scroll}}">
+      <view wx:for="{{kelist.files}}" wx:for-item="ke" wx:key="k">
+        <view data-keindex="{{index}}" bindtap="changeVideo" class="list-block">
+          <image class="list-block-icon" src="{{ke.selected?'/imgs/play2.png':'/imgs/play1.png'}}" mode="aspectFit"></image>
+          <view class="list-block-title" style="color:{{ke.selected?'#0096fa':'balck'}}">{{ke.files_title}}</view>
+          <view wx:if="{{ke.shiting == 1}}" class="list-block-try">
+            <image class="list-block-try-icon" src="/imgs/try.png"></image>
+            <view class="list-block-try-text">试听</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 详情 -->
+  <view wx:if="{{catalogue[1]==1}}">
+    <view class="info-title">课程简介</view>
+    <view class="info-content">{{kelist.kc_info}}</view>
+  </view>
+
+</view>
