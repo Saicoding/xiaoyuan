@@ -1,7 +1,6 @@
 .wxSearch{
   position: absolute;
   left: 0;
-  top:235rpx;
   width: 750rpx;
   height: auto;
   border-top: 1px #eee solid;

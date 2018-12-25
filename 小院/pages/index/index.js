@@ -61,8 +61,7 @@ Page({
         let windowWidth = res.windowWidth;
         windowHeight = (windowHeight * (750 / windowWidth));
         //初始化的时候渲染wxSearchdata
-        console.log(windowHeight)
-        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
+        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification'],true,true,"",255);
         WxSearch.initMindKeys(['中仕学社', '微信小程序开发', '微信开发', '微信小程序']);
         self.setData({
           windowWidth: windowWidth,

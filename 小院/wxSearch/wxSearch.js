@@ -29,7 +29,7 @@ function initMindKeys(keys){
     __mindKeys = keys;
 }
 
-function init(that, barHeight, keys, isShowKey, isShowHis, callBack) {
+function init(that, barHeight, keys, isShowKey, isShowHis, callBack,top) {
     var temData = {};
     var view = {
         barHeight: barHeight,
@@ -54,6 +54,7 @@ function init(that, barHeight, keys, isShowKey, isShowHis, callBack) {
             view.seachHeight = wHeight-barHeight;
           view.windowHeight = barHeight;
             temData.view = view;
+          temData.top = top;
             that.setData({
                 wxSearchData: temData
             });
@@ -98,14 +99,14 @@ function wxSearchFocus(e, that, callBack) {
     if (typeof (callBack) == "function") {
         callBack();
     }
-    // if(typeof(temData) != "undefined"){
-    //   temData.view.hidden= false;
-    //   that.setData({
-    //     wxSearchData:temData
-    //   });
-    // }else{
+    if(typeof(temData) != "undefined"){
+      temData.view.hidden= false;
+      that.setData({
+        wxSearchData:temData
+      });
+    }else{
 
-    // }
+    }
 }
 function wxSearchBlur(e, that, callBack) {
     var temData = that.data.wxSearchData;

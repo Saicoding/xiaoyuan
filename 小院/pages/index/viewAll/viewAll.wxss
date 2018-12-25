@@ -1,4 +1,6 @@
 /* pages/index/viewAll/viewAll.wxss */
+@import "/wxSearch/wxSearch.wxss";
+
 .load-img {
   display: block;
   width: 96rpx;
@@ -6,40 +8,40 @@
   margin: 200rpx auto;
 }
 
-.container{
-  padding-top:20rpx;
+.container {
 }
 
-.kelist{
-  width:97%;
-  margin:0 auto;
+.kelist {
+  width: 97%;
+  margin: 0 auto;
 }
-.kelist-item{
+
+.kelist-item {
   display: float;
-  float:left;
+  float: left;
   border-radius: 10rpx;
-  width:340rpx;
-  margin-left:18rpx;
-  margin-bottom:20rpx;
+  width: 340rpx;
+  margin-left: 18rpx;
+  margin-bottom: 20rpx;
 }
 
-.kelist-item-img,.kelist-item-title,.kelist-item-info{
+.kelist-item-img, .kelist-item-title, .kelist-item-info {
   border-radius: 10rpx;
-  width:340rpx;
+  width: 340rpx;
 }
 
-.kelist-item-img{
-  height:262rpx;
+.kelist-item-img {
+  height: 262rpx;
 }
 
-.kelist-item-title{
-  height:50rpx;
-  font-size:25rpx;
+.kelist-item-title {
+  height: 50rpx;
+  font-size: 25rpx;
 }
 
-.kelist-item-info{
-  font-size:20rpx;
-  color:rgb(180, 180, 180);
+.kelist-item-info {
+  font-size: 20rpx;
+  color: rgb(180, 180, 180);
 }
 
 .loading-block {
@@ -63,4 +65,46 @@
   display: inline-block;
   margin-left: 10rpx;
   vertical-align: middle;
+}
+
+.search {
+  height: 80rpx;
+  width: 100%;
+  background: #0096fa;
+  margin-bottom: 20rpx;
+}
+
+.search-block {
+  width: 375rpx;
+  background: white;
+  height: 60rpx;
+  margin: 0 auto;
+  border-radius: 60rpx;
+}
+
+.mywxSearch-input, .search-icon {
+  display: float;
+}
+
+.search-icon {
+  float: right;
+  margin-top: 10rpx;
+  margin-right: 10rpx;
+}
+
+.mywxSearch-input {
+  float: left;
+  width: 300rpx;
+  height: 60rpx;
+  font-size: 22rpx;
+  background: white;
+  outline: none;
+  padding-left: 15rpx;
+  line-height: 70rpx;
+  border-radius: 60rpx;
+}
+
+.search-icon {
+  width: 40rpx;
+  height: 40rpx;
 }

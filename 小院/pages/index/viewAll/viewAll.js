@@ -2,6 +2,11 @@
 //获取应用实例
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
+let WxSearch = require('../../../wxSearch/wxSearch.js');
+let animate = require('../../../common/animate.js');
+let easeOutAnimation = animate.easeOutAnimation();
+let easeInAnimation = animate.easeInAnimation();
+
 
 let buttonClicked = false; //默认还没有点击可以导航页面的按钮
 
@@ -31,6 +36,25 @@ Page({
       options:options,
       first: true //第一次载入默认首次载入
     })
+  },
+
+  onReady: function () {
+    let self = this;
+    wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+      success: function (res) { //转换窗口高度
+        let windowHeight = res.windowHeight;
+        let windowWidth = res.windowWidth;
+        windowHeight = (windowHeight * (750 / windowWidth));
+        //初始化的时候渲染wxSearchdata
+        console.log(windowHeight)
+        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification'], true, true, "", 82);
+        WxSearch.initMindKeys(['中仕学社', '微信小程序开发', '微信开发', '微信小程序']);
+        self.setData({
+          windowWidth: windowWidth,
+          windowHeight: windowHeight
+        })
+      }
+    });
   },
 
   /**
@@ -143,4 +167,104 @@ Page({
       })
     })
   },
+
+  /**
+ * 搜索课程
+ */
+  search: function (e) {
+    let self = this;
+
+    //用户信息
+    let user = wx.getStorageSync('user'); //先看下本地是否有用户信息，如果有信息说明已经登录
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    //上个页面传过来的参数
+    let Keywords = self.data.wxSearchData.value == undefined ? "" : self.data.wxSearchData.value;
+
+    self.setData({
+      isLoaded: false,
+      hasKecheng: true,
+    })
+
+    self.wxSearchFn(self);
+
+    app.post(API_URL, "action=getCourseList&typesid=&buy=&favorite=&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+      let kelist = res.data.data[0].list;//课列表
+      let pageall = res.data.data[0].pageall;//总页数
+
+      if (kelist.length == 0) {
+        self.setData({
+          hasKecheng: false
+        })
+      }
+
+      let wxSearchData = self.data.wxSearchData;
+      wxSearchData.value = "";
+      self.setData({
+        kelist: kelist,
+        pageall: pageall,
+        isLoaded: true,
+        first: false,
+        page: 1,
+        Keywords: "",
+        wxSearchData: wxSearchData
+      })
+    })
+    
+  },
+
+  /**
+  * 处理搜索事件
+  */
+  wxSearchFn: function (e) {
+    var that = this
+    WxSearch.wxSearchAddHisKey(that);
+
+  },
+  wxSearchInput: function (e) {
+    var that = this
+    WxSearch.wxSearchInput(e, that);
+  },
+  wxSearchFocus: function (e) {
+    var that = this
+    console.log(easeOutAnimation)
+    let lengthData = animate.longer(easeInAnimation, 375, 600);
+    that.setData({
+      lengthData: lengthData 
+    })
+    WxSearch.wxSearchFocus(e, that);
+  },
+  wxSearchBlur: function (e) {
+    var that = this
+    let lengthData = animate.shorter(easeOutAnimation, 375, 600 );
+    console.log('ok')
+    that.setData({
+      lengthData: lengthData
+    })
+    WxSearch.wxSearchBlur(e, that);
+  },
+  wxSearchKeyTap: function (e) {
+    var that = this
+    WxSearch.wxSearchKeyTap(e, that);
+  },
+  wxSearchDeleteKey: function (e) {
+    var that = this
+    WxSearch.wxSearchDeleteKey(e, that);
+  },
+  wxSearchDeleteAll: function (e) {
+    var that = this;
+    WxSearch.wxSearchDeleteAll(that);
+  },
+  wxSearchTap: function (e) {
+    var that = this
+    WxSearch.wxSearchHiddenPancel(that);
+  },
+
+  hideSearchChanle: function (e) {
+    var that = this;
+    if (e._relatedInfo.anchorTargetText == "") {
+      WxSearch.wxSearchHiddenPancel(that);
+    }
+  }
 })
