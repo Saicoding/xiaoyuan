@@ -1,5 +1,5 @@
 <!--pages/index/keDetail/keDetail.wxml-->
-<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url==undefined?'':video.files_url}}" bindended="end" bindtimeupdate="timeupdate" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}" autoplay="{{autoplay}}">
+<video  id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url==undefined?'':video.files_url}}" bindended="end" bindtimeupdate="timeupdate" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}" autoplay="{{autoplay}}" initial-time = "{{video.startTime}}">
   <cover-view wx:if="{{!isWifi && !useFlux}}" class="wifi">
     <cover-view class="wifi-text1">您正在使用移动网络</cover-view>
     <cover-view class="wifi-text2">继续观看会耗费通用流量</cover-view>

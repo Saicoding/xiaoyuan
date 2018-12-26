@@ -51,9 +51,17 @@ Page({
       }
     });
   },
+  /**
+   * 播放进度改变时，记录播放进度
+   */
+  timeupdate: function(e) {
+    let self = this;
 
-  timeupdate:function(e){
-    console.log(e);
+    let currentTime = Math.floor(e.detail.currentTime); //当前播放时间
+
+    self.setData({
+      currentTime: currentTime
+    })
   },
 
   /**
@@ -70,13 +78,10 @@ Page({
     let options = self.data.options;
     let kc_id = options.kc_id; //点击的id
 
-
     let isReLoad = self.data.isReLoad; //是否是重复登录
     let first = self.data.first; //是否是第一次渲染页面
 
     buttonClicked = false;
-
-
 
     if ((isReLoad || first) && user != "") { //如果user = "" ,
 
@@ -87,14 +92,23 @@ Page({
       app.post(API_URL, "action=GetCourseInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&kc_id=" + kc_id, false, false, "", "", "", self).then(res => {
         let kelist = res.data.data[0]; //所有课程信息
 
+
+        //获取该页视频的播放进度数组
+        let playRateArray = wx.getStorageSync("playRate" + kc_id + user.username);
+        playRateArray = playRateArray == "" ? self.initPlayRateArray(kelist) : playRateArray;
+        console.log(playRateArray)
+
         let lastidx = wx.getStorageSync('lastVideo' + kc_id + user.username); //上一次观看的id
         let index = lastidx == "" ? 0 : lastidx;
-        console.log(lastidx)
+
+        let video = kelist.files[index];
+
         console.log(kelist)
         //初始化视频信息
         self.initVideos(index, kelist);
+        video.startTime = playRateArray[index]
 
-        wx.setStorageSync("turnonWifiPrompt", 0);
+        // wx.setStorageSync("turnonWifiPrompt", 0);
 
         //监测网络变化,未完善
         // share.monitorConnectType(self);
@@ -104,7 +118,8 @@ Page({
           isLoaded: true,
           first: false,
           index: index,
-          video: kelist.files[index]
+          video: kelist.files[index],
+          playRateArray: playRateArray
         })
       })
 
@@ -126,6 +141,20 @@ Page({
   },
 
   /**
+   * 初始化进度数组（默认都是从0播放）
+   */
+  initPlayRateArray: function (kelist){
+    let playRateArray = [];
+
+    for(let i = 0 ;i<kelist.files.length;i++){
+      playRateArray.push(0);
+    }
+
+    console.log(playRateArray)
+    return playRateArray;
+  },
+
+  /**
    * 改变视频时
    */
   changeVideo: function(e) {
@@ -133,18 +162,32 @@ Page({
 
     let index = self.data.index; //点击之前的视频编号
     let keindex = e.currentTarget.dataset.keindex; //点击的视频编号
+
     if (index == keindex) return //如果点击了同一个视频就什么都不做
 
     let kelist = self.data.kelist;
+    let lastCurrentTime = self.data.currentTime;
+    let playRateArray = self.data.playRateArray;
 
+    playRateArray[index] = lastCurrentTime;
 
     //改变选择状态
     self.setIconTextColorByIndex(keindex, kelist);
 
+    console.log(playRateArray)
+
+    let video = kelist.files[keindex];
+
+    video.startTime = playRateArray[keindex];//设置点击的视频初始播放位置
+
+    console.log(video)
+
     self.setData({
       kelist: kelist, //保存所有视频
-      video: kelist.files[keindex], //更改当前视频
+      video: video,//更改当前视频
       index: keindex, //更改当前的index
+      playRateArray: playRateArray,
+      currentTime: video.startTime//更改当前播放时间为当前播放的时间
     })
   },
 
@@ -190,17 +233,17 @@ Page({
       self.setData({
         isLoaded: false,
       })
-      console.log("action=GetCoursePL&cid=" + cid)
+
       app.post(API_URL, "action=GetCoursePL&cid=" + cid, false, false, "", "", "", self).then(res => {
 
         let result = res.data.list[0] == undefined ? [] : res.data.list[0];
         let comments = result.pllist == undefined ? [] : result.pllist; //所有评论
         let page_all = result.page_all == undefined ? 0 : result.page_all; //总页数
-        if (comments == []){
+        if (comments == []) {
           wx.showToast({
-            icon:"none",
+            icon: "none",
             title: '当前无评论',
-            duration:2000
+            duration: 2000
           })
         }
 
@@ -243,7 +286,7 @@ Page({
   /**
    * 导航到详情页
    */
-  GOkedetail:function(e){
+  GOkedetail: function(e) {
     if (buttonClicked) return;
     buttonClicked = true;
     let kc_id = e.currentTarget.dataset.id;
@@ -266,8 +309,13 @@ Page({
     let kc_id = options.kc_id;
     let index = self.data.index;
 
+    let playRateArray = self.data.playRateArray;
+
     wx.setStorageSync('lastVideo' + kc_id + user.username, index);
+    wx.setStorageSync("playRate" + kc_id + user.username, playRateArray);
+
     clearInterval(self.data.interval);
+
   },
 
   /**
@@ -284,6 +332,7 @@ Page({
     let index = self.data.index;
 
     wx.setStorageSync('lastVideo' + kc_id + user.username, index);
+    wx.setStorageSync("playRate" + kc_id + user.username, playRateArray);
     clearInterval(self.data.interval);
   },
 
