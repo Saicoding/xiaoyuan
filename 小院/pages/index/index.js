@@ -113,6 +113,7 @@ Page({
         })
 
         app.post(API_URL, "action=getCourseTypes_index&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res1 => {
+          console.log(res1)
           let dingzhiList = res1.data.data;
           let page_all = dingzhiList[0].page_all;
 
@@ -122,6 +123,7 @@ Page({
             page: 1,
             page_all: page_all,
             dingzhiList: dingzhiList,
+            isReLoad:false,
           })
         })
       })
@@ -204,6 +206,7 @@ Page({
     app.post(API_URL, "action=getCourseTypes_index&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page, false, false, "", "", "", self).then(res => {
       let newDingzhiList = res.data.data;
       dingzhiList = dingzhiList.concat(newDingzhiList);
+      console.log(newDingzhiList)
 
       self.setData({
         showLoadingGif: false,

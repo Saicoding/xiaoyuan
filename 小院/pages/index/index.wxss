@@ -175,6 +175,7 @@
 
 .dingzhi-item-title{
   font-size:25rpx;
+  height:50rpx;
 }
 
 .dingzhi-viewall{

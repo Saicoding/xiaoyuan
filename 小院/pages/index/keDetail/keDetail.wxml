@@ -1,6 +1,5 @@
 <!--pages/index/keDetail/keDetail.wxml-->
-<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url}}" bindended="end" bindtimeupdate="timeupdate" bindwaiting="waiting" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}"
-  autoplay="{{autoplay}}">
+<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url}}" bindended="end" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}" autoplay="{{autoplay}}">
   <cover-view wx:if="{{!isWifi && !useFlux}}" class="wifi">
     <cover-view class="wifi-text1">您正在使用移动网络</cover-view>
     <cover-view class="wifi-text2">继续观看会耗费通用流量</cover-view>
@@ -29,13 +28,16 @@
     <!-- 正在学习人数 -->
     <view class="learning-block">
       <view class="learning-block-in">有{{kelist.student_nums}}人正在学习</view>
+      <view wx:for="{{headurls}}" wx:for-item="headurl" wx:key="h">
+        <image class="learning-block-headurls" src="{{headurl.img}}" mode="aspectFit"></image>
+      </view>
     </view>
 
     <!-- 节数 -->
     <view class="jienum-block">共{{kelist.keshi}}节</view>
 
     <!-- 详情列表 -->
-    <scroll-view scroll-y style="height:{{windowHeight-700}}rpx" class="list" scroll-top="{{scroll}}">
+    <scroll-view scroll-y style="height:{{windowHeight-695}}rpx" class="list" scroll-top="{{scroll}}">
       <view wx:for="{{kelist.files}}" wx:for-item="ke" wx:key="k">
         <view data-keindex="{{index}}" bindtap="changeVideo" class="list-block">
           <image class="list-block-icon" src="{{ke.selected?'/imgs/play2.png':'/imgs/play1.png'}}" mode="aspectFit"></image>
@@ -52,7 +54,85 @@
   <!-- 详情 -->
   <view wx:if="{{catalogue[1]==1}}">
     <view class="info-title">课程简介</view>
-    <view class="info-content">{{kelist.kc_info}}</view>
+    <view class="info-content">
+      <rich-text nodes="{{kelist.kc_info}}"></rich-text>
+    </view>
   </view>
 
+  <!-- 推荐 -->
+  <view wx:if="{{catalogue[2]==1}}">
+    <scroll-view lower-threshold="300" scroll-y style="height:{{windowHeight-565}}rpx" bindscrolltolower="suggestScrolltolower"   class="suggest">
+      <view wx:for="{{suggests}}" wx:for-item="suggest" wx:key="k">
+        <view class ="suggest-block">
+          <image class ="suggest-block-img" src="{{suggest.pic}}"></image>
+          <view class="suggest-block-right">
+            <view class="suggest-block-right-title">{{suggest.title}}</view>
+            <view class ="suggest-block-right-info">
+              <image class ="suggest-block-right-info-icon" src="/imgs/clock1.png" mode ="aspectFit"></image>
+              <view class ="suggest-block-right-info-text">{{suggest.keshi}}课时</view>
+              <image class ="suggest-block-right-info-icon" src="/imgs/hot.png" mode ="aspectFit"></image>
+              <view class ="suggest-block-right-info-text">{{suggest.hit}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 最下面的加载条 -->
+      <view class="loading-block">
+        <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+        <view class="loading-text"> {{suggestLoadingText}}</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 评论 -->
+  <view wx:if="{{catalogue[3]==1}}">
+    <!-- 详情列表 -->
+    <scroll-view lower-threshold="300" scroll-y style="height:{{windowHeight-593}}rpx" class="list" bindscrolltolower="scrolltolower">
+      <!-- 评论block -->
+      <view class="comments">
+        <view class="comments-top">
+          <image class="comments-top-icon" src="/imgs/line.png"></image>
+          <view class="comments-top-text">评论</view>
+        </view>
+
+        <view class="comments-content">
+          <!-- 我的评论 -->
+          <view wx:if="{{mycomment.nickname!=undefined}}" class="comments-content-block" style="background:rgb(149, 213, 255);">
+            <image class="comment-img" src="{{mycomment.userimg}}" mode="aspectFit"></image>
+            <view class="comment-right">
+              <view class="comment-right-line1" space='nbsp'>{{mycomment.nickname}}</view>
+              <text class="comment-right-line2" space='nbsp' style="color:rgb(255, 146, 103);">{{mycomment.pl_time}}</text>
+              <view class="comment-right-line3">{{mycomment.pc_content}}</view>
+            </view>
+          </view>
+          <!-- 正常评论 -->
+          <view wx:for="{{comments}}" wx:for-item="comment" wx:key="k">
+            <view class="comments-content-block">
+              <image class="comment-img" src="{{comment.userimg}}" mode="aspectFit"></image>
+              <view class="comment-right">
+                <view class="comment-right-line1" space='nbsp'>{{comment.nickname}}</view>
+                <text class="comment-right-line2" space='nbsp'>{{comment.pl_time}}</text>
+                <view class="comment-right-line3">{{comment.pc_content}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 评论 -->
+      <view class="comment">
+        <image class="comment-icon" src="/imgs/comment.png" mode="aspectFit"></image>
+        <input value="{{currentComment}}" bindinput='inputComment' cursor-spacing="10" class="comment-input"></input>
+
+        <view hover-class='select1' hover-stay-time="500" bindtap="sendComment" class="comment-button">发表</view>
+      </view>
+
+      <!-- 最下面的加载条 -->
+      <view class="loading-block">
+        <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+        <view class="loading-text"> {{loadingText}}</view>
+      </view>
+    </scroll-view>
+  </view>
 </view>

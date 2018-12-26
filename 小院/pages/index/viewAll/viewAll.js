@@ -160,7 +160,6 @@ Page({
 
       self.setData({
         showLoadingGif: false,
-        loadingText: "载入完成",
         page: page,
         loadingMore: false,
         kelist: kelist,

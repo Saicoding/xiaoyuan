@@ -15,6 +15,9 @@ Page({
     useFlux: false, //是否使用流量观看
     isWifi: true, //默认有wifi
     lastType: "first",
+    commentFirstLoad:true,//评论第一次载入
+    suggestFirstLoad:true,//推荐信息第一次载入
+    loadingMore: false
   },
 
   /**
@@ -81,7 +84,7 @@ Page({
         let kelist = res.data.data[0];//所有课程信息
 
         let lastidx = wx.getStorageSync('lastVideo' + kc_id + user.username);//上一次观看的id
-        let index = lastidx ==""?1:lastidx;
+        let index = lastidx ==""?0:lastidx;
         console.log(lastidx)
         console.log(kelist)
         //初始化视频信息
@@ -96,7 +99,15 @@ Page({
           kelist: kelist,
           isLoaded: true,
           first: false,
+          index: index,
           video: kelist.files[index]
+        })
+      })
+
+      app.post(API_URL, "action=GetCourseStudents&cid=" + kc_id,false,false,"").then(res=>{
+        let headurls = res.data.data;
+        self.setData({
+          headurls: headurls
         })
       })
     }
@@ -147,12 +158,74 @@ Page({
    * 改变目录
    */
   changeCatelogue: function(e) {
+    let self = this;
+
+    if (!self.data.kelist){//如果还没有列表时就不执行
+      wx.showToast({
+        icon:"none",
+        title: '还没有载入完毕',
+        duration:2000
+      })
+      return
+    }
+
+    let options = self.data.options;
     let index = e.currentTarget.dataset.index;
+    let commentFirstLoad = self.data.commentFirstLoad;//是不是已经载入过一次
+    let suggestFirstLoad = self.data.suggestFirstLoad;//推荐信息是不是第一次载入
+    let cid = options.kc_id; //点击的id
+    let typesid = self.data.kelist.typesid;
+
     let catalogue = [0, 0, 0, 0];
     catalogue[index] = 1;
     this.setData({
       catalogue: catalogue
     })
+
+    if (index == 3 && commentFirstLoad){
+      self.setData({
+        isLoaded:false,
+      })
+      console.log("action=GetCoursePL&cid=" + cid)
+      app.post(API_URL,"action=GetCoursePL&cid="+cid,false,false,"","","",self).then(res=>{
+        console.log(res)
+        let result = res.data.list[0];
+        let comments = result.pllist;//所有评论
+        let page_all = result.page_all;//总页数
+        console.log(comments)
+        self.setData({
+          comments: comments,
+          pageall: page_all,
+          page:1,
+          commentFirstLoad:false,//载入一次后不再载入
+          isLoaded:true,
+        })
+      })
+    } else if (index == 2 && suggestFirstLoad){
+      //用户信息
+      let user = wx.getStorageSync('user');
+      let loginrandom = user.Login_random;
+      let zcode = user.zcode; 
+
+      self.setData({
+        isLoaded: false,
+      })
+
+
+      app.post(API_URL, "action=getCourseList&loginrandom=" + loginrandom+"&zcode="+zcode+"&buy=&favorite=&Keywords=&typesid="+typesid,false,false,"","","",self).then(res=>{
+        let suggests = res.data.data[0].list;
+        let pageall = res.data.data[0].pageall;
+        console.log(res)
+
+        self.setData({
+          suggests: suggests,
+          suggestPage:1,
+          suggestPageall: pageall,
+          isLoaded:true,
+          suggestFirstLoad:false
+        })
+      })
+    }
   },
 
   /**
@@ -201,9 +274,139 @@ Page({
       self.setIconTextColorByIndex(index+1, kelist)
       self.setData({
         index:index+1,
-        video:kelist.files[index+1]
+        video:kelist.files[index+1],
+        kelist: kelist
       })
+    }   
+  },
+
+  /**
+ * 输入评论
+ */
+  inputComment: function (e) {
+    this.setData({
+      comment_content: e.detail.value //当前评论内容
+    })
+  },
+
+  /**
+   * 发送评论
+   */
+  sendComment: function () {
+    let self = this;
+    let comment_content = this.data.comment_content; //当前输入的评论
+    let comments = this.data.comments; //当前所有评论
+    let options = self.data.options;
+    let kc_id = options.kc_id; //资讯ID
+
+    //用户信息
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    //保存评论内容到服务器
+    app.post(API_URL, "action=SaveCoursePL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&cid=" + kc_id + "&plcontent=" + comment_content, false, false, "", "", "", self).then(res => {
+
+      //自定义一个时时显示的评论对象
+      let mycomment = {};
+      mycomment.pl_time = "1秒前"; //提交时间
+      mycomment.pc_content = comment_content; //评论内容
+      mycomment.nickname = user.Nickname;
+      mycomment.userimg = user.Pic;
+
+      self.setData({
+        comments: comments,
+        mycomment: mycomment,
+        currentComment: "", //清空评论
+      })
+
+    })
+  },
+
+  /**
+   * 滑动推荐到底部
+   */
+  suggestScrolltolower:function(e){
+    let self = this;
+    let loadingMore = self.data.loadingMore;
+    if (loadingMore) return; //如果还在载入中,就不继续执行
+    let suggestPageall = self.data.suggestPageall;
+    let suggestPage = self.data.suggestPage;
+    let suggests = self.data.suggests;
+    let options = self.data.options;
+    let cid = options.kc_id;
+
+    if (suggestPage >= suggestPageall) {
+      self.setData({ //正在载入
+        suggestLoadingText: "没有了..."
+      })
+      return;
     }
-    
+
+    self.setData({ //正在载入
+      showLoadingGif: true,
+      loadingMore: true,
+      suggestLoadingText: "载入更多课程 ..."
+    })
+
+    suggestPage++;
+
+    app.post(API_URL, "action=getCourseList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&buy=&favorite=&Keywords=&typesid=" + typesid + "&page=" + suggestPage, false, false, "", "", "", self).then(res => {
+      let newSuggests = res.data.data[0].list;
+
+      suggests = suggests.concat(newSuggests);//所有评论
+
+      self.setData({
+        suggests: suggests,
+        suggestPage: suggestPage,
+        showLoadingGif: false,
+        loadingMore: false,
+        suggestLoadingText: ""
+      })
+    })
+  },
+
+  /**
+   * 滑动评论到底部时
+   */
+  scrolltolower:function(e){
+    let self = this;
+    let loadingMore = self.data.loadingMore;
+    if (loadingMore) return; //如果还在载入中,就不继续执行
+    let pageall = self.data.pageall;
+    let page = self.data.page;
+    let comments = self.data.comments;
+    let options = self.data.options;
+    let cid = options.kc_id;
+
+    if (page >= pageall) {
+      self.setData({ //正在载入
+        loadingText: "没有了..."
+      })
+      return;
+    }
+
+    self.setData({ //正在载入
+      showLoadingGif: true,
+      loadingMore: true,
+      loadingText: "载入更多评论 ..."
+    })
+
+    page++;
+
+    app.post(API_URL, "action=GetCoursePL&cid=" + cid+"&page="+page, false, false, "", "", "", self).then(res => {
+      let result = res.data.list[0];
+      
+      comments = comments.concat(result.pllist);//所有评论
+
+      console.log(comments)
+      self.setData({
+        comments: comments,
+        page: page,
+        showLoadingGif: false,
+        loadingMore: false,
+        loadingText: ""
+      })
+    })
   }
 })
