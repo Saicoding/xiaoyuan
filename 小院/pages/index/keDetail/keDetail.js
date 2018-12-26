@@ -10,13 +10,13 @@ Page({
    */
   data: {
     catalogue: [1, 0, 0, 0],
-    autoplay:true,//默认自动播放
+    autoplay: true, //默认自动播放
     isPlaying: true, //默认是播放状态
     useFlux: false, //是否使用流量观看
     isWifi: true, //默认有wifi
     lastType: "first",
-    commentFirstLoad:true,//评论第一次载入
-    suggestFirstLoad:true,//推荐信息第一次载入
+    commentFirstLoad: true, //评论第一次载入
+    suggestFirstLoad: true, //推荐信息第一次载入
     loadingMore: false
   },
 
@@ -40,7 +40,7 @@ Page({
     let self = this;
     //获得dialog组件
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
-      success: function (res) { //转换窗口高度
+      success: function(res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
         windowHeight = (windowHeight * (750 / windowWidth));
@@ -50,6 +50,10 @@ Page({
         })
       }
     });
+  },
+
+  timeupdate:function(e){
+    console.log(e);
   },
 
   /**
@@ -81,14 +85,14 @@ Page({
       })
 
       app.post(API_URL, "action=GetCourseInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&kc_id=" + kc_id, false, false, "", "", "", self).then(res => {
-        let kelist = res.data.data[0];//所有课程信息
+        let kelist = res.data.data[0]; //所有课程信息
 
-        let lastidx = wx.getStorageSync('lastVideo' + kc_id + user.username);//上一次观看的id
-        let index = lastidx ==""?0:lastidx;
+        let lastidx = wx.getStorageSync('lastVideo' + kc_id + user.username); //上一次观看的id
+        let index = lastidx == "" ? 0 : lastidx;
         console.log(lastidx)
         console.log(kelist)
         //初始化视频信息
-        self.initVideos(index,kelist);
+        self.initVideos(index, kelist);
 
         wx.setStorageSync("turnonWifiPrompt", 0);
 
@@ -104,7 +108,7 @@ Page({
         })
       })
 
-      app.post(API_URL, "action=GetCourseStudents&cid=" + kc_id,false,false,"").then(res=>{
+      app.post(API_URL, "action=GetCourseStudents&cid=" + kc_id, false, false, "").then(res => {
         let headurls = res.data.data;
         self.setData({
           headurls: headurls
@@ -116,41 +120,41 @@ Page({
   /**
    * 初始化视频信息
    */
-  initVideos: function (index,kelist){
+  initVideos: function(index, kelist) {
     let self = this;
-    self.setIconTextColorByIndex(index, kelist);//改变视频选择状态
+    self.setIconTextColorByIndex(index, kelist); //改变视频选择状态
   },
 
   /**
    * 改变视频时
    */
-  changeVideo:function(e){
+  changeVideo: function(e) {
     let self = this;
 
-    let index = self.data.index;//点击之前的视频编号
-    let keindex = e.currentTarget.dataset.keindex;//点击的视频编号
+    let index = self.data.index; //点击之前的视频编号
+    let keindex = e.currentTarget.dataset.keindex; //点击的视频编号
     if (index == keindex) return //如果点击了同一个视频就什么都不做
 
     let kelist = self.data.kelist;
 
-    
+
     //改变选择状态
-    self.setIconTextColorByIndex(keindex,kelist);
+    self.setIconTextColorByIndex(keindex, kelist);
 
     self.setData({
-      kelist:kelist,//保存所有视频
-      video:kelist.files[keindex],//更改当前视频
-      index: keindex,//更改当前的index
+      kelist: kelist, //保存所有视频
+      video: kelist.files[keindex], //更改当前视频
+      index: keindex, //更改当前的index
     })
   },
 
   /**
    * 根据index改变选择状态
    */
-  setIconTextColorByIndex(index,kelist){
+  setIconTextColorByIndex(index, kelist) {
     for (let i = 0; i < kelist.files.length; i++) {
       let ke = kelist.files[i];
-      ke.selected = i == index ? true : false//初始化播放状态
+      ke.selected = i == index ? true : false //初始化播放状态
     }
   },
 
@@ -160,19 +164,19 @@ Page({
   changeCatelogue: function(e) {
     let self = this;
 
-    if (!self.data.kelist){//如果还没有列表时就不执行
+    if (!self.data.kelist) { //如果还没有列表时就不执行
       wx.showToast({
-        icon:"none",
+        icon: "none",
         title: '还没有载入完毕',
-        duration:2000
+        duration: 2000
       })
       return
     }
 
     let options = self.data.options;
     let index = e.currentTarget.dataset.index;
-    let commentFirstLoad = self.data.commentFirstLoad;//是不是已经载入过一次
-    let suggestFirstLoad = self.data.suggestFirstLoad;//推荐信息是不是第一次载入
+    let commentFirstLoad = self.data.commentFirstLoad; //是不是已经载入过一次
+    let suggestFirstLoad = self.data.suggestFirstLoad; //推荐信息是不是第一次载入
     let cid = options.kc_id; //点击的id
     let typesid = self.data.kelist.typesid;
 
@@ -182,56 +186,77 @@ Page({
       catalogue: catalogue
     })
 
-    if (index == 3 && commentFirstLoad){
+    if (index == 3 && commentFirstLoad) {
       self.setData({
-        isLoaded:false,
+        isLoaded: false,
       })
       console.log("action=GetCoursePL&cid=" + cid)
-      app.post(API_URL,"action=GetCoursePL&cid="+cid,false,false,"","","",self).then(res=>{
-        console.log(res)
-        let result = res.data.list[0];
-        let comments = result.pllist;//所有评论
-        let page_all = result.page_all;//总页数
-        console.log(comments)
+      app.post(API_URL, "action=GetCoursePL&cid=" + cid, false, false, "", "", "", self).then(res => {
+
+        let result = res.data.list[0] == undefined ? [] : res.data.list[0];
+        let comments = result.pllist == undefined ? [] : result.pllist; //所有评论
+        let page_all = result.page_all == undefined ? 0 : result.page_all; //总页数
+        if (comments == []){
+          wx.showToast({
+            icon:"none",
+            title: '当前无评论',
+            duration:2000
+          })
+        }
+
         self.setData({
           comments: comments,
           pageall: page_all,
-          page:1,
-          commentFirstLoad:false,//载入一次后不再载入
-          isLoaded:true,
+          page: 1,
+          commentFirstLoad: false, //载入一次后不再载入
+          isLoaded: true,
         })
+
       })
-    } else if (index == 2 && suggestFirstLoad){
+    } else if (index == 2 && suggestFirstLoad) {
       //用户信息
       let user = wx.getStorageSync('user');
       let loginrandom = user.Login_random;
-      let zcode = user.zcode; 
+      let zcode = user.zcode;
 
       self.setData({
         isLoaded: false,
       })
 
 
-      app.post(API_URL, "action=getCourseList&loginrandom=" + loginrandom+"&zcode="+zcode+"&buy=&favorite=&Keywords=&typesid="+typesid,false,false,"","","",self).then(res=>{
+      app.post(API_URL, "action=getCourseList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&buy=&favorite=&Keywords=&typesid=" + typesid, false, false, "", "", "", self).then(res => {
         let suggests = res.data.data[0].list;
         let pageall = res.data.data[0].pageall;
         console.log(res)
 
         self.setData({
           suggests: suggests,
-          suggestPage:1,
+          suggestPage: 1,
           suggestPageall: pageall,
-          isLoaded:true,
-          suggestFirstLoad:false
+          isLoaded: true,
+          suggestFirstLoad: false
         })
       })
     }
   },
 
   /**
+   * 导航到详情页
+   */
+  GOkedetail:function(e){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    let kc_id = e.currentTarget.dataset.id;
+    let title = e.currentTarget.dataset.title;
+    wx.redirectTo({
+      url: '/pages/index/keDetail/keDetail?kc_id=' + kc_id + "&title=" + title,
+    })
+  },
+
+  /**
    * 生命周期函数
    */
-  onUnload: function () {
+  onUnload: function() {
     let self = this;
 
     let options = self.data.options;
@@ -240,7 +265,7 @@ Page({
 
     let kc_id = options.kc_id;
     let index = self.data.index;
-   
+
     wx.setStorageSync('lastVideo' + kc_id + user.username, index);
     clearInterval(self.data.interval);
   },
@@ -248,7 +273,7 @@ Page({
   /**
    * 生命周期函数
    */
-  onHide:function(){
+  onHide: function() {
     let self = this;
 
     let options = self.data.options;
@@ -265,25 +290,25 @@ Page({
   /**
    * 播放结束时
    */
-  end:function(){
-    let self = this; 
+  end: function() {
+    let self = this;
     let index = self.data.index;
     let kelist = self.data.kelist;
 
-    if (index < kelist.files.length-1){//如果还有下一个视频
-      self.setIconTextColorByIndex(index+1, kelist)
+    if (index < kelist.files.length - 1) { //如果还有下一个视频
+      self.setIconTextColorByIndex(index + 1, kelist)
       self.setData({
-        index:index+1,
-        video:kelist.files[index+1],
+        index: index + 1,
+        video: kelist.files[index + 1],
         kelist: kelist
       })
-    }   
+    }
   },
 
   /**
- * 输入评论
- */
-  inputComment: function (e) {
+   * 输入评论
+   */
+  inputComment: function(e) {
     this.setData({
       comment_content: e.detail.value //当前评论内容
     })
@@ -292,7 +317,7 @@ Page({
   /**
    * 发送评论
    */
-  sendComment: function () {
+  sendComment: function() {
     let self = this;
     let comment_content = this.data.comment_content; //当前输入的评论
     let comments = this.data.comments; //当前所有评论
@@ -326,7 +351,7 @@ Page({
   /**
    * 滑动推荐到底部
    */
-  suggestScrolltolower:function(e){
+  suggestScrolltolower: function(e) {
     let self = this;
     let loadingMore = self.data.loadingMore;
     if (loadingMore) return; //如果还在载入中,就不继续执行
@@ -354,7 +379,7 @@ Page({
     app.post(API_URL, "action=getCourseList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&buy=&favorite=&Keywords=&typesid=" + typesid + "&page=" + suggestPage, false, false, "", "", "", self).then(res => {
       let newSuggests = res.data.data[0].list;
 
-      suggests = suggests.concat(newSuggests);//所有评论
+      suggests = suggests.concat(newSuggests); //所有评论
 
       self.setData({
         suggests: suggests,
@@ -369,7 +394,7 @@ Page({
   /**
    * 滑动评论到底部时
    */
-  scrolltolower:function(e){
+  scrolltolower: function(e) {
     let self = this;
     let loadingMore = self.data.loadingMore;
     if (loadingMore) return; //如果还在载入中,就不继续执行
@@ -394,10 +419,10 @@ Page({
 
     page++;
 
-    app.post(API_URL, "action=GetCoursePL&cid=" + cid+"&page="+page, false, false, "", "", "", self).then(res => {
+    app.post(API_URL, "action=GetCoursePL&cid=" + cid + "&page=" + page, false, false, "", "", "", self).then(res => {
       let result = res.data.list[0];
-      
-      comments = comments.concat(result.pllist);//所有评论
+
+      comments = comments.concat(result.pllist); //所有评论
 
       console.log(comments)
       self.setData({
@@ -408,5 +433,41 @@ Page({
         loadingText: ""
       })
     })
-  }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let catalogue = self.data.catalogue;
+    let cid = self.data.options.kc_id;
+
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+
+    if (catalogue[3] == 1) { //如果是评论页面
+      app.post(API_URL, "action=GetCoursePL&cid=" + cid, false, false, "", "", "", self).then(res => {
+        let result = res.data.list[0];
+        let comments = result.pllist; //所有评论
+
+        console.log(comments)
+        self.setData({
+          comments: comments,
+          page: 1,
+          showLoadingGif: false,
+          loadingMore: false,
+          loadingText: ""
+        })
+
+        wx.hideNavigationBarLoading() //完成停止加载
+        wx.stopPullDownRefresh() //停止下拉刷新
+      })
+    } else {
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+    }
+  },
 })

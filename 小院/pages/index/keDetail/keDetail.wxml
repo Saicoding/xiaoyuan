@@ -1,5 +1,5 @@
 <!--pages/index/keDetail/keDetail.wxml-->
-<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url}}" bindended="end" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}" autoplay="{{autoplay}}">
+<video id="myVideo" controls initial-time="{{videos[px-1].lastViewLength}}" poster="{{img}}" class="video" src="{{video.files_url==undefined?'':video.files_url}}" bindended="end" bindtimeupdate="timeupdate" custom-cache="false" enable-progress-gesture show-center-play-btn="{{false}}" autoplay="{{autoplay}}">
   <cover-view wx:if="{{!isWifi && !useFlux}}" class="wifi">
     <cover-view class="wifi-text1">您正在使用移动网络</cover-view>
     <cover-view class="wifi-text2">继续观看会耗费通用流量</cover-view>
@@ -63,7 +63,7 @@
   <view wx:if="{{catalogue[2]==1}}">
     <scroll-view lower-threshold="300" scroll-y style="height:{{windowHeight-565}}rpx" bindscrolltolower="suggestScrolltolower"   class="suggest">
       <view wx:for="{{suggests}}" wx:for-item="suggest" wx:key="k">
-        <view class ="suggest-block">
+        <view data-title="{{suggest.title}}" data-id="{{suggest.id}}" bindtap="GOkedetail" class ="suggest-block" hover-class='select1' hover-stay-time='500'>
           <image class ="suggest-block-img" src="{{suggest.pic}}"></image>
           <view class="suggest-block-right">
             <view class="suggest-block-right-title">{{suggest.title}}</view>

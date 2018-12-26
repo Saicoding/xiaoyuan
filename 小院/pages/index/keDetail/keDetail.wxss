@@ -147,10 +147,14 @@
 }
 
 .list-block-title {
+  width:580rpx;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 22rpx;
   margin-left: 15rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-block-try {
@@ -387,4 +391,8 @@
   display: inline-block;
   margin-left: 10rpx;
   vertical-align: middle;
+}
+
+.select1{
+  background: rgb(236, 236, 236);
 }
