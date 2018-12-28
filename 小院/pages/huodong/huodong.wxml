@@ -1,2 +1,2 @@
 <!--pages/huodong/huodong.wxml-->
-<text>pages/huodong/huodong.wxml</text>
+<canvas id='world'></canvas>

@@ -1,5 +1,4 @@
-// pages/huodong/huodong.js
-
+// pages/mine/vip/vip.js
 Page({
 
   /**
@@ -13,7 +12,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title:"我的VIP"
+    })
 
+    let user = wx.getStorageSync('user');
+    let headPic = user.Pic;
+    this.setData({
+      headPic: headPic
+    })
   },
 
   /**

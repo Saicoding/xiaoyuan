@@ -10,7 +10,9 @@
     "pages/zixun/zixunDetail/zixunDetail",
     "pages/index/markCourse/markCourse",
     "pages/index/viewAll/viewAll",
-    "pages/index/keDetail/keDetail"
+    "pages/mine/kaitong/kaitong",
+    "pages/index/keDetail/keDetail",
+    "pages/mine/vip/vip"
   ],
   "window": {
     "backgroundTextStyle": "dark",

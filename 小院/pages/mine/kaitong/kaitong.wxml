@@ -1,0 +1,53 @@
+<!--pages/mine/kaitong/kaitong.wxml-->
+<view class="container">
+  <view class="up" style="border-bottom:{{upBottom?'1rpx solid #d5c878':'1rpx solid rgb(230, 230, 230)'}}">
+    <view class="up-title">小院VIP会员</view>
+    <!-- 价格表 -->
+    <view wx:for="{{prices}}" wx:for-item="price" wx:key="k">
+      <view data-price="{{price.num}}" data-index="{{index}}" bindtap="change" class="up-price-block" style="border-top:{{price.bd_top?'1rpx solid #d5c878':'1rpx solid rgb(230, 230, 230)'}};background:{{price.select?'#ede9d0':'white'}}">
+        <view class="up-price-block-text" style="width:200rpx;">{{price.text}}</view>
+        <view class="up-price-block-text" style="width:110rpx;float:right;">
+          <span style="color:#fd7d2f;">{{price.num}}</span>元</view>
+      </view>
+    </view>
+
+  </view>
+  <view class="mid">
+    <view class="mid-title">
+      <view class="mid-title-left">
+        支付金额 :
+        <span style="color:#f78c47">{{price}}</span>元
+      </view>
+      <view class="mid-title-right">会员服务协议</view>
+    </view>
+
+    <view class="mid-pay">
+      <view data-type="wx" bindtap = "pay" hover-class='select1' hover-stay-time='500' class="mid-pay-block">
+        <image class="mid-pay-icon" src="/imgs/wxpay.png" mode="aspectFit"></image>
+        <view class="mid-pay-text">微信支付</view>
+      </view>
+      <view data-type="yue" bindtap = "pay" hover-class='select1' hover-stay-time='500' class="mid-pay-block" style="border-left:1rpx dashed rgb(230, 230, 230);">
+        <image class="mid-pay-icon" src="/imgs/yuepay.png" mode="aspectFit"></image>
+        <view class="mid-pay-text">余额支付</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="down">
+    <view class="down-title">小院VIP年会员特权</view>
+    <view class ="down-info">
+      <view wx:for ="{{infos}}" wx:for-item="info" wx:key ="i"> 
+        <view class ="down-info-block">
+          <image class ="down-info-block-icon" src ="{{info.img}}" mode = "aspectFit"></image>
+          <view class ="down-info-block-text1">{{info.text1}}</view>
+          <view class ="down-info-block-text2">{{info.text2}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class ="bottom">
+    更多精彩体验正在开发中...
+  </view>
+</view>

@@ -241,6 +241,7 @@ Page({
     wx.showModal({
       title: '删除分类提示',
       content: '您确定取消订制本分类',
+      confirmColor: '#0096fa',
       success: function(v) {
         if (v.confirm) { //如果点击了确定
           console.log("action=delCourseTypes&loginrandom=" + loginrandom + "&zcode=" + zcode + "&typesids=" + typesids)

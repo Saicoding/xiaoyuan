@@ -5,6 +5,22 @@
     <cover-view class="wifi-text2">继续观看会耗费通用流量</cover-view>
     <cover-view bindtap='continueWatch' class="wifi-button">继续观看</cover-view>
   </cover-view>
+
+  <!-- android -->
+  <cover-view bindtap = "GOVip" wx:if = "{{showNobuy && (platform == 'android' || platform == 'devtools')}}" class ="nobuy">
+    <cover-image class ="nobuy-icon" src ="/imgs/play3.png" mode ="aspectFit"></cover-image>
+    <cover-view class ="nobuy-text1">对不起,您暂未开通VIP,开通VIP即可观看小院所有课程!</cover-view>
+    <cover-view catchtap = "GOVip" class ="nobuy-text2" style ="margin-top:40rpx;" hover-class='select2' hover-stay-time='500'>立即开通</cover-view>   
+  </cover-view>
+
+  <!-- ios -->
+  <cover-view bindtap ="phone" wx:if = "{{showNobuy && (platform == 'ios' )}}" class ="nobuy">
+    <cover-image class ="nobuy-icon" src ="/imgs/play3.png" mode ="aspectFit"></cover-image>
+    <cover-view class ="nobuy-text1">对不起,您暂未开通VIP,开通VIP即可观看小院所有课程!</cover-view>
+    <cover-view class ="nobuy-text3" style='color:white;'>联系电话:</cover-view>  
+    <cover-view class="nobuy-text3" style ="color:rgb(255, 89, 47);left:220rpx;width:400rpx;">4006-456-114</cover-view>
+    <cover-view class ="nobuy-text2" style="margin-top:75rpx;" hover-class='select2' hover-stay-time='500'>立即开通</cover-view> 
+  </cover-view>
   <!-- <cover-view wx:if="{{!isPlaying }}" bindtap="tooglePlay">
     <cover-image class="video-icon" src="/imgs/play-icon.png" />
   </cover-view> -->

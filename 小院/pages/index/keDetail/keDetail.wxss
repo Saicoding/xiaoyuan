@@ -7,7 +7,7 @@
 
 /* wifi提示字体 */
 
-.wifi {
+.wifi ,.nobuy{
   width: 750rpx;
   height: 422rpx;
   background: black;
@@ -15,12 +15,46 @@
   text-align: center;
 }
 
+.nobuy{
+  font-size:25rpx;
+}
+
+.nobuy-icon{
+  width:80rpx;
+  height:80rpx;
+  margin:0rpx auto;
+  margin-top:100rpx;
+}
+
+.nobuy-text1{
+  margin-top:40rpx;
+  width:100%;
+}
+
+.nobuy-text2{
+  border:1rpx solid rgb(255, 89, 47);
+  height:40rpx;
+  line-height: 40rpx;
+  width:160rpx;
+  text-align: center;
+  margin:20rpx auto;
+  color:rgb(255, 89, 47);
+  font-size:22rpx;
+}
+
+.nobuy-text3{
+  position: absolute;
+  top:270rpx;
+  left:240rpx;
+  color:rgb(255, 89, 47);
+}
+
 .wifi-text1, .wifi-text2 {
   width: 100%;
 }
 
 .wifi-text1 {
-  font-size: 30rpx;
+  font-size: 25rpx;
   letter-spacing: 2rpx;
   margin-top: 90rpx;
 }
@@ -395,4 +429,8 @@
 
 .select1{
   background: rgb(236, 236, 236);
+}
+
+.select2{
+  background: rgb(54, 54, 54);
 }

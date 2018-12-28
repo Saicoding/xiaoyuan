@@ -1,0 +1,166 @@
+/* pages/mine/kaitong/kaitong.wxss */
+
+page {
+  background: #f0f3fa;
+}
+
+.container {
+}
+
+/* 上面部分 */
+
+.up {
+  background: white;
+  margin-top: 20rpx;
+  border-bottom: 1rpx solid rgb(230, 230, 230);
+}
+
+.up-title, .up-price-block {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-top: 1rpx solid rgb(230, 230, 230);
+  padding-left: 30rpx;
+}
+
+.up-title {
+  color: #c4ad27;
+  font-size: 28rpx;
+}
+
+.up-price-block {
+  clear: both;
+  font-size: 25rpx;
+}
+
+.up-price-block-text {
+  display: float;
+  float: left;
+}
+
+/* 下面部分 */
+
+.mid {
+  margin-top: 20rpx;
+  background: white;
+}
+
+.mid-title, .mid-title-left, .mid-title-right {
+  height: 80rpx;
+  background: white;
+  line-height: 80rpx;
+}
+
+.mid-title {
+  width: 100%;
+}
+
+.mid-title-left, .mid-title-right {
+  display: float;
+}
+
+.mid-title-left {
+  float: left;
+  color: #c4ad27;
+  font-size: 28rpx;
+  margin-left: 30rpx;
+}
+
+.mid-title-right {
+  float: right;
+  font-size: 22rpx;
+  color: #b4b4b4;
+  margin-right: 20rpx;
+}
+
+.mid-pay {
+  background: white;
+  clear: both;
+  height:80rpx;
+  border-top: 1rpx dashed rgb(230, 230, 230);
+  border-bottom: 1rpx solid rgb(230, 230, 230);
+}
+
+.mid-pay-icon, .mid-pay-text, .mid-pay-block {
+  display: float;
+  float: left;
+}
+
+.mid-pay-block {
+  width: 374rpx;
+  height: 80rpx;
+  background: white;
+}
+
+.mid-pay-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+  margin-left: 105rpx;
+}
+
+.mid-pay-text {
+  height: 80rpx;
+  color: rgb(77, 77, 77);
+  font-size: 25rpx;
+  line-height: 80rpx;
+  margin-left: 20rpx;
+}
+
+/* 最下面 */
+
+.down {
+  clear: both;
+  background: white;
+  margin-top: 20rpx;
+  border-bottom: 1rpx solid rgb(230, 230, 230);
+  height:520rpx;
+}
+
+.down-title {
+  background: white;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-top: 1rpx solid rgb(230, 230, 230);
+  border-bottom: 1rpx solid rgb(230, 230, 230);
+  padding-left: 30rpx;
+  color: #c4ad27;
+  font-size: 28rpx;
+}
+
+.down-info-block{
+  background: white;
+  display: float;
+  float:left;
+  width:50%;
+  text-align: center;
+  margin-top:45rpx;
+}
+.down-info-block-icon{
+  width:70rpx;
+  height:70rpx;
+}
+
+.down-info-block-text1{
+  font-size:28rpx;
+  font-weight: bold;
+}
+
+.down-info-block-text2{
+  font-size:22rpx;
+  margin-top:8rpx;
+  color:#7e7e7e;
+}
+
+.bottom{
+  font-size:25rpx;
+  color:#7e7e7e;
+  text-align: center;
+  height:100rpx;
+  line-height: 100rpx;
+}
+
+.select1 {
+  background: rgb(224, 224, 224);
+}

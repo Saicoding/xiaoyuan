@@ -17,7 +17,8 @@ Page({
     lastType: "first",
     commentFirstLoad: true, //评论第一次载入
     suggestFirstLoad: true, //推荐信息第一次载入
-    loadingMore: false
+    loadingMore: false,
+    showNobuy: false, //显示未购买信息
   },
 
   /**
@@ -38,13 +39,17 @@ Page({
    */
   onReady: function() {
     let self = this;
+    self.myVideo = wx.createVideoContext("myVideo", this); //得到video组件
     //获得dialog组件
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
       success: function(res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
+        let platform = res.platform;
         windowHeight = (windowHeight * (750 / windowWidth));
+        console.log(platform)
         self.setData({
+          platform: platform ,
           windowWidth: windowWidth,
           windowHeight: windowHeight
         })
@@ -61,6 +66,42 @@ Page({
 
     self.setData({
       currentTime: currentTime
+    })
+  },
+  /**
+   * 导航到VIP页
+   */
+  GOVip:function(){
+    wx.navigateTo({
+      url: '/pages/mine/kaitong/kaitong',
+    })
+  },
+
+  /**
+   * 开通VIP
+   */
+  kaitong:function(e){
+    let self = this;
+    wx.showModal({
+      title: '',
+      content: '开通小院VIP,即可免费观看小院所有课程',
+      confirmText:'开通',
+      confirmColor:'#0096fa',
+      success:function(e){
+        console.log(e)
+        if(e.confirm){
+          self.GOVip();
+        }
+      }
+    })
+  },
+
+  /**
+   * 拨打电话
+   */
+  phone:function(){
+    wx.makePhoneCall({
+      phoneNumber: '4006-456-114'
     })
   },
 
@@ -96,14 +137,12 @@ Page({
         //获取该页视频的播放进度数组
         let playRateArray = wx.getStorageSync("playRate" + kc_id + user.username);
         playRateArray = playRateArray == "" ? self.initPlayRateArray(kelist) : playRateArray;
-        console.log(playRateArray)
 
         let lastidx = wx.getStorageSync('lastVideo' + kc_id + user.username); //上一次观看的id
         let index = lastidx == "" ? 0 : lastidx;
 
         let video = kelist.files[index];
-
-        console.log(kelist)
+        let buy = kelist.buy;
         //初始化视频信息
         self.initVideos(index, kelist);
         video.startTime = playRateArray[index]
@@ -119,7 +158,8 @@ Page({
           first: false,
           index: index,
           video: kelist.files[index],
-          playRateArray: playRateArray
+          playRateArray: playRateArray,
+          buy: buy
         })
       })
 
@@ -143,10 +183,10 @@ Page({
   /**
    * 初始化进度数组（默认都是从0播放）
    */
-  initPlayRateArray: function (kelist){
+  initPlayRateArray: function(kelist) {
     let playRateArray = [];
 
-    for(let i = 0 ;i<kelist.files.length;i++){
+    for (let i = 0; i < kelist.files.length; i++) {
       playRateArray.push(0);
     }
 
@@ -165,6 +205,8 @@ Page({
 
     if (index == keindex) return //如果点击了同一个视频就什么都不做
 
+    let buy = self.data.buy; //是否购买
+
     let kelist = self.data.kelist;
     let lastCurrentTime = self.data.currentTime;
     let playRateArray = self.data.playRateArray;
@@ -174,20 +216,29 @@ Page({
     //改变选择状态
     self.setIconTextColorByIndex(keindex, kelist);
 
-    console.log(playRateArray)
-
     let video = kelist.files[keindex];
 
-    video.startTime = playRateArray[keindex];//设置点击的视频初始播放位置
+    if (buy == "0" && video.shiting == "0") {//如果没有视听权限就停止播放，并且显示提示信息
+      self.myVideo.stop();
+      self.setData({
+        showNobuy: true
+      })
+      self.kaitong();
+    }else{//如果有权限，就隐藏信息
+      self.myVideo.play();
+      self.setData({
+        showNobuy: false
+      })
+    }
 
-    console.log(video)
+    video.startTime = playRateArray[keindex]; //设置点击的视频初始播放位置
 
     self.setData({
       kelist: kelist, //保存所有视频
-      video: video,//更改当前视频
+      video: video, //更改当前视频
       index: keindex, //更改当前的index
       playRateArray: playRateArray,
-      currentTime: video.startTime//更改当前播放时间为当前播放的时间
+      currentTime: video.startTime //更改当前播放时间为当前播放的时间
     })
   },
 
@@ -300,28 +351,20 @@ Page({
    * 生命周期函数
    */
   onUnload: function() {
-    let self = this;
-
-    let options = self.data.options;
-
-    let user = wx.getStorageSync("user");
-
-    let kc_id = options.kc_id;
-    let index = self.data.index;
-
-    let playRateArray = self.data.playRateArray;
-
-    wx.setStorageSync('lastVideo' + kc_id + user.username, index);
-    wx.setStorageSync("playRate" + kc_id + user.username, playRateArray);
-
-    clearInterval(self.data.interval);
-
+    this.save();
   },
 
   /**
    * 生命周期函数
    */
   onHide: function() {
+    this.save();
+  },
+
+  /**
+   * 保存播放进度和上一次观看视频
+   */
+  save: function() {
     let self = this;
 
     let options = self.data.options;
@@ -330,9 +373,16 @@ Page({
 
     let kc_id = options.kc_id;
     let index = self.data.index;
+    let buy = self.data.buy;
 
-    wx.setStorageSync('lastVideo' + kc_id + user.username, index);
+    let playRateArray = self.data.playRateArray;
+
+    if (buy == 1 || index <= 2) { //如果已经购买或者前三个视频才保存
+      wx.setStorageSync('lastVideo' + kc_id + user.username, index);
+    }
+
     wx.setStorageSync("playRate" + kc_id + user.username, playRateArray);
+
     clearInterval(self.data.interval);
   },
 
@@ -499,10 +549,11 @@ Page({
 
     if (catalogue[3] == 1) { //如果是评论页面
       app.post(API_URL, "action=GetCoursePL&cid=" + cid, false, false, "", "", "", self).then(res => {
-        let result = res.data.list[0];
-        let comments = result.pllist; //所有评论
+        let result = res.data.list[0] == undefined ? [] : res.data.list[0];
+        let comments = result.pllist == undefined ? [] : result.pllist; //所有评论
 
         console.log(comments)
+
         self.setData({
           comments: comments,
           page: 1,

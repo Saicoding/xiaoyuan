@@ -83,6 +83,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: '确定绑定【' + schoolname+'】',
+      confirmColor: '#0096fa',
       success:function(e){
         if(e.confirm){
           app.post(API_URL, "action=saveColleage&loginrandom=" + loginrandom + "&zcode=" + zcode + "&TJcode=" + schoolid).then(res => {
