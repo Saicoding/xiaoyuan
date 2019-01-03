@@ -71,10 +71,10 @@ Page({
 
     //上个页面传过来的参数
     let options = self.data.options;
-    let typesid = options.typesid;
-    let buy = options.buy;
-    let favorite = options.favorite;
-    let Keywords = options.Keywords;
+    let typesid = options.typesid == undefined ? "" : options.typesid;
+    let buy = options.buy == undefined?"":options.buy;
+    let favorite = options.favorite == undefined?"":options.favorite;
+    let Keywords = options.Keywords == undefined?"":options.Keywords;
 
     let isReLoad = self.data.isReLoad; //是否是重复登录
     let first = self.data.first; //是否是第一次渲染页面
@@ -83,6 +83,7 @@ Page({
       self.setData({
         isLoaded: false
       })
+      console.log("action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode)
       app.post(API_URL, "action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res=>{
         let kelist = res.data.data[0].list;//课列表
         let pageall = res.data.data[0].pageall;//总页数

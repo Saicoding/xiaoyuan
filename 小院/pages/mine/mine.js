@@ -62,6 +62,17 @@ Page({
   },
 
   /**
+   * 导航到我的课程页面
+   */
+  GOviewall:function(){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/index/viewAll/viewAll?favorite=yes',
+    })
+  },
+
+  /**
    * 导航到VIP页面
    */
   GOvip:function(){
