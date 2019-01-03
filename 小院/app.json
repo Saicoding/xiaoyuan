@@ -12,7 +12,8 @@
     "pages/index/viewAll/viewAll",
     "pages/mine/kaitong/kaitong",
     "pages/index/keDetail/keDetail",
-    "pages/mine/vip/vip"
+    "pages/mine/vip/vip",
+    "pages/mine/set/set"
   ],
   "window": {
     "backgroundTextStyle": "dark",

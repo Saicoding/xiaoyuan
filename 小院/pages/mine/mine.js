@@ -30,7 +30,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的',
     })
-    
+
     let self = this;
     buttonClicked = false;
 
@@ -64,11 +64,22 @@ Page({
   /**
    * 导航到VIP页面
    */
-  GOVip:function(){
+  GOvip:function(){
     if (buttonClicked) return;
     buttonClicked = true;
     wx.navigateTo({
       url: '/pages/mine/vip/vip',
+    })
+  },
+
+  /**
+   * 导航到设置页面
+   */
+  GOset:function(){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/mine/set/set',
     })
   },
 
