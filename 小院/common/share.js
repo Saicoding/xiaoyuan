@@ -85,56 +85,56 @@ function getNum(word) {
 }
 
 function monitorConnectType(self){
-  wx.getStorage({
-    key: 'turnonWifiPrompt',
-    success: function (res) {
-      let isOn = res.data;
+  //侦测网络情况
+  let isOn = wx.getStorageSync('turnonWifiPrompt');
+  console.log(isOn+"网络类型")
 
-      if (isOn == 0) {
-        let interval = setInterval((res) => {
-          wx.getNetworkType({ //查看当前的网络类型,如果是非wifi,就不自动播放,如果多次是同一类型就只执行一次
-            success: function (res) {
-              let networkType = res.networkType
-              if (networkType != "wifi") {
-                let lastType = self.data.lastType;
-                if (lastType != "noWifi") {
-                  self.videoContext.stop();
-                  self.videoContext.pause();
-                  self.setData({
-                    isWifi: false,
-                    autoplay: false,
-                    isPlaying: false,
-                    lastType: "noWifi"
-                  })
-                }
-
-              } else {
-                let lastType = self.data.lastType;
-                if (lastType != "wifi") {
-                  self.setData({
-                    autoplay: true,
-                    isPlaying: true,
-                    isWifi: true,
-                    lastType: "wifi"
-                  })
-                }
-              }
+  if (isOn == "" || isOn == 0) {
+    let interval = setInterval((res) => {
+      wx.getNetworkType({ //查看当前的网络类型,如果是非wifi,就不自动播放,如果多次是同一类型就只执行一次
+        success: function (res) {
+          let networkType = res.networkType
+          console.log(networkType)
+          
+          if (networkType != "wifi") {
+            let lastType = self.data.lastType;
+            if (lastType != "noWifi") {
+              self.myVideo.stop();
+              self.myVideo.pause();
+              self.setData({
+                isWifi: false,
+                autoplay: false,
+                isPlaying: false,
+                lastType: "noWifi"
+              })
             }
-          })
-        }, 1000)
-        self.setData({
-          interval: interval
-        })
-      } else {
-        self.setData({
-          isWifi: true,
-          useFlux: true,
-          autoplay: true,
-          isPlaying: true,
-        })
-      }
-    },
-  })
+
+          } else {
+            let lastType = self.data.lastType;
+
+            if (lastType != "wifi") {
+              self.setData({
+                autoplay: true,
+                isPlaying: true,
+                isWifi: true,
+                lastType: "wifi"
+              })
+            }
+          }
+        }
+      })
+    }, 2000)
+    self.setData({
+      interval: interval
+    })
+  } else {
+    self.setData({
+      isWifi: true,
+      useFlux: true,
+      autoplay: true,
+      isPlaying: true,
+    })
+  }
 }
 
 module.exports={

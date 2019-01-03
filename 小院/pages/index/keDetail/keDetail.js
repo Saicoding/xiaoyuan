@@ -40,6 +40,7 @@ Page({
   onReady: function() {
     let self = this;
     self.myVideo = wx.createVideoContext("myVideo", this); //得到video组件
+
     //获得dialog组件
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
       success: function(res) { //转换窗口高度
@@ -124,6 +125,9 @@ Page({
 
     buttonClicked = false;
 
+    //监测网络变化,未完善
+    share.monitorConnectType(self);
+
     if ((isReLoad || first) && user != "") { //如果user = "" ,
 
       self.setData({
@@ -149,9 +153,6 @@ Page({
 
         // wx.setStorageSync("turnonWifiPrompt", 0);
 
-        //监测网络变化,未完善
-        // share.monitorConnectType(self);
-
         self.setData({
           kelist: kelist,
           isLoaded: true,
@@ -163,6 +164,7 @@ Page({
         })
       })
 
+      // 得到有多少人在学习
       app.post(API_URL, "action=GetCourseStudents&cid=" + kc_id, false, false, "").then(res => {
         let headurls = res.data.data;
         self.setData({
@@ -192,6 +194,18 @@ Page({
 
     console.log(playRateArray)
     return playRateArray;
+  },
+
+  /**
+ * 使用流量继续观看
+ */
+  continueWatch: function () {
+    this.myVideo.play();
+    this.setData({
+      isPlaying: true,
+      autoplay: true,
+      useFlux: true
+    })
   },
 
   /**
@@ -352,6 +366,8 @@ Page({
    */
   onUnload: function() {
     this.save();
+    let interval = this.data.interval;
+    clearInterval(interval);
   },
 
   /**
@@ -359,6 +375,8 @@ Page({
    */
   onHide: function() {
     this.save();
+    let interval = this.data.interval;
+    clearInterval(interval);
   },
 
   /**
