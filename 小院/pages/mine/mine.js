@@ -111,6 +111,8 @@ Page({
           wx.navigateTo({
             url: '/pages/login/login',
           })
+        }else{
+          buttonClicked = false;
         }
       }
     })

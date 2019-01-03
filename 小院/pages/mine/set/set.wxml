@@ -7,7 +7,7 @@
     <switch class="switch" checked="{{isOn}}" bindchange="switchChange" />
   </view>
 
-  <view class="block"  bindtap='clearStorage' hover-stay-time='100' hover-class='select'>
+  <view class="block"  bindtap='GOfankui' hover-stay-time='100' hover-class='select'>
     <view class="mytext">
       问题反馈
     </view>

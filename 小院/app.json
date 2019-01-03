@@ -13,7 +13,8 @@
     "pages/mine/kaitong/kaitong",
     "pages/index/keDetail/keDetail",
     "pages/mine/vip/vip",
-    "pages/mine/set/set"
+    "pages/mine/set/set",
+    "pages/mine/fankui/fankui"
   ],
   "window": {
     "backgroundTextStyle": "dark",

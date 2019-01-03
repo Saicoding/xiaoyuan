@@ -48,6 +48,15 @@ Page({
     let isOn = e.detail.value ? 0 : 1;
     console.log(isOn)
     wx.setStorageSync('turnonWifiPrompt', isOn);
+  },
+
+  /**
+   * 导航到反馈页面
+   */
+  GOfankui:function(){
+    wx.navigateTo({
+      url: '/pages/mine/fankui/fankui',
+    })
   }
 
 })

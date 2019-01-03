@@ -1,0 +1,10 @@
+<!--pages/mine/fankui/fankui.wxml-->
+<view class="section">
+  <textarea maxlength="400" bindblur="bindTextAreaBlur" auto-height placeholder="请描述您的问题或建议" auto-focus show-confirm-bar placeholder-class="placeholder"/>
+</view>
+
+<view class="submit" hover-class='select1' hover-stay-time='500' bindtap="fankui">提交反馈</view>
+
+<view class ="info">
+  不论是问题bug还是改进建议,您表达的越具体,我们修复的就越精准,最好写明是哪个页面出现了什么问题或者改进建议,我们会第一时间处理,您的支持是我们最大的动力。
+</view>
