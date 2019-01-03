@@ -1,2 +1,87 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="container">
+  <!-- 上面部分 -->
+  <view class="top">
+    <!-- 第一行 -->
+    <view class="top-line1">
+      <view class="top-line1-left">
+        <view class="top-line1-text" style="line-height:50rpx;">0</view>
+        <view class="top-line1-text">关注</view>
+      </view>
+      <image class="top-line1-mid" src="{{headPic}}" mode="aspectFit"></image>
+      <!-- <image class ="top-line1-icon" src =""></image> -->
+      <view class="top-line1-right">
+        <view class="top-line1-text" style="line-height:50rpx;">0</view>
+        <view class="top-line1-text">粉丝</view>
+      </view>
+    </view>
+    <view class="top-line1-nickname">{{nickname}}</view>
+
+    <!-- 第二行 -->
+    <view class="top-line2">
+      <view class="top-line2-block">
+        <view class="top-line2-text">588</view>
+        <view class="top-line2-text">积分</view>
+      </view>
+
+      <view class="line"></view>
+
+      <view class="top-line2-block">
+        <view class="top-line2-text">0</view>
+        <view class="top-line2-text">学币</view>
+      </view>
+
+      <view class="line"></view>
+
+      <view class="top-line2-block">
+        <view class="top-line2-text">0</view>
+        <view class="top-line2-text">学时</view>
+      </view>
+    </view>
+  </view>
+  <!-- 中间的 -->
+  <view class="mid">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的课程</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的爆料</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的信息</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的活动</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的宝贝</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的兼职</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap="GOVip">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">我的VIP</view>
+    </view>
+
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item">
+      <image class="mid-line-item-icon" src="/imgs/yuepay.png"></image>
+      <view class="mid-line-item-text">相关设置</view>
+    </view>
+  </view>
+
+  <view class="loginout" hover-class='select2' hover-stay-time='500' bindtap='loginout'>退出登录</view>
+
+</view>

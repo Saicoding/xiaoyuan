@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showPwd:true,
+    showPwd: true,
     openId: '', //用户唯一标识  
     unionId: '',
     encryptedData: ''
@@ -21,7 +21,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
       title: "登录"
     })
@@ -39,22 +39,43 @@ Page({
           let sesstion_key = res.data.sessionKey;
           let openid = res.data.openid;
 
-          self.setData({
-            sesstion_key: sesstion_key,
-            openid: openid,
-            hasCode:true
+          wx.getUserInfo({
+            success: function(res) {
+              let wxid = ""; //openId
+              let session_key = ""; //
+
+              let encryptedData = res.encryptedData;
+              let iv = res.iv;
+              let signature = res.signature; //签名
+              let nickname = res.userInfo.nickName; //昵称
+              let headurl = res.userInfo.avatarUrl; //头像
+              let sex = res.userInfo.gender //性别
+
+              //拿到session_key实例化WXBizDataCrypt（）这个函数在下面解密用
+              let pc = new WXBizDataCrypt(appId, sesstion_key);
+              let data = pc.decryptData(encryptedData, iv);
+              let unionid = data.unionId;
+              self.setData({
+                unionid: unionid,
+                loaded: true,
+                nickname: nickname,
+                headurl: headurl,
+                sex: sex,
+                openid: openid
+              })
+            }
           })
         })
       }
     })
 
-    let rememberPwd = wx.getStorageSync('loginUser') ? true : false//如果没有本地缓存,就默认是不记住密码
+    let rememberPwd = wx.getStorageSync('loginUser') ? true : false //如果没有本地缓存,就默认是不记住密码
 
-    if (rememberPwd){
-      let loginUser = wx.getStorageSync('loginUser');//缓存的用户名和密码
+    if (rememberPwd) {
+      let loginUser = wx.getStorageSync('loginUser'); //缓存的用户名和密码
       this.setData({
-        userText:loginUser.userText,
-        pwdText:loginUser.pwdText
+        userText: loginUser.userText,
+        pwdText: loginUser.pwdText
       })
     }
 
@@ -66,116 +87,119 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     buttonClicked = false;
   },
 
   /**
    * 账号密码登录
    */
-  login:function(){
+  login: function() {
     let self = this;
-    let hasCode = self.data.hasCode;
-   //限制连续点击
-    if (buttonClicked && !hasCode) return;
+    let loaded = self.data.loaded;
+
+    if (!loaded) {
+      wx.showToast({
+        title: '请稍等1秒钟再试',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    //限制连续点击
+    if (buttonClicked && !loaded) return;
     buttonClicked = true;
 
-  
-    let userText = self.data.userText;//当前输入的账户
-    let pwdText = self.data.pwdText;//当前输入的密码
+
+    let userText = self.data.userText; //当前输入的账户
+    let pwdText = self.data.pwdText; //当前输入的密码
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
 
     let info = "";
-    
-    if (!userText  && !pwdText){
+
+    if (!userText && !pwdText) {
       info = "用户名和密码不能为空"
-    } else if (!userText){
+    } else if (!userText) {
       info = "用户名不能为空";
-    } else if (!pwdText){
+    } else if (!pwdText) {
       info = "密码不能为空"
     }
 
-    if(info != ""){//如果输入不规范
+    if (info != "") { //如果输入不规范
       wx.showToast({
-        icon:"none",
+        icon: "none",
         title: info,
-        duration:3000
+        duration: 3000
       })
-    }else{
-      let md5Pwd = MD5.md5(pwdText).toLowerCase();//小写md5加密密码
+    } else {
+      let md5Pwd = MD5.md5(pwdText).toLowerCase(); //小写md5加密密码
 
-      app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd,true,false,"登录中").then(res=>{
+      app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd, true, false, "登录中").then(res => {
         let user = res.data.data[0];
-        let rememberPwd = self.data.rememberPwd;//是否记住密码
-        if (rememberPwd){//如果选择了记住密码就存储本地缓存
+        let rememberPwd = self.data.rememberPwd; //是否记住密码
+        if (rememberPwd) { //如果选择了记住密码就存储本地缓存
           let loginUser = {
             'userText': userText,
-            'pwdText':pwdText
+            'pwdText': pwdText
           }
           wx.setStorage({
             key: 'loginUser',
             data: loginUser
           })
-        }else{//如果没有选择记住密码就清除本地缓存
+        } else { //如果没有选择记住密码就清除本地缓存
           wx.removeStorage({
             key: 'loginUser'
           })
         }
         self.processSelectScholl(user, ifGoPage);
- 
+
       })
     }
   },
 
   /**
-    * 微信授权登录
-    */
-  wxLogin: function (e) {
+   * 微信授权登录
+   */
+  wxLogin: function(e) {
     let self = this;
+    let loaded = self.data.loaded;
+
+    if (!loaded) {
+      wx.showToast({
+        title: '请稍等1秒钟再试',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     //限制连续点击
-    let hasCode = self.data.hasCode;
-    //限制连续点击
-    if (buttonClicked && !hasCode) return;
+    if (buttonClicked && !loaded) return;
     buttonClicked = true;
 
-    let wxid = ""; //openId
-    let session_key = ""; //
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
     let url = self.data.url; //需要导航的url
-
-    let encryptedData = e.detail.encryptedData;
-    let iv = e.detail.iv;
-    let signature = e.detail.signature; //签名
-    let nickname = e.detail.userInfo.nickName; //昵称
-    let headurl = e.detail.userInfo.avatarUrl; //头像
-    let sex = e.detail.userInfo.gender //性别
-    let code = self.data.code;
-
-    //得到openId和session_key
-
-    let sesstion_key = self.data.sesstion_key;
+    let unionid = self.data.unionid;
     let openid = self.data.openid;
+    let nickname = self.data.nickname;
+    let headurl = self.data.headurl;
+    let sex = self.data.sex;
 
-    //拿到session_key实例化WXBizDataCrypt（）这个函数在下面解密用
-    let pc = new WXBizDataCrypt(appId, sesstion_key);
-    let data = pc.decryptData(encryptedData, iv);
-    let unionId = data.unionId;
-
-    app.post(API_URL, "action=LoginWx&unionId=" + unionId + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, true, false, "登录中").then((res) => {
+    app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, true, false, "登录中").then((res) => {
       let user = res.data.list[0];
       self.processSelectScholl(user, ifGoPage);
     })
   },
 
   /**
- * 根据是否选择学校来处理登录逻辑
- */
-  processSelectScholl: function (user, ifGoPage) {
+   * 根据是否选择学校来处理登录逻辑
+   */
+  processSelectScholl: function(user, ifGoPage) {
     let self = this;
-    let x_id = user.x_id;//是否绑定学校
+    let x_id = user.x_id; //是否绑定学校
 
-    if (x_id == 0) {//如果没有绑定学校
-      self.setData({//将user设为本页面的变量，后续跳转到绑定学校页面需要用到
+    if (x_id == 0) { //如果没有绑定学校
+      self.setData({ //将user设为本页面的变量，后续跳转到绑定学校页面需要用到
         user: user
       })
 
@@ -187,12 +211,12 @@ Page({
         content: '请绑定您所在学校',
         showCancel: false,
         success(res) {
-          wx.navigateTo({//导航到选择学校页面
+          wx.navigateTo({ //导航到选择学校页面
             url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
           })
         }
       })
-    } else {//如果选择学校
+    } else { //如果选择学校
       wx.setStorageSync('user', user)
       wx.navigateBack({}) //先回到登录前的页面
 
@@ -207,7 +231,7 @@ Page({
   /**
    * 输入账号时存储变量
    */
-  userInput:function(e){
+  userInput: function(e) {
     this.setData({
       userText: e.detail.value
     })
@@ -216,7 +240,7 @@ Page({
   /**
    * 输入密码时存储变量
    */
-  pwdInput:function(e){
+  pwdInput: function(e) {
     this.setData({
       pwdText: e.detail.value
     })
@@ -225,27 +249,27 @@ Page({
   /**
    * 点击清除按钮
    */
-  clearText:function(){
+  clearText: function() {
     this.setData({
-      userText:""
+      userText: ""
     })
   },
 
   /**
    * 点击眼睛符号，改变是否显示密码
    */
-  changeShowPwd:function(){
+  changeShowPwd: function() {
     this.setData({
-      showPwd:!this.data.showPwd
+      showPwd: !this.data.showPwd
     })
   },
 
   /**
    * 改变记录密码方式
    */
-  changeRememberPwd:function(){
+  changeRememberPwd: function() {
     this.setData({
-      rememberPwd:!this.data.rememberPwd
-    })  
+      rememberPwd: !this.data.rememberPwd
+    })
   }
 })

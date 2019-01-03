@@ -1,11 +1,12 @@
 // pages/mine/mine.js
+let buttonClicked = false;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    first:true
   },
 
   /**
@@ -26,6 +27,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '我的',
+    })
+    
+    let self = this;
+    buttonClicked = false;
+
+    // 个人信息
+    let user = wx.getStorageSync('user');
+    let headPic = user.Pic;
+    let nickname = user.Nickname;
+
+
+    self.setData({
+      headPic: headPic,
+      nickname: nickname
+    })
 
   },
 
@@ -44,23 +62,35 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 导航到VIP页面
    */
-  onPullDownRefresh: function () {
-
+  GOVip:function(){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/mine/vip/vip',
+    })
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 退出登录
    */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  loginout:function(){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.showModal({
+      title: '提示',
+      content: '确认退出登录吗?',
+      confirmColor:'#0096fa',
+      confirmText:'退出',
+      success:function(res){
+        if (res.confirm){
+          wx.removeStorageSync('user');
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        }
+      }
+    })
   }
 })

@@ -455,6 +455,14 @@ Page({
     let loadingMore = self.data.loadingMore;
     if (loadingMore) return; //如果还在载入中,就不继续执行
     let suggestPageall = self.data.suggestPageall;
+
+    //用户信息
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    let typesid = self.data.kelist.typesid;
+    
     let suggestPage = self.data.suggestPage;
     let suggests = self.data.suggests;
     let options = self.data.options;
