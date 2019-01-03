@@ -1,8 +1,71 @@
 /* pages/huodong/huodong.wxss */
+page{
+  background: #f0f3fa;
+}
+/* banner */
+.swiper{
+  width:750rpx;
+  height:375rpx;
+}
 
-page {
-  background-color: #000;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+.slide-image{
+  width:750rpx;
+  height:375rpx;
+}
+
+/* 四个按钮 */
+.bars{
+  display: flex;
+  justify-content: space-around;
+  margin-top:40rpx;
+}
+
+.bars-huodong,.bars-btn{
+  width:150rpx;
+  height:60rpx;
+  font-size:25rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}
+
+.bars-huodong{
+  background: #fe555c;
+  color:white;
+}
+
+.bars-btn{
+  background: white;
+  color:rgb(121, 121, 121);
+  border:1rpx solid rgb(236, 236, 236);
+}
+
+/* 热门活动 */
+.huodong{
+  width:89.5%;
+  background: white;
+  margin:30rpx auto;
+  border-radius: 15rpx;
+  padding:30rpx 20rpx 30rpx 20rpx;
+}
+
+.title{
+  display: flex;
+  height:40rpx;
+  line-height: 40rpx;
+
+}
+
+.title-icon{
+  width:40rpx;
+  height:40rpx;
+}
+
+.title-text{
+  font-size:28rpx;
+  margin-left:20rpx;
+}
+
+.huodong-detail-img{
+  
 }
