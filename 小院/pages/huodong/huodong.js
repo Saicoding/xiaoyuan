@@ -108,5 +108,32 @@ Page({
     wx.navigateTo({
       url: '/pages/huodong/shetuan/shetuan',
     })
+  },
+
+  /**
+ * 导航到优惠页面
+ */
+  GOyouhui: function () {
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/huodong/youhui/youhui',
+    })
+  },
+
+  /**
+   * 导航到详情页
+   */
+  GOhuodongDetail:function(){
+    wx.navigateTo({
+      url: '/pages/huodong/huodongDetail/huodongDetail',
+    })
+  },
+
+  /**
+   * 导航到社团或者优惠界面
+   */
+  GOshetuanOryouhui:function(){
+
   }
 })

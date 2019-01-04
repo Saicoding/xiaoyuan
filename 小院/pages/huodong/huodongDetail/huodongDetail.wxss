@@ -1,0 +1,362 @@
+/* pages/huodong/huodongDetail/huodongDetail.wxss */
+.myscroll{
+  
+}
+.top{
+  width:100%;
+  height:405rpx;
+}
+
+.title{
+  width:710rpx;
+  margin:0 auto;
+  font-size:28rpx;
+  line-height: 40rpx;
+  margin-top:10rpx;
+}
+
+.info{
+  width:710rpx;
+  margin:0 auto;
+  font-size:25rpx;
+  color:rgb(0, 162, 255);
+  height:60rpx;
+  line-height: 60rpx;
+}
+
+.type{
+  display: flex;
+}
+
+.type-left{
+  color:rgb(172, 172, 172);
+  font-size:22rpx;
+  border:1rpx solid rgb(221, 220, 220);
+  width:70rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  margin-left:20rpx;
+  margin-top:20rpx;
+  border-radius: 5rpx;
+}
+
+.type-right{
+  color:red;
+  font-size:35rpx;
+  width:630rpx;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* 中间部分 */
+.mid{
+  border-top:1rpx solid rgb(228, 228, 228);
+  margin-top:30rpx;
+}
+
+.mid-line1{
+  display: flex;
+  margin-top:40rpx;
+}
+
+.mid-line1-icon{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 100rpx;
+  margin-left:20rpx;
+}
+
+.mid-line1-midblock{
+  width:500rpx;
+  margin-left:20rpx;
+}
+
+.mid-line1-midblock-text1,.mid-line1-midblock-text2{
+  height:50rpx;
+}
+
+.mid-line1-midblock-text1{
+  line-height: 55rpx;
+  font-size:28rpx;
+  color:black;
+}
+
+.mid-line1-midblock-text2{
+  line-height: 45rpx;
+  font-size:23rpx;
+  color:rgb(196, 196, 196);
+}
+
+.mid-line1-righticon{
+  width:70rpx;
+  height:70rpx;
+  margin-top:10rpx;
+}
+
+.mid-status{
+  display: flex;
+  margin-top:35rpx;
+}
+
+.mid-status-line{
+  width:200rpx;
+  height:4rpx;
+  margin-top:8rpx;
+}
+
+.mid-status-circle{
+  width:21rpx;
+  height:21rpx;
+  border-radius: 21rpx;
+}
+
+.mid-status-text{
+  margin: 0 auto;
+  display: flex;
+  margin-top:20rpx;
+  justify-content: space-around;
+  width:87%;
+  margin-bottom: 30rpx;
+}
+
+.mid-status-text-info{
+  font-size:25rpx;
+}
+
+.mid-info{
+  display: flex;
+  border-top:1rpx solid rgb(228, 228, 228);
+}
+
+.mid-info-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-top:25rpx;
+  margin-bottom:25rpx;
+  margin-left:20rpx;
+}
+
+.mid-info-text{
+  font-size:25rpx;
+  margin-left:20rpx;
+  margin-top:25rpx;
+  line-height: 40rpx;
+  margin-bottom:25rpx;
+}
+
+/* 报名的人*/
+.record{
+  height:120rpx;
+  width:100%;
+  border-top:20rpx solid #f0f3fa;
+  border-bottom:20rpx solid #f0f3fa;
+}
+
+.record-num,.record-pic{
+  display: float;
+}
+
+.record-num{
+  float:left;
+  height:60rpx;
+  border-radius: 0rpx 50rpx 50rpx 0rpx;
+  background: #0096fa;
+  font-size:22rpx;
+  margin-top:30rpx;
+  color:white;
+  padding-right:20rpx;
+  padding-left:10rpx;
+  line-height: 60rpx;
+}
+
+.record-pic{
+  float:right;
+  width:70rpx;
+  height:70rpx;
+  border-radius: 70rpx;
+  margin-top:25rpx;
+  margin-right:10rpx;
+}
+
+/* 活动详情和动态 */
+.detailbar{
+  clear:both;
+  display: flex;
+  justify-content: space-around;
+  width:640rpx;
+  margin:0 auto;
+}
+
+.detailbar-item{
+  width:320rpx;
+  margin-top:20rpx;
+}
+
+.detailbar-item-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-left:140rpx;
+}
+
+.detailbar-item-title{
+  width:320rpx;
+  text-align: center;
+  font-size:25rpx;
+}
+
+.detailbar-line{
+  position:relative;
+  width:200rpx;
+  height:6rpx;
+  background: #0096fa;
+  top:25rpx;
+  left:115rpx;
+}
+
+.detail-line{
+  position: relative;
+  width:100%;
+  border-top:1rpx solid rgb(240, 240, 240);
+  top:30rpx;
+}
+/* 详情内容 */
+.detail-content{
+
+}
+
+/* 动态信息 */
+.dongtai{
+  width:710rpx;
+  margin:0 auto;
+  margin-top:50rpx;
+  border-bottom: 1rpx solid rgba(214, 214, 214,0.7);
+}
+
+.dongtai-info{
+  display: flex;
+}
+
+.dongtai-info-pic{
+  width:80rpx;
+  height:80rpx;
+  border-radius: 80rpx;
+}
+
+.dongtai-info-mid,.dongtai-info-mid-nickname,.dongtai-info-mid-time{
+  width:490rpx;
+  line-height: 40rpx;
+}
+
+.dongtai-info-mid{
+  margin-left:25rpx;
+}
+
+.dongtai-info-mid-nickname{
+  height:40rpx;
+  color:rgb(0, 68, 255);
+  font-size:25rpx;
+}
+
+.dongtai-info-mid-time{
+  color:rgb(161, 161, 161);
+  font-size:22rpx;
+  height:40rpx;
+  letter-spacing: 1rpx;
+}
+
+.dongtai-info-guanzhu{
+  height:80rpx;
+  line-height: 80rpx;
+  color:rgb(14, 173, 0);
+  font-size:25rpx;
+  text-align: right;
+  width:80rpx;
+}
+
+.dongtai-content-text{
+  width:100%;
+  font-size:25rpx;
+  line-height: 40rpx;
+  margin-top:15rpx;
+  margin-bottom:15rpx;
+}
+
+.dongtai-content-img{
+  display: float;
+  float:left;
+  width:231rpx;
+  height:130rpx;
+  margin-bottom:10rpx;
+}
+
+.dongtai-picnum{
+  clear: both;
+  position: relative;
+  letter-spacing: 1rpx;
+  line-height: 35rpx;
+  text-align: center;
+  font-size:20rpx;
+  width:90rpx;
+  padding-left:8rpx;
+  padding-right:8rpx;
+  height:35rpx;
+  background-color: rgba(15, 15, 15,0.7);
+  color:white;
+  border-radius: 8rpx;
+  left:600rpx;
+  top:-50rpx;
+}
+
+.dongtai-like{
+  display: flex;
+}
+
+.dongtai-like-icon{
+  width:30rpx;
+  height:30rpx;
+}
+
+.dongtai-like-num{
+  height:30rpx;
+  line-height: 30rpx;
+  font-size:25rpx;
+  color:#d81e06;
+  margin-left:10rpx;
+  margin-bottom:30rpx;
+}
+
+/* 底部 */
+
+.bottom{
+  width:100%;
+  display: flex;
+  position: fixed;
+  height:80rpx;
+  line-height: 80rpx;
+  bottom:0rpx;
+}
+
+.bottom-left{
+  width:30%;
+  text-align: center;
+  font-size:35rpx;
+  color:rgb(255, 0, 0);
+  background: white;
+}
+
+.bottom-right,.bottom-dongtai{
+  background: #fe8800;
+  font-size:28rpx;
+  color:white;
+  text-align: center;
+    letter-spacing: 1rpx;
+}
+
+.bottom-right{
+  width:70%;
+}
+
+.bottom-dongtai{
+  width:100%;
+}

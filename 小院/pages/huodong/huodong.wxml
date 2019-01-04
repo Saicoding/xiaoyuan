@@ -13,7 +13,7 @@
   <view class="bars">
     <view class="bars-huodong">最新活动</view>
     <view class="bars-btn" bindtap='GOshetuan' hover-class='select1' hover-stay-time='500'>校园·社团</view>
-    <view class="bars-btn">特权·优惠</view>
+    <view class="bars-btn" bindtap='GOyouhui' hover-class='select1' hover-stay-time='500'>特权·优惠</view>
     <view class="bars-btn">组队·砍价</view>
   </view>
 
@@ -26,17 +26,17 @@
 
     <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
       <view class="huodong-detail">
-        <image class="huodong-detail-img" src="{{huodong.src}}"></image>
-        <view class="huodong-detail-down">
+        <image class="huodong-detail-img" src="{{huodong.src}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
+        <view class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-detail-down-title">{{huodong.title}}
             <span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span>
           </view>
           <view class="huodong-detail-down-info">{{huodong.info}}</view>
         </view>
 
-        <view class="huodong-tequan">#特权·优惠#</view>
+        <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>#特权·优惠#</view>
 
-        <view class="huodong-bottom">
+        <view class="huodong-bottom" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-bottom-left">
             <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.headPics}}" wx:for-item="headPic" wx:key="p">
             </image>

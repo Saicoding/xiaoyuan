@@ -34,10 +34,20 @@ function longer(myAnimation, min, max) {
   return myAnimation.export();
 }
 
+/**
+ * 移动动画
+ */
+function moveX(myAnimation, x) {
+  myAnimation.translateX(x).step({
+    duration: 500,
+  });
+  return myAnimation.export();
+}
+
 module.exports = {
   easeOutAnimation: easeOutAnimation,
   easeInAnimation: easeInAnimation,
   shorter: shorter,
-  longer: longer
-
+  longer: longer,
+  moveX: moveX
 }

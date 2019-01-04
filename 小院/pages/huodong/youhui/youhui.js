@@ -11,10 +11,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let user = wx.getStorageSync('user');
     let pic = user.Pic;
-    let huodongs = [{
+    let huodongs = [
+      {
         'src': '/imgs/banner1.png',
         'title': '中仕学社JAVA软件工程师课程邀请您参加线下培训班',
         'status': '报名中',
@@ -78,21 +79,53 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     wx.setNavigationBarTitle({
-      title: '校园·社团',
+      title: '特权·优惠',
     })
   },
 
   /**
-   * 导航到详情页
+   * 生命周期函数--监听页面隐藏
    */
-  GOhuodongDetail: function() {
-    wx.navigateTo({
-      url: '/pages/huodong/huodongDetail/huodongDetail',
-    })
+  onHide: function () {
+
   },
 
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
 })
