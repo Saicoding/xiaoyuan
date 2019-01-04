@@ -14,7 +14,8 @@
     "pages/index/keDetail/keDetail",
     "pages/mine/vip/vip",
     "pages/mine/set/set",
-    "pages/mine/fankui/fankui"
+    "pages/mine/fankui/fankui",
+    "pages/huodong/shetuan/shetuan"
   ],
   "window": {
     "backgroundTextStyle": "dark",

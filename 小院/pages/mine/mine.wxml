@@ -1,5 +1,6 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
+    <view class ="top-black"></view>
   <!-- 上面部分 -->
   <view class="top">
     <!-- 第一行 -->

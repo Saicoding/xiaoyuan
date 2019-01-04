@@ -10,40 +10,40 @@
   </swiper>
 
   <!-- banner下的4个按钮 -->
-  <view class ="bars">
-    <view class ="bars-huodong">最新活动</view>
-    <view class ="bars-btn">校园·社团</view>
-    <view class ="bars-btn">特权·优惠</view>
-    <view class ="bars-btn">组队·砍价</view>
+  <view class="bars">
+    <view class="bars-huodong">最新活动</view>
+    <view class="bars-btn" bindtap='GOshetuan' hover-class='select1' hover-stay-time='500'>校园·社团</view>
+    <view class="bars-btn">特权·优惠</view>
+    <view class="bars-btn">组队·砍价</view>
   </view>
 
   <!-- 热门活动 -->
-  <view class ="huodong">
-    <view class ="title">
-      <image class ="title-icon" src = "/imgs/lines.png"></image>
-      <view class ="title-text">热门活动</view>
+  <view class="huodong">
+    <view class="title">
+      <image class="title-icon" src="/imgs/lines.png"></image>
+      <view class="title-text">热门活动</view>
+    </view>
 
-      <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
-        <view class ="huodong-detail">
-          <image class ="huodong-detail-img" src="{{huodong.src}}" ></image>
-          <view class = "huodong-detail-down">
-            <view class = "huodong-detail-down-title">{{huodong.title}}【{{huodong.status}}】</view>
-            <view class = "huodong-detail-down-info">{{huodong.info}}</view>
+    <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
+      <view class="huodong-detail">
+        <image class="huodong-detail-img" src="{{huodong.src}}"></image>
+        <view class="huodong-detail-down">
+          <view class="huodong-detail-down-title">{{huodong.title}}<span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span></view>
+          <view class="huodong-detail-down-info" >{{huodong.info}}</view>
+        </view>
+
+        <view class="huodong-tequan">#特权·优惠#</view>
+
+        <view class="huodong-bottom">
+          <view class="huodong-bottom-left">
+            <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.headPics}}" wx:for-item="headPic" wx:key="p">
+            </image>
+            <image class="huodong-bottom-left-icon" src="/imgs/sheng.png"></image>
           </view>
-
-          <view class ="huodong-tequan">#特权·优惠#</view>
-
-          <view class ="huodong-bottom">
-            <view class ="huodong-bottom-left">
-              <image class ="huodong-bottom-left-icon" src="{{headPic}}" wx:for= "{{huodong.headPics}}" wx:for-item="headPic" wx:key="p">
-              </image>
-              <image class ="huodong-bottom-left-icon" src="/imgs/sheng.png" ></image>
-            </view>
-            <view class ="huodong-bottom-right">已报名：{{huodong.num}}人</view>
-          </view>
-      
+          <view class="huodong-bottom-right">已报名：{{huodong.num}}人</view>
         </view>
       </view>
     </view>
+
   </view>
 </view>

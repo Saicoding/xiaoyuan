@@ -1,5 +1,5 @@
 // pages/huodong/huodong.js
-
+let buttonClicked = false;
 Page({
 
   /**
@@ -29,7 +29,8 @@ Page({
         'headPics':[
           pic,pic
         ],
-        'num':30
+        'num':30,
+        'over':false
       },
       {
         'src': '/imgs/banner2.png',
@@ -39,7 +40,8 @@ Page({
         'headPics': [
           pic, pic
         ],
-        'num':20
+        'num':20,
+        'over': true
       },
       {
         'src': '/imgs/head.jpg',
@@ -49,7 +51,8 @@ Page({
         'headPics': [
           pic, pic
         ],
-        'num': 30
+        'num': 30,
+        'over': true
       },
       {
         'src': '/imgs/card.jpg',
@@ -59,7 +62,8 @@ Page({
         'headPics': [
           pic, pic
         ],
-        'num': 50
+        'num': 50,
+        'over': false
       }
     ]
 
@@ -80,18 +84,13 @@ Page({
    */
   onShow: function () {
     let user = wx.getStorageSync('user');
-
+    buttonClicked = false;
     wx.setNavigationBarTitle({ //设置标题
       title: user.colleage
     })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
-  },
 
   /**
    * 生命周期函数--监听页面卸载
@@ -101,23 +100,13 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 导航到社团页面
    */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  GOshetuan:function(){
+    if (buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/huodong/shetuan/shetuan',
+    })
   }
 })
