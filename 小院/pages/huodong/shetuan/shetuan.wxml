@@ -1,2 +1,48 @@
 <!--pages/huodong/shetuan/shetuan.wxml-->
-<text>pages/huodong/shetuan/shetuan.wxml</text>
+<!-- 活动 -->
+<view class="huodong">
+
+  <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
+    <view class="huodong-detail">
+      <!-- 活动banner -->
+      <image class="huodong-detail-img" src="{{huodong.src}}"></image>
+      <!-- 活动标题 -->
+      <view class="huodong-detail-down">
+        <view class="huodong-detail-down-title">{{huodong.title}}
+          <span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span>
+        </view>
+        <view class="huodong-detail-down-info">¥{{huodong.info}}</view>
+      </view>
+      <!-- 特权优惠等 -->
+      <view class="huodong-tequan">#{{huodong.tequan}}#</view>
+
+      <!-- 活动的下面的报名头像，报名人数 -->
+      <view class="huodong-bottom">
+        <view class="huodong-bottom-left">
+          <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.headPics}}" wx:for-item="headPic" wx:key="p">
+          </image>
+          <image class="huodong-bottom-left-icon" src="/imgs/sheng.png"></image>
+        </view>
+        <view class="huodong-bottom-right">已报名：{{huodong.num}}人</view>
+      </view>
+
+      <!-- 集合时间，集合地点 -->
+      <view class="huodong-down">
+        <!-- 左边 -->
+        <view class="huodong-down-left">
+          <view class="huodong-down-text">
+            <image class="huodong-down-text-icon" src="/imgs/clock2.png"></image>
+            <view class="huodong-down-text-info">{{huodong.time}}</view>
+          </view>
+          <view class="huodong-down-text">
+            <image class="huodong-down-text-icon" src="/imgs/jihe.png"></image>
+            <view class="huodong-down-text-info">{{huodong.position}}</view>
+          </view>
+        </view>
+        <!-- 右边 -->
+        <view class ="huodong-down-right">{{huodong.status}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -28,8 +28,10 @@
       <view class="huodong-detail">
         <image class="huodong-detail-img" src="{{huodong.src}}"></image>
         <view class="huodong-detail-down">
-          <view class="huodong-detail-down-title">{{huodong.title}}<span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span></view>
-          <view class="huodong-detail-down-info" >{{huodong.info}}</view>
+          <view class="huodong-detail-down-title">{{huodong.title}}
+            <span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span>
+          </view>
+          <view class="huodong-detail-down-info">{{huodong.info}}</view>
         </view>
 
         <view class="huodong-tequan">#特权·优惠#</view>
@@ -44,6 +46,5 @@
         </view>
       </view>
     </view>
-
   </view>
 </view>
