@@ -296,5 +296,12 @@ Page({
     this.setData({
       rememberPwd: !this.data.rememberPwd
     })
+  },
+
+  /**
+   * 返回上一页面
+   */
+  back:function(){
+    wx.navigateBack({})
   }
 })

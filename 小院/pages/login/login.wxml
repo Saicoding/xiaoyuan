@@ -1,5 +1,9 @@
 <!--pages/login/login.wxml-->
 <view class="container">
+  <view class="top-black"></view>
+  <view class="back-container" bindtap='back'>
+    <image class="back" src="/imgs/back.png"></image>
+  </view>
   <!-- 头部信息 -->
   <image class="head" src="/imgs/head.jpg" mode="aspectfit"></image>
 
@@ -7,7 +11,7 @@
   <view class="input-block" style="margin-top:30rpx;">
     <view data-type="user" bindtap="setFocus">
       <image class="icon-img" src="/imgs/user.png" mode="aspectfit"></image>
-      <input focus="{{userFocus}}" bindinput='userInput'    cursor-spacing="10" value="{{userText}}" class="myinput" placeholder='请输入账号'></input>
+      <input focus="{{userFocus}}" bindinput='userInput' cursor-spacing="10" value="{{userText}}" class="myinput" placeholder='请输入账号'></input>
       <image bindtap="clearText" class="icon-img" style="float:right;" src="/imgs/clear.png" mode="aspectfit"></image>
     </view>
   </view>
@@ -15,7 +19,7 @@
   <view class="input-block">
     <view data-type="pwd" bindtap="setFocus">
       <image class="icon-img" src="/imgs/pwd.png" mode="aspectfit"></image>
-      <input focus="{{pwdFocus}}"    bindinput='pwdInput' value="{{pwdText}}" cursor-spacing="10" password="{{showPwd}}" class="myinput" placeholder='请输入密码'></input>
+      <input focus="{{pwdFocus}}" bindinput='pwdInput' value="{{pwdText}}" cursor-spacing="10" password="{{showPwd}}" class="myinput" placeholder='请输入密码'></input>
       <image bindtap='changeShowPwd' class="icon-img" style="float:right;" src="{{showPwd?'/imgs/see.png':'/imgs/nosee.png'}}" mode="aspectfit"></image>
     </view>
   </view>
@@ -30,10 +34,10 @@
   </view>
 
   <!-- 登录方式按钮，账户登录和微信授权登录 -->
-  <view hover-class='select1' hover-stay-time = "1000" bindtap="login" class="login1">登 录</view>
-  <button hover-class='select2'  hover-stay-time = "1000" open-type="getUserInfo" bindgetuserinfo = "wxLogin" class="login2" >
+  <view hover-class='select1' hover-stay-time="1000" bindtap="login" class="login1">登 录</view>
+  <button hover-class='select2' hover-stay-time="1000" open-type="getUserInfo" bindgetuserinfo="wxLogin" class="login2">
     <image class="login-icon" src="/imgs/wx-login.png" mode="aspectfit"></image>
-    <view  class="login-text" style="margin-left:20rpx;">微信授权登录</view>
+    <view class="login-text" style="margin-left:20rpx;">微信授权登录</view>
   </button>
   <view class="login-bottom">还没有账号?
     <span style="color:#159ed5">立即注册</span>

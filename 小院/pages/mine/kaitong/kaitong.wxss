@@ -1,7 +1,7 @@
 /* pages/mine/kaitong/kaitong.wxss */
 
 page {
-  background: #f0f3fa;
+  background: linear-gradient(to right,#f0f1f3,#f0f3fa)
 }
 
 .container {
