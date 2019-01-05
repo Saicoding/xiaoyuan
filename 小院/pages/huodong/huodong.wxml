@@ -11,12 +11,12 @@
 
   <!-- banner下的4个按钮 -->
 
-  <swiper class="bars" display-multiple-items="{{types.length+1>=4?4:types.length+1}}" circular duration="100">
+  <swiper class="bars" display-multiple-items="{{types.length+1>=4?4:types.length+1}}" style="width:{{types.length==3?740:830}}rpx;" circular duration="100">
     <swiper-item>
-      <view class="bars-huodong">最新活动</view>
+      <view  class="bars-huodong"  bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
     </swiper-item>
     <swiper-item wx:for="{{types}}" wx:for-item="type" wx:key="t">
-      <view data-typesid="{{type.id}}" class="bars-btn" bindtap='GOshetuan' hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
+      <view data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};" hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
     </swiper-item>
   </swiper>
 
@@ -24,28 +24,28 @@
   <view class="huodong">
     <view class="title">
       <image class="title-icon" src="/imgs/lines.png"></image>
-      <view class="title-text">热门活动</view>
+      <view class="title-text">{{index==-1?'最新活动':types[index].name}}</view>
     </view>
 
     <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
       <view class="huodong-detail">
-        <image class="huodong-detail-img" src="{{huodong.src}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
+        <image class="huodong-detail-img" src="{{huodong.banner}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
         <view class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-detail-down-title">{{huodong.title}}
-            <span style="color:{{huodong.over?'red':'green'}}">【{{huodong.status}}】</span>
+           <span style = "color:{{huodong.zhuangtai!=3?'green':'red'}};">【{{huodong.zhuangtaiStr}}】</span>
           </view>
-          <view class="huodong-detail-down-info">{{huodong.info}}</view>
+          <view class="huodong-detail-down-info">{{huodong.money=="0"?'免费':'¥ huodong.money'}}</view>
         </view>
 
-        <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>#特权·优惠#</view>
+        <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>{{huodong.typesname}}</view>
 
         <view class="huodong-bottom" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-bottom-left">
-            <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.headPics}}" wx:for-item="headPic" wx:key="p">
+            <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
             </image>
             <image class="huodong-bottom-left-icon" src="/imgs/sheng.png"></image>
           </view>
-          <view class="huodong-bottom-right">已报名：{{huodong.num}}人</view>
+          <view class="huodong-bottom-right">已报名：{{huodong.num_baoming}}人</view>
         </view>
       </view>
     </view>
