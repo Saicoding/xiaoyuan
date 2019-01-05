@@ -91,11 +91,11 @@
 }
 
 .login1{
-  background:#0096fa;
+  background:linear-gradient(to right,#3fb2ff,#0096fa);
 }
 
 .login2{
-  background:#00b12d;
+  background:linear-gradient(to right,#4ed36f,#00b12d);
 }
 
 .login-icon,.login-text{

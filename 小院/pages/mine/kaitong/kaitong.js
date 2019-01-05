@@ -158,11 +158,19 @@ Page({
     if (type == "yue") {
       console.log("action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index)
       app.post(API_URL, "action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index, false, false, "", "", "", self).then(res => {
-        let vip_jtime = res.data.data[0].vip_jtime
+
+        let vip_jtime = res.data.data[0].vip_jtime;
+        let vip_ktime = res.data.data[0].vip_ktime;
 
         wx.showModal({
           title: '提示',
-          content: '恭喜您,充值成功,VIP到期时间' + vip_jtime,
+          content: '恭喜您,充值成功,VIP到期时间：' + vip_jtime
+        })
+
+        self.setData({//更新截止时间
+          Vip:'1',
+          Jtime: vip_jtime,
+          Ktime: vip_ktime,
         })
       })
     }

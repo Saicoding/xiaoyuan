@@ -16,7 +16,11 @@
         <view class="top-line1-text">粉丝</view>
       </view>
     </view>
-    <view class="top-line1-nickname">{{userInfo.Nickname}}</view>
+    <view class="top-line1-nickname">
+      <view class ="top-line1-nickname-text">{{userInfo.Nicename}}</view>
+      <image  class ="top-line1-nickname-icon" src="/imgs/vip.png"></image>
+    </view>
+    
 
     <!-- 第二行 -->
     <view class="top-line2">
