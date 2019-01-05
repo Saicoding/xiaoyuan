@@ -1,4 +1,6 @@
 // pages/mine/mine.js
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
 let buttonClicked = false;
 Page({
 
@@ -36,15 +38,16 @@ Page({
 
     // 个人信息
     let user = wx.getStorageSync('user');
-    let headPic = user.Pic;
-    let nickname = user.Nickname;
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
 
-
-    self.setData({
-      headPic: headPic,
-      nickname: nickname
+    app.post(API_URL, "action=getUserInfo&loginrandom=" + loginrandom+"&zcode="+zcode,false,false,"","","",self).then(res=>{
+      let userInfo = res.data.data[0];
+      console.log(userInfo)
+      self.setData({
+        userInfo: userInfo
+      })
     })
-
   },
 
   /**

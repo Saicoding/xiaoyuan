@@ -38,6 +38,24 @@ page {
   float: left;
 }
 
+/* 时间到期情况 */
+.time{
+  display: flex;
+  width:100%;
+  margin-top:20rpx;
+  background: white;
+  height:60rpx;
+  line-height: 60rpx;
+  justify-content: space-around;
+}
+
+.time-line{
+  font-size:25rpx;
+  width:345rpx;
+  color:#c4ad27;
+  padding-left:30rpx;
+}
+
 /* 下面部分 */
 
 .mid {

@@ -12,6 +12,10 @@
     </view>
 
   </view>
+  <view wx:if="{{Vip==1}}" class="time">
+    <view class ="time-line">首次开通时间：{{Ktime}}</view>
+    <view class ="time-line">会员到期时间：{{Jtime}}</view>
+  </view>
   <view class="mid">
     <view class="mid-title">
       <view class="mid-title-left">

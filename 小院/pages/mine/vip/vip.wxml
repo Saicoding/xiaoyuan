@@ -1,14 +1,19 @@
 <!--pages/mine/vip/vip.wxml-->
-<view class = "container">
-  <view class ="up">
-    <view class ="up-line1">小院VIP会员</view>
-    <view class ="up-line2">
-      <image class ="up-line2-headPic" src ="{{headPic}}" mode ="aspectFit"></image>
-      <view class ="up-line2-right">
-        <view class ="up-line2-right-text">未开通</view>
-        <view class ="up-line2-right-text" style="margin-top:20rpx;">未开通</view>
+<view class="container">
+  <view class="up">
+    <view class="up-line1">小院VIP会员</view>
+    <view class="up-line2">
+      <image class="up-line2-headPic" src="{{headPic}}" mode="aspectFit"></image>
+      <view wx:if="{{userInfo.Vip!='1'}}" class="up-line2-right">
+        <view class="up-line2-right-text">未开通</view>
+        <view class="up-line2-right-text" style="margin-top:20rpx;">未开通</view>
+      </view>
+      <view wx:if="{{userInfo.Vip=='1'}}" class="up-line2-right" style="margin-top:-8rpx;">
+        <view class="up-line2-right-text" style="font-size:25rpx;color:#d4c5a6;">{{userInfo.Nicename}}</view>
+        <view class="up-line2-right-text" style="margin-top:10rpx;font-size:20rpx;">首次开通时间：{{userInfo.Ktime}}</view>
+        <view class="up-line2-right-text" style="margin-top:10rpx;font-size:20rpx;">会员到期时间：{{userInfo.Jtime}}</view>
       </view>
     </view>
   </view>
-  <view class ="VIP-btn" hover-class='select1' hover-stay-time='500' bindtap="GOkaitong">开通VIP会员</view>
+  <view class="VIP-btn" hover-class='select1' hover-stay-time='500' bindtap="GOkaitong">{{userInfo.Vip=='1'?'续费':'开通'}}VIP会员</view>
 </view>

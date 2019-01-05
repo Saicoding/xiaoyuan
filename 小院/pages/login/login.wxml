@@ -5,17 +5,17 @@
 
   <!-- 用户账号密码输入框 -->
   <view class="input-block" style="margin-top:30rpx;">
-    <view>
+    <view data-type="user" bindtap="setFocus">
       <image class="icon-img" src="/imgs/user.png" mode="aspectfit"></image>
-      <input bindinput='userInput'  cursor-spacing="10" value="{{userText}}" class="myinput" placeholder='请输入账号'></input>
+      <input focus="{{userFocus}}" bindinput='userInput'    cursor-spacing="10" value="{{userText}}" class="myinput" placeholder='请输入账号'></input>
       <image bindtap="clearText" class="icon-img" style="float:right;" src="/imgs/clear.png" mode="aspectfit"></image>
     </view>
   </view>
 
   <view class="input-block">
-    <view>
+    <view data-type="pwd" bindtap="setFocus">
       <image class="icon-img" src="/imgs/pwd.png" mode="aspectfit"></image>
-      <input bindinput='pwdInput' value="{{pwdText}}" cursor-spacing="10" password="{{showPwd}}" class="myinput" placeholder='请输入密码'></input>
+      <input focus="{{pwdFocus}}"    bindinput='pwdInput' value="{{pwdText}}" cursor-spacing="10" password="{{showPwd}}" class="myinput" placeholder='请输入密码'></input>
       <image bindtap='changeShowPwd' class="icon-img" style="float:right;" src="{{showPwd?'/imgs/see.png':'/imgs/nosee.png'}}" mode="aspectfit"></image>
     </view>
   </view>

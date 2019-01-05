@@ -93,6 +93,13 @@ App({
               title: message,
               duration: 3000
             })
+          } else if (status == -613){
+            console.log('余额不足')
+            wx.showToast({
+              icon: 'none',
+              title: message,
+              duration: 3000
+            })
           }
           wx.hideLoading();
         },

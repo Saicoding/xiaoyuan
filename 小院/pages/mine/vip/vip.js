@@ -1,4 +1,6 @@
 // pages/mine/vip/vip.js
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
 let buttonClicked = false;
 Page({
 
@@ -36,6 +38,17 @@ Page({
    */
   onShow: function () {
     buttonClicked = false;
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    app.post(API_URL,"action=getUserInfo&loginrandom="+loginrandom+"&zcode="+zcode,false,false,"","","",self).then(res=>{
+      let userInfo = res.data.data[0];
+      self.setData({
+        userInfo: userInfo
+      })
+    })
   },
 
   /**
@@ -44,8 +57,11 @@ Page({
   GOkaitong:function(){
     if (buttonClicked) return;
     buttonClicked = true;
+    let vip = this.data.userInfo.Vip;
+    let Ktime = this.data.userInfo.Ktime;
+    let Jtime = this.data.userInfo.Jtime;
     wx.navigateTo({
-      url: '/pages/mine/kaitong/kaitong',
+      url: '/pages/mine/kaitong/kaitong?Vip='+vip+"&Ktime="+Ktime+"&Jtime="+Jtime,
     })
   }
 })

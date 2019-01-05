@@ -92,6 +92,31 @@ Page({
   },
 
   /**
+   * 处理输入完账号后直接点击密码框自动关闭键盘的BUG
+   */
+  setFocus:function(e){
+    let type = e.currentTarget.dataset.type;
+    let self = this;
+    if(type=="user"){
+      setTimeout(function () {
+        self.setData({
+          userFocus: true,
+          pwdFocus:false
+        })
+      }, 100)
+    }else{
+      setTimeout(function () {
+        self.setData({
+          userFocus: false,
+          pwdFocus: true
+        })
+      }, 100)
+    }
+
+
+  },
+
+  /**
    * 账号密码登录
    */
   login: function() {

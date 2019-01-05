@@ -9,33 +9,33 @@
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">关注</view>
       </view>
-      <image class="top-line1-mid" src="{{headPic}}" mode="aspectFit"></image>
+      <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit"></image>
       <!-- <image class ="top-line1-icon" src =""></image> -->
       <view class="top-line1-right">
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">粉丝</view>
       </view>
     </view>
-    <view class="top-line1-nickname">{{nickname}}</view>
+    <view class="top-line1-nickname">{{userInfo.Nickname}}</view>
 
     <!-- 第二行 -->
     <view class="top-line2">
       <view class="top-line2-block">
-        <view class="top-line2-text">588</view>
+        <view class="top-line2-text">{{userInfo.Jifen}}</view>
         <view class="top-line2-text">积分</view>
       </view>
 
       <view class="line"></view>
 
       <view class="top-line2-block">
-        <view class="top-line2-text">0</view>
+        <view class="top-line2-text">{{userInfo.Money}}</view>
         <view class="top-line2-text">学币</view>
       </view>
 
       <view class="line"></view>
 
       <view class="top-line2-block">
-        <view class="top-line2-text">0</view>
+        <view class="top-line2-text">{{userInfo.xueshi}}</view>
         <view class="top-line2-text">学时</view>
       </view>
     </view>

@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/huodong/huodongDetail/huodongDetail",
     "pages/index/index",
     "pages/login/login",
     "pages/selectSchool/selectSchool",
@@ -18,7 +17,8 @@
     "pages/mine/fankui/fankui",
     "pages/huodong/shetuan/shetuan",
     "pages/huodong/youhui/youhui",
-          "pages/huodong/addDongtai/addDongtai"
+    "pages/huodong/addDongtai/addDongtai",
+    "pages/huodong/huodongDetail/huodongDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",
