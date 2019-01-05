@@ -5,19 +5,19 @@ page{
 /* banner */
 .swiper{
   width:750rpx;
-  height:375rpx;
+  height:440rpx;
 }
 
 .slide-image{
   width:750rpx;
-  height:375rpx;
+  height:440rpx;
 }
 
 /* 四个按钮 */
 .bars{
-  display: flex;
-  justify-content: space-around;
-  margin-top:40rpx;
+  width:830rpx;
+  height:120rpx;
+  margin-left:20rpx;
 }
 
 .bars-huodong,.bars-btn{
@@ -27,6 +27,7 @@ page{
   line-height: 60rpx;
   text-align: center;
   border-radius: 10rpx;
+  margin-top:30rpx;
 }
 
 .bars-huodong{
@@ -45,6 +46,7 @@ page{
   width:89.5%;
   background: white;
   margin:30rpx auto;
+  margin-top:0rpx;
   border-radius: 15rpx;
   padding:30rpx 20rpx 30rpx 20rpx;
   box-shadow: #dcedf8 3rpx 3rpx 8rpx 1rpx ;

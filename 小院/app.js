@@ -7,7 +7,7 @@ App({
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
-            lang:"zh_CN",
+            lang: "zh_CN",
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
@@ -58,20 +58,22 @@ App({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function(res) { //服务器返回数据
-        console.log(res)
           let status = res.data.code;
+          if (status != 1) {
+            console.log(res)
+          }
           let message = res.data.Message;
           if (status == 1) { //请求成功
             resolve(res);
           } else if (status == -2) { //
             wx.showToast({
-              icon:'none',
+              icon: 'none',
               title: message,
-              duration:3000
+              duration: 3000
             })
           } else if (status == -201) { //重复登录
             console.log('重复登录')
-            if (self) {//如果传了这个参数
+            if (self) { //如果传了这个参数
               self.setData({
                 isReLoad: true
               })
@@ -79,21 +81,21 @@ App({
             wx.navigateTo({
               url: '/pages/login/login?url=' + pageUrl + '&ifGoPage=' + ifGoPage
             })
-          } else if (status ==  2011){
+          } else if (status == 2011) {
             console.log('没有院校,需要绑定院校');
             wx.showToast({
               icon: 'none',
               title: message,
               duration: 3000
             })
-          } else if (status == -5){
+          } else if (status == -5) {
             console.log('找回密码不存在')
             wx.showToast({
               icon: 'none',
               title: message,
               duration: 3000
             })
-          } else if (status == -613){
+          } else if (status == -613) {
             console.log('余额不足')
             wx.showToast({
               icon: 'none',

@@ -1,4 +1,6 @@
 // pages/huodong/huodong.js
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
 let buttonClicked = false;
 Page({
 
@@ -17,20 +19,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let user = wx.getStorageSync('user');
     let pic = user.Pic;
-    let huodongs = [
-      {
-        'src':'/imgs/banner1.png',
-        'title':'中仕学社JAVA软件工程师课程邀请您参加线下培训班',
-        'status':'报名中',
-        'info':'收费',
-        'headPics':[
-          pic,pic
+    let huodongs = [{
+        'src': '/imgs/banner1.png',
+        'title': '中仕学社JAVA软件工程师课程邀请您参加线下培训班',
+        'status': '报名中',
+        'info': '收费',
+        'headPics': [
+          pic, pic
         ],
-        'num':30,
-        'over':false
+        'num': 30,
+        'over': false
       },
       {
         'src': '/imgs/banner2.png',
@@ -40,7 +41,7 @@ Page({
         'headPics': [
           pic, pic
         ],
-        'num':20,
+        'num': 20,
         'over': true
       },
       {
@@ -75,19 +76,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let user = wx.getStorageSync('user');
-    buttonClicked = false;
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
     wx.setNavigationBarTitle({ //设置标题
       title: user.colleage
     })
+
+    buttonClicked = false;
+
+    let self = this;
+
+    let first = self.data.first;
+    let isReLoad = self.data.isReLoad;
+
+    if (isReLoad || first) {
+      app.post(API_URL, "action=getIndexPic&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+        let banners = res.data.data;
+        console.log(banners)
+        self.setData({
+          banners: banners
+        })
+      })
+
+      // // 获取活动话题分类
+      app.post(API_URL, "action=getActivityTypes&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+        let types = res.data.data;
+        self.setData({
+          types:types,
+        })
+      })
+
+      // 获取活动列表
+      console.log("action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode)
+      app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+        console.log(res)
+        self.setData({
+          first:false
+        })
+      })
+    }
   },
 
 
@@ -95,25 +131,27 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 导航到社团页面
    */
-  GOshetuan:function(){
+  GOshetuan: function(e) {
+    let typesid = e.currentTarget.dataset.typesid;
     if (buttonClicked) return;
     buttonClicked = true;
+    console.log(typesid)
     wx.navigateTo({
-      url: '/pages/huodong/shetuan/shetuan',
+      url: '/pages/huodong/shetuan/shetuan?typesid=' + typesid,
     })
   },
 
   /**
- * 导航到优惠页面
- */
-  GOyouhui: function () {
+   * 导航到优惠页面
+   */
+  GOyouhui: function() {
     if (buttonClicked) return;
     buttonClicked = true;
     wx.navigateTo({
@@ -124,7 +162,7 @@ Page({
   /**
    * 导航到详情页
    */
-  GOhuodongDetail:function(){
+  GOhuodongDetail: function() {
     wx.navigateTo({
       url: '/pages/huodong/huodongDetail/huodongDetail',
     })
@@ -133,7 +171,7 @@ Page({
   /**
    * 导航到社团或者优惠界面
    */
-  GOshetuanOryouhui:function(){
+  GOshetuanOryouhui: function() {
 
   }
 })
