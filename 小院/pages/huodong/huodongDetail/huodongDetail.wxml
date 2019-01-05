@@ -131,5 +131,5 @@
 
 <!-- 活动动态时的底部信息 -->
 <view wx:if="{{barIndex==1}}" class ="bottom">
-  <view class ="bottom-dongtai">我要发布动态</view>
+  <view class ="bottom-dongtai" bindtap="GOaddDongtai" hover-class='select1' hover-stay-time='500'>我要发布动态</view>
 </view>

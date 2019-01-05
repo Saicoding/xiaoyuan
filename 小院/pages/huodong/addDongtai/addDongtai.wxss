@@ -1,0 +1,105 @@
+/* pages/huodong/addDongtai/addDongtai.wxss */
+page{
+  background: #f0f3fa;
+}
+
+/* 上面部分 */
+
+.section{
+  width:710rpx;
+  height:200rpx;
+  padding:20rpx 20rpx 20rpx 20rpx;
+  font-size:25rpx;
+  margin-top:20rpx;
+  background: white;
+}
+
+.clear{
+  position: relative;
+  border:1rpx solid rgb(226, 226, 226);
+  font-size:25rpx;
+  text-align: center;
+  height:40rpx;
+  line-height: 40rpx;
+  letter-spacing: 1rpx;
+  border-radius: 40rpx;
+  width:80rpx;
+  background: white;
+  top:-60rpx;
+  left:650rpx;
+}
+
+/* 下面部分 */
+.addpic{
+  display: flex;
+  width:100%;
+  height:180rpx;
+  background: white;
+}
+
+.addpic-block{
+  width:130rpx;
+  height:130rpx;
+  margin-top:25rpx;
+  border:1rpx solid rgb(216, 216, 216);
+  border-radius: 10rpx;
+  margin-left:25rpx;
+}
+
+.addpic-block-icon{
+  width:50rpx;
+  height:50rpx;
+  margin-left:40rpx;
+  margin-top:20rpx;
+}
+
+.addpic-block-text{
+  width:130rpx;
+  text-align: center;
+  color:rgb(155, 155, 155);
+  font-size:22rpx;
+
+}
+
+.choosepics{
+  width:525rpx;
+  height:155rpx;
+  margin-left:25rpx;
+}
+
+.slide-image{
+  width:231rpx;
+  height:130rpx;
+  border-radius: 10rpx;
+  margin-top:25rpx;
+}
+
+.delete{
+  position: absolute;
+  width:40rpx;
+  height:40rpx;
+  opacity:0.5;
+  z-index: 10000;
+  top:6rpx;
+  left:68rpx;
+}
+
+.submit{
+  width:90%;
+  height:70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  background: linear-gradient(to right,#ffa43d,#fe8800);
+  color:white;
+  font-size:30rpx;
+  margin:40rpx auto;
+}
+
+.select1{
+  background: rgb(224, 224, 224);
+}
+
+.select2{
+   background: linear-gradient(to right,#fdbb6f,#ff9f32);
+}

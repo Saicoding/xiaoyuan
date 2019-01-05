@@ -1,0 +1,24 @@
+<!--pages/huodong/addDongtai/addDongtai.wxml-->
+<view class="section">
+  <textarea value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
+</view>
+<view class="clear" hover-class='select1' hover-stay-time='200' bindtap='clear'>清空</view>
+
+<view class="addpic">
+  <!-- 左侧图片 -->
+  <view class="addpic-block" bindtap='addpic' hover-class='select1' hover-stop-propagation='500'>
+    <image class="addpic-block-icon" src="/imgs/camera.png"></image>
+    <view class="addpic-block-text">添加图片</view>
+  </view>
+  <!-- 右侧预览图片 -->
+  <swiper autoplay interval="2000" class="choosepics" display-multiple-items="{{pics.length<=3?pics.length:3}}">
+    <block wx:for="{{pics}}" wx:for-item="pic" wx:key="p">
+      <swiper-item>
+        <image data-index="{{index}}" class="delete" src="/imgs/delete.png" mode="aspectFit" catchtap="delete"></image>
+        <image data-url="{{pic}}" src="{{pic}}" class="slide-image" mode="aspectFit" catchtap="viewImage" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class="submit" hover-class='select2' hover-stay-time='500'>添加动态</view>
