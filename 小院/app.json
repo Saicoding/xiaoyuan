@@ -15,8 +15,6 @@
     "pages/mine/vip/vip",
     "pages/mine/set/set",
     "pages/mine/fankui/fankui",
-    "pages/huodong/shetuan/shetuan",
-    "pages/huodong/youhui/youhui",
     "pages/huodong/addDongtai/addDongtai",
     "pages/huodong/huodongDetail/huodongDetail"
   ],

@@ -125,7 +125,7 @@ Page({
     }else{//其他分类
       typesid = types[index].id;
       page_all = types[index].page_all;
-      page = types[index].page == undefined ? 1 : types[index].page;
+      page = types[index].page ;
     }
 
     if (page >= page_all) {
@@ -153,7 +153,7 @@ Page({
       self.initHuodongs(newHuodongs);//初始化活动信息
 
       huodongs = huodongs.concat(newHuodongs);
-      
+
       wx.setStorageSync('type' + zcode, huodongs);//本地缓存
       self.setData({
         showLoadingGif: false,
@@ -180,11 +180,7 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function (huodongs) {
-  },
+
 
   /**
    * 导航到社团页面
@@ -225,6 +221,7 @@ Page({
           self.initHuodongs(huodongs);
           types[index].first = true;//设置分类已经有第一次载入
           types[index].page_all = res.data.data[0].page_all;
+          types[index].page = 1;
           wx.setStorageSync('type' + types[index].id + zcode, huodongs);//本地缓存
           self.setData({
             huodongs: huodongs,
@@ -261,5 +258,61 @@ Page({
     wx.navigateTo({
       url: '/pages/huodong/huodongDetail/huodongDetail',
     })
-  }
+  },
+
+  /**
+    * 页面相关事件处理函数--监听用户下拉动作
+    */
+  onPullDownRefresh: function () {
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let types = self.data.types;
+    let index = self.data.index;
+    console.log(index)
+
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+
+    if(index == -1){
+      // 获取活动列表
+      app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+        let page_all = res.data.data[0].page_all;
+        let huodongs = res.data.data[0].list;
+
+        self.initHuodongs(huodongs)
+        wx.setStorageSync('type' + zcode, huodongs);//本地缓存
+        self.setData({
+          first: false,
+          isLoaded: true,
+          zuixinFirst: true,
+          page_all: page_all,
+          page: 1,
+          huodongs: huodongs
+        })
+
+        wx.hideNavigationBarLoading() //完成停止加载
+        wx.stopPullDownRefresh() //停止下拉刷新
+      })
+    }else{
+      //开始请求
+      let typesid = types[index].id;
+      app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&typesid=" + typesid, false, false, "", "", "", self).then(res => {
+        let huodongs = res.data.data[0].list;
+        self.initHuodongs(huodongs);
+        types[index].first = true;//设置分类已经有第一次载入
+        types[index].page_all = res.data.data[0].page_all;
+        types[index].page = 1;//设置当前页是1页
+        wx.setStorageSync('type' + types[index].id + zcode, huodongs);//本地缓存
+        self.setData({
+          huodongs: huodongs,
+          isLoaded: true,
+          types: types,
+        })
+
+        wx.hideNavigationBarLoading() //完成停止加载
+        wx.stopPullDownRefresh() //停止下拉刷新
+      })
+    }
+  },
 })
