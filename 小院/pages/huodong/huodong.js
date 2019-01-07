@@ -84,6 +84,9 @@ Page({
     }
   },
 
+  /**
+   * 初始化活动信息
+   */
   initHuodongs: function (huodongs){
     for (let i = 0; i < huodongs.length; i++) {
       let huodong = huodongs[i];

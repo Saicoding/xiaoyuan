@@ -61,7 +61,7 @@
       <view class="mid-line-item-text">我的信息</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;" bindtap = "GOmyhuodong">
       <image class="mid-line-item-icon" src="/imgs/icon4.png"></image>
       <view class="mid-line-item-text">我的活动</view>
     </view>
@@ -71,17 +71,12 @@
       <view class="mid-line-item-text">我的宝贝</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;">
-      <image class="mid-line-item-icon" src="/imgs/icon6.png"></image>
-      <view class="mid-line-item-text">我的兼职</view>
-    </view>
-
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap="GOvip">
       <image class="mid-line-item-icon" src="/imgs/icon7.png"></image>
       <view class="mid-line-item-text">我的VIP</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" bindtap='GOset'>
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap='GOset'>
       <image class="mid-line-item-icon" src="/imgs/icon8.png"></image>
       <view class="mid-line-item-text">相关设置</view>
     </view>

@@ -98,6 +98,15 @@ Page({
   },
 
   /**
+   * 我的活动
+   */
+  GOmyhuodong:function(){
+    wx.navigateTo({
+      url: '/pages/mine/huodong/huodong',
+    })
+  },
+
+  /**
    * 退出登录
    */
   loginout:function(){

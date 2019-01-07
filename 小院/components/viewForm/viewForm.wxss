@@ -1,0 +1,90 @@
+/* components/errorRecovery/errorRecovery.wxss */
+
+.container-in {
+  width: 710rpx;
+  position: fixed;
+  top: 100rpx;
+  left: 20rpx;
+  background: white;
+  z-index: 10000;
+  border-radius: 10rpx;
+  padding-bottom: 35rpx;
+}
+
+.modal {
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
+  width: 100%;
+  height: 100%;
+  filter: Alpha(Opacity=60);
+  background-color: #1f1f1f;
+  opacity: 0.5;
+  z-index: 9999;
+}
+
+.close {
+  float: right;
+  width: 25rpx;
+  height: 25rpx;
+  margin-top: 15rpx;
+  margin-right: 15rpx;
+}
+
+/* 正文部分 */
+
+.content {
+  width: 670rpx;
+  margin: 0rpx auto;
+  margin-top: 50rpx;
+}
+
+.title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: bold;
+}
+
+.price{
+  color:red;
+  font-weight: bold;
+  font-size:25rpx;
+  height:60rpx;
+  line-height: 60rpx;
+}
+
+.content-block{
+  display: flex;
+  font-size:25rpx;
+  color:rgb(90, 90, 90);
+  margin-bottom:30rpx;
+}
+
+.content-block-label{
+  letter-spacing: 1rpx;
+  width:190rpx;
+}
+
+.content-block-text{
+  width:520rpx;
+}
+
+/* 中间的线 */
+.line{
+  overflow: hidden;
+  display: flex;
+}
+
+.line-circle{
+  height:40rpx;
+  width:40rpx;
+  border-radius: 40rpx;
+  background: rgb(209, 209, 209);
+}
+
+.line-mid{
+  width:700rpx;
+  height:40rpx;
+  border-top:1rpx solid rgb(209, 209, 209);
+  margin-top:20rpx;
+}

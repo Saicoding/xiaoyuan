@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+      "viewForm": "/components/viewForm/viewForm"
+  },
+  "enablePullDownRefresh": false
+}
