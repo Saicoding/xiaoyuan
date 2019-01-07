@@ -131,8 +131,8 @@ page{
 
 .load-img {
   display: block;
-  width: 96rpx;
-  height: 112rpx;
+  width: 50rpx;
+  height: 50rpx;
   margin: 200rpx auto;
 }
 

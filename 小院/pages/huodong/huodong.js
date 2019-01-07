@@ -71,10 +71,11 @@ Page({
         let huodongs = res.data.data[0].list;
 
         self.initHuodongs(huodongs)
-
+        wx.setStorageSync('type' + zcode, huodongs);//本地缓存
         self.setData({
           first:false,
           isLoaded:true,
+          zuixinFirst:true,
           page_all: page_all,
           page:1,
           huodongs: huodongs
@@ -114,12 +115,19 @@ Page({
     let types = self.data.types;
     let index = self.data.index;
 
-    let page_all = self.data.page_all;
-    let page = self.data.page;
+    let page_all = "";
+    let page = "";
+    let typesid = "";
 
-    let typesid = types[index]== undefined ? "" : types[index].id ;
+    if(index == -1){//如果是最新活动
+      page = self.data.page;
+      page_all = self.data.page_all;
+    }else{//其他分类
+      typesid = types[index].id;
+      page_all = types[index].page_all;
+      page = types[index].page == undefined ? 1 : types[index].page;
+    }
 
-    console.log(typesid)
     if (page >= page_all) {
       self.setData({ //正在载入
         loadingText: "没有了..."
@@ -142,8 +150,11 @@ Page({
 
     app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page+"&typesid="+typesid, false, false, "", "", "", self).then(res => {
       let newHuodongs = res.data.data[0].list;
-      huodongs = huodongs.concat(newHuodongs);
+      self.initHuodongs(newHuodongs);//初始化活动信息
 
+      huodongs = huodongs.concat(newHuodongs);
+      
+      wx.setStorageSync('type' + zcode, huodongs);//本地缓存
       self.setData({
         showLoadingGif: false,
         loadingText: "载入完成"
@@ -151,12 +162,22 @@ Page({
 
       setTimeout(function () {
         self.setData({
-          page: page,
           loadingMore: false,
           huodongs: huodongs,
           loadingText: ""
         })
       }, 200)
+
+      if (index == -1) {
+        self.setData({
+          page:page
+        })
+      }else{
+        types[index].page = page;
+        self.setData({
+          types:types
+        })
+      }
     })
   },
   /**
@@ -198,18 +219,20 @@ Page({
         self.setData({
           isLoaded: false
         })
-      }
-      //开始请求
-      app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&typesid=" + typesid, false, false, "", "", "", self).then(res => {
-        let huodongs = res.data.data[0].list;
-        types[index].first = true;//设置分类已经有第一次载入
-        wx.setStorageSync('type' + types[index].id + zcode, huodongs);//本地缓存
-        self.setData({
-          huodongs: huodongs,
-          isLoaded: true,
-          types: types
+        //开始请求
+        app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&typesid=" + typesid, false, false, "", "", "", self).then(res => {
+          let huodongs = res.data.data[0].list;
+          self.initHuodongs(huodongs);
+          types[index].first = true;//设置分类已经有第一次载入
+          types[index].page_all = res.data.data[0].page_all;
+          wx.setStorageSync('type' + types[index].id + zcode, huodongs);//本地缓存
+          self.setData({
+            huodongs: huodongs,
+            isLoaded: true,
+            types: types
+          })
         })
-      })
+      }
 
     }else{
       self.setData({
@@ -217,6 +240,17 @@ Page({
         types: types,
         index: index
       })
+
+      if (self.data.zuixinFirst) {//如果已经载入一次就return
+        let huodongs = wx.getStorageSync('type'  + zcode);//本地缓存
+        self.setData({
+          huodongs: huodongs
+        })
+      } else {
+        self.setData({
+          isLoaded: false
+        })
+      }
     }
   },
 

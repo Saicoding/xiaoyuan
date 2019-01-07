@@ -51,7 +51,7 @@
     </view>
   </view>
 
-    <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+    <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/loading.gif" mode='aspectFit'></image>
 
   <!-- 最下面的加载条 -->
   <view class="loading-block">
