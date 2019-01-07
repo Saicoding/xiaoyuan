@@ -1,0 +1,62 @@
+<!--pages/huodong/enlist/enlist.wxml-->
+<view class="container">
+  <!-- 最上面头部部分 -->
+  <view class="title">中仕学社JAVA软件工程师课程邀请您参加线下培训班程师课程邀请您参加线下培训班</view>
+  <view class="huodonginfo">
+    <image class="huodonginfo-icon" src="/imgs/right1.png"></image>
+    <view class="huodonginfo-text">有条件退</view>
+    <image class="huodonginfo-icon" src="/imgs/right1.png" style="margin-left:20rpx;"></image>
+    <view class="huodonginfo-text">活动保障</view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="dateSelect">
+    选择日期：
+  </view>
+  <view class="dateSelect-text">绿色为已报名日期</view>
+
+  <view class="dateblock">
+    <view wx:for="{{dates}}" wx:for-item="date" wx:key="k">
+      <view class="date-item" style="margin-right:{{(index+1)%4==0?'0rpx':'21rpx'}};">
+        {{date}}
+      </view>
+    </view>
+    <view style="clear:both;"></view>
+  </view>
+
+  <!-- 活动时间 -->
+  <view class="time">活动时间：</view>
+  <view class="time-icon">
+    9:0
+  </view>
+
+  <!-- 选择套餐 -->
+  <view class="time">选择套餐：</view>
+  <view class="time-icon taocan">
+    <view style="line-height:80rpx;font-size:30rpx;font-weight:bold;">¥ 0.00</view>
+    <view style="color:#0096fa;font-size:25rpx;line-height:10rpx;">套餐1</view>
+  </view>
+
+  <!-- 参加人信息 -->
+  <view class="time">参加人信息：</view>
+  <view class="info">
+    <view class="info-block">
+      <view class="info-block-text">电话：</view>
+      <input type="number" class="info-block-input" placeholder='您的联系电话' cursor-spacing="270rpx"></input>
+    </view>
+    <view class="info-block">
+      <view class="info-block-text">姓名：</view>
+      <input type="text" class="info-block-input" placeholder='您的姓名' cursor-spacing="180rpx"></input>
+    </view>
+    <view class="info-block">
+      <view class="info-block-text">备注：</view>
+      <input type="text" class="info-block-input" placeholder='备注信息,非必填' cursor-spacing="90rpx"></input>
+    </view>
+  </view>
+
+  <!-- 活动详情时的底部信息 -->
+  <view  class="bottom">
+    <view class="bottom-left">免费</view>
+    <view class="bottom-right" bindtap="next" hover-class='select1' hover-stay-time='500'>下一步</view>
+  </view>
+</view>

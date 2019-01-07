@@ -126,7 +126,7 @@
 <!-- 活动详情时的底部信息 -->
 <view wx:if="{{barIndex==0}}" class ="bottom">
   <view class ="bottom-left">{{huodong.price}}</view>
-  <view class ="bottom-right">报名参加</view>
+  <view class ="bottom-right"  bindtap ="enlist" hover-class='select1' hover-stay-time='500'>报名参加</view>
 </view>
 
 <!-- 活动动态时的底部信息 -->

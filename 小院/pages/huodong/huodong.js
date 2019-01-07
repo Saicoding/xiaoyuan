@@ -204,6 +204,7 @@ Page({
       self.setData({
         zuixinSelected:false,
         types:types,
+        loadingText: '',
         index:index
       })
       if (types[index].first){//如果已经载入一次就return
@@ -234,6 +235,7 @@ Page({
     }else{
       self.setData({
         zuixinSelected: true,
+        loadingText:'',
         types: types,
         index: index
       })

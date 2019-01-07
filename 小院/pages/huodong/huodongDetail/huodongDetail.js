@@ -153,5 +153,15 @@ Page({
     wx.navigateTo({
       url: '/pages/huodong/addDongtai/addDongtai',
     })
+  },
+
+  /**
+   * 报名
+   */
+  enlist:function(){
+    wx.navigateTo({
+      url: '/pages/huodong/enlist/enlist',
+    })
   }
+
 })
