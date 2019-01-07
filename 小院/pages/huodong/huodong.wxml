@@ -21,7 +21,7 @@
   </swiper>
 
   <!-- 热门活动 -->
-  <view class="huodong">
+  <view  wx:if="{{isLoaded}}" class="huodong">
     <view class="title">
       <image class="title-icon" src="/imgs/lines.png"></image>
       <view class="title-text">{{index==-1?'最新活动':types[index].name}}</view>
@@ -49,5 +49,13 @@
         </view>
       </view>
     </view>
+  </view>
+
+    <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif" mode='aspectFit'></image>
+
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
   </view>
 </view>
