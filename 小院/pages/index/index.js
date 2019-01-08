@@ -61,8 +61,8 @@ Page({
         let windowWidth = res.windowWidth;
         windowHeight = (windowHeight * (750 / windowWidth));
         //初始化的时候渲染wxSearchdata
-        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification'],true,true,"",255);
-        WxSearch.initMindKeys(['中仕学社', '微信小程序开发', '微信开发', '微信小程序']);
+        WxSearch.init(self, windowHeight, ['中仕学社', '房地产经纪人', '劳动协调师', '导游考试'],true,true,"",255);
+        WxSearch.initMindKeys(['中仕学社', '房地产经纪人', '劳动协调师', '导游考试']);
         self.setData({
           windowWidth: windowWidth,
           windowHeight: windowHeight
@@ -186,7 +186,7 @@ Page({
 
     if (page >= allpage) {
       self.setData({ //正在载入
-        loadingText: "没有了..."
+        loadingText: "别扯了,我是有底线的..."
       })
       return;
     }

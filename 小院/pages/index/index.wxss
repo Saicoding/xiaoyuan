@@ -95,7 +95,7 @@
 }
 
 .search-block{
-  width:360rpx;
+  width:400rpx;
   border-radius: 90rpx;
   height:90rpx;
   background:rgb(233, 233, 233);
@@ -107,7 +107,7 @@
   height:68rpx;
   line-height: 90rpx;
   padding-left:30rpx;
-  width:250rpx;
+  width:290rpx;
   font-size:28rpx;
    background:rgb(233, 233, 233);
   border-radius: 90rpx;

@@ -131,7 +131,7 @@ Page({
 
     if (page >= pageall) {
       self.setData({ //正在载入
-        loadingText: "没有了..."
+        loadingText: "别扯了,我是有底线的..."
       })
       return;
     }
