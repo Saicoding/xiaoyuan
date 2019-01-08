@@ -60,6 +60,7 @@ Page({
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
       let hd_uid = huodong.userid;
+      console.log(huodong)
 
       self.initHuodong(huodong);
 
@@ -130,9 +131,9 @@ Page({
     }
     // 初始化价格
     if (huodong.money == "0.00") {
-      huodong.money = "免费";
+      huodong.price = "免费";
     } else {
-      huodong.money = "¥" + huodong.money
+      huodong.price = "¥" + huodong.money
     }
 
     // 获取日期字符串
@@ -168,8 +169,35 @@ Page({
    * 报名
    */
   enlist: function() {
+    let h_id = this.data.h_id;//活动ID
+    let huodong = this.data.huodong;//活动对象
+    let hddate = huodong.hddate;//报名日期字符串组
+    let hdtime = huodong.hdtime;//参加活动时间
+    let title = huodong.title
+    let money = huodong.money;
+    let money2 = huodong.money2;
+    let money3 = huodong.money3;
+    let money4 = huodong.money4;
+    let money5 = huodong.money5;
+    let money6 = huodong.money6;
+    let money7 = huodong.money7;
+    let money8 = huodong.money8;
+    let money9 = huodong.money9;
+    let money10 = huodong.money10;
+
     wx.navigateTo({
-      url: '/pages/huodong/enlist/enlist',
+      url: '/pages/huodong/enlist/enlist?h_id='+h_id+'&hddate='+hddate+'&hdtime='+hdtime+"&title="+title+
+      "&money="+money+
+        "&money2=" + money2 +
+        "&money3=" + money3 +
+        "&money4=" + money4 +
+        "&money5=" + money5 +
+        "&money6=" + money6 +
+        "&money7=" + money7 +
+        "&money8=" + money8 +
+        "&money9=" + money9 +
+        "&money10=" + money10
+      ,
     })
   }
 

@@ -1,7 +1,7 @@
 <!--pages/huodong/enlist/enlist.wxml-->
 <view class="container">
   <!-- 最上面头部部分 -->
-  <view class="title">中仕学社JAVA软件工程师课程邀请您参加线下培训班程师课程邀请您参加线下培训班</view>
+  <view class="title">{{options.title}}</view>
   <view class="huodonginfo">
     <image class="huodonginfo-icon" src="/imgs/right1.png"></image>
     <view class="huodonginfo-text">有条件退</view>
@@ -16,8 +16,8 @@
   <view class="dateSelect-text">绿色为已报名日期</view>
 
   <view class="dateblock">
-    <view wx:for="{{dates}}" wx:for-item="date" wx:key="k">
-      <view class="date-item" style="margin-right:{{(index+1)%4==0?'0rpx':'21rpx'}};">
+    <view wx:for="{{options.hddate}}" wx:for-item="date" wx:key="k">
+      <view data-index= "{{index}}" data-status="{{dates[index].gone}}" bindtap="chooseDate" class="date-item" style="margin-right:{{(index+1)%4==0?'0rpx':'21rpx'}};{{dates[index].style}}">
         {{date}}
       </view>
     </view>
@@ -27,30 +27,32 @@
   <!-- 活动时间 -->
   <view class="time">活动时间：</view>
   <view class="time-icon">
-    9:0
+    {{options.hdtime}}
   </view>
 
   <!-- 选择套餐 -->
   <view class="time">选择套餐：</view>
-  <view class="time-icon taocan">
-    <view style="line-height:80rpx;font-size:30rpx;font-weight:bold;">¥ 0.00</view>
-    <view style="color:#0096fa;font-size:25rpx;line-height:10rpx;">套餐1</view>
+
+  <view data-index="{{index}}" bindtap="changeTaocan" wx:for="{{taocans}}" wx:for-item="item" wx:key="k" class="{{item.selected?'time-icon taocan':'time-icon2 taocan'}}" style="margin-right:{{(index+1)%3==0?'0rpx':'43rpx'}};border:1rpx solid {{item.selected?'#0096fa':'rgb(229, 229, 229)'}}">
+    <view style="line-height:80rpx;font-size:30rpx;font-weight:bold;">¥ {{item.money}}</view>
+    <view style="color:{{item.selected?'#0096fa':'rgb(129, 129, 129)'}};font-size:25rpx;line-height:10rpx;">套餐{{index+1}}</view>
   </view>
+  <view style ="clear:both;"></view>
 
   <!-- 参加人信息 -->
   <view class="time">参加人信息：</view>
   <view class="info">
     <view class="info-block">
-      <view class="info-block-text">电话：</view>
-      <input type="number" class="info-block-input" placeholder='您的联系电话' cursor-spacing="270rpx"></input>
+      <view  class="info-block-text">电话：</view>
+      <input bindinput="phoneinput" type="number" class="info-block-input" placeholder='您的联系电话' cursor-spacing="270rpx"></input>
     </view>
     <view class="info-block">
       <view class="info-block-text">姓名：</view>
-      <input type="text" class="info-block-input" placeholder='您的姓名' cursor-spacing="180rpx"></input>
+      <input bindinput="nameinput" type="text" class="info-block-input" placeholder='您的姓名' cursor-spacing="180rpx"></input>
     </view>
     <view class="info-block">
       <view class="info-block-text">备注：</view>
-      <input type="text" class="info-block-input" placeholder='备注信息,非必填' cursor-spacing="90rpx"></input>
+      <input bindinput='beizhuinput' type="text" class="info-block-input" placeholder='备注信息,非必填' cursor-spacing="90rpx"></input>
     </view>
   </view>
 
