@@ -5,14 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    friends:[
+      {
+        pic:'/imgs/vip.png',
+        nickname:'超凡入圣',
+        school:'南昌大学'
+      },
+      {
+        pic: '/imgs/yuepay.png',
+        nickname: '篱笆那边',
+        school: '吉林大学'
+      },
+      {
+        pic: '/imgs/heart2.png',
+        nickname: '水蓝色的眼泪',
+        school: '北京大学'
+      },
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -26,7 +41,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let user = wx.getStorageSync('user');
+    let colleage = user.colleage;
+      wx.setNavigationBarTitle({
+        title: colleage,
+      })
   },
 
   /**
