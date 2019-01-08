@@ -1,4 +1,7 @@
 // pages/guangchang/guangchang.js
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
+let buttonClicked = false; //默认还没有点击可以导航页面的按钮
 Page({
 
   /**
@@ -41,6 +44,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    buttonClicked = false;
     let user = wx.getStorageSync('user');
     let colleage = user.colleage;
       wx.setNavigationBarTitle({
@@ -49,37 +53,13 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 点击犄角旮旯
    */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  GOchat:function(){
+    if(buttonClicked) return;
+    buttonClicked = true;
+    wx.navigateTo({
+      url: '/pages/guangchang/chat/chat',
+    })
   }
 })

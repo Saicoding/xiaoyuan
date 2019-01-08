@@ -18,7 +18,8 @@
     "pages/huodong/addDongtai/addDongtai",
     "pages/huodong/huodongDetail/huodongDetail",
     "pages/huodong/enlist/enlist",
-    "pages/mine/huodong/huodong"
+    "pages/mine/huodong/huodong",
+    "pages/guangchang/chat/chat"
   ],
   "window": {
     "backgroundTextStyle": "dark",

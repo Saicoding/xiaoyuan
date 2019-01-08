@@ -52,7 +52,7 @@ Page({
       }
       let page_all = res.data.data[0].page_all;
       let huodongs = res.data.data[0].list;
-
+      console.log(huodongs)
       self.initHuodongs(huodongs)
 
       self.setData({
@@ -65,20 +65,23 @@ Page({
   },
 
   /**
- * 初始化活动信息
- */
+    * 初始化活动信息
+    */
   initHuodongs: function (huodongs) {
     for (let i = 0; i < huodongs.length; i++) {
       let huodong = huodongs[i];
       switch (huodong.zhuangtai) {
         case "1":
           huodong.zhuangtaiStr = "报名中"
+          huodong.color = "rgb(255, 145, 0)";
           break;
         case "2":
           huodong.zhuangtaiStr = "进行中"
+          huodong.color = "green";
           break;
         case "3":
           huodong.zhuangtaiStr = "已结束"
+          huodong.color = "red";
           break;
         default:
           console.log('获取活动状态出错')
@@ -102,13 +105,14 @@ Page({
       url: '/pages/huodong/huodong',
     })
   },
-
   /**
- * 导航到详情页
- */
-  GOhuodongDetail: function () {
+   * 导航到详情页
+   */
+  GOhuodongDetail: function (e) {
+    let h_id = e.currentTarget.dataset.id;
+    console.log(h_id);
     wx.navigateTo({
-      url: '/pages/huodong/huodongDetail/huodongDetail',
+      url: '/pages/huodong/huodongDetail/huodongDetail?h_id=' + h_id,
     })
   },
 

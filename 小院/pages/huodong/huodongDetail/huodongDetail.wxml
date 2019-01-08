@@ -1,65 +1,65 @@
 <!--pages/huodong/huodongDetail/huodongDetail.wxml-->
-<scroll-view scroll-y class="myscroll" style= "height:{{windowHeight-120}}rpx;">
+<scroll-view wx:if ="{{isLoaded}}" scroll-y class="myscroll" style= "height:{{windowHeight-120}}rpx;">
   <!-- banner -->
   <image class="top" src="{{huodong.banner}}"> </image>
 
   <!-- 标题 -->
   <view class="title">
-    {{huodong.title}}<span style="color:{{huodong.over?'red':'rgb(2, 219, 2)'}}"> 【{{huodong.status}}】</span>
+    {{huodong.title}}<span style="color:{{huodong.color}}"> 【{{huodong.status}}】</span>
   </view>
 
   <!-- 校园·社团 -->
-  <view class="info">#{{huodong.info}}#</view>
+  <view class="info">#{{huodong.typesname}}#</view>
 
   <!-- 线下 免费 -->
   <view class="type">
-    <view class="type-left">{{huodong.type}}</view>
-    <view class="type-right">{{huodong.price}}</view>
+    <view class="type-left">线下</view>
+    <view class="type-right">{{huodong.money}}</view>
   </view>
 
   <!-- 中间部分 -->
   <view class="mid">
     <view class="mid-line1">
-      <image class ="mid-line1-icon" src="{{huodong.from.pic}}"></image>
+      <image class ="mid-line1-icon" src="{{hdUserInfo.pic}}"></image>
       <view class = "mid-line1-midblock">
-        <view class = "mid-line1-midblock-text1">{{huodong.from.name}}</view>
+        <view class = "mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
         <view class = "mid-line1-midblock-text2">来自 {{huodong.fromtype}}</view>
       </view>
       <image class="mid-line1-righticon" src="/imgs/chat.png"></image>
     </view>
     <!-- 报名状态显示 -->
     <view class="mid-status">
-      <view class="mid-status-line" style="background:{{huodong.jindu>=1?'#0096fa':'rgb(228, 228, 228)'}};margin-left:20rpx;width:130rpx;"></view>
-      <view class="mid-status-circle" style="background:{{huodong.jindu==1?'#fe555d':'rgb(228, 228, 228)'}}"></view>
-      <view class="mid-status-line" style="background:{{huodong.jindu>=2?'#0096fa':'rgb(228, 228, 228)'}}"></view>
-      <view class="mid-status-circle" style="background:{{huodong.jindu==2?'#fe555d':'rgb(228, 228, 228)'}}"></view>
-      <view class="mid-status-line" style="background:{{huodong.jindu>=3?'#0096fa':'rgb(228, 228, 228)'}}"></view>
-      <view class="mid-status-circle" style="background:{{huodong.jindu==3?'#fe555d':'rgb(228, 228, 228)'}}"></view>
+      <view class="mid-status-line" style="background:{{huodong.style.line1}};margin-left:20rpx;width:130rpx;"></view>
+      <view class="mid-status-circle" style="background:{{huodong.style.circle1}}"></view>
+      <view class="mid-status-line" style="background:{{huodong.style.line2}}"></view>
+      <view class="mid-status-circle" style="background:{{huodong.style.circle2}}"></view>
+      <view class="mid-status-line" style="background:{{huodong.style.line3}}"></view>
+      <view class="mid-status-circle" style="background:{{huodong.style.circle3}}"></view>
       <view class="mid-status-line" style="background:rgb(228, 228, 228);width:130rpx;"></view>
     </view>
     <!-- 报名状态文字 -->
     <view class="mid-status-text">
-      <view class="mid-status-text-info" style="color:{{huodong.jindu==1?'#0096fa':'rgb(196, 196, 196)'}}">报名中</view>
-      <view class="mid-status-text-info" style="color:{{huodong.jindu==2?'#0096fa':'rgb(196, 196, 196)'}}">进行中</view>
-      <view class="mid-status-text-info" style="color:{{huodong.jindu==3?'#0096fa':'rgb(196, 196, 196)'}}">已结束</view>
+      <view class="mid-status-text-info" style="color:{{hudoong.color}}">报名中</view>
+      <view class="mid-status-text-info" style="color:{{hudoong.color}}">进行中</view>
+      <view class="mid-status-text-info" style="color:{{hudoong.color}}">已结束</view>
     </view>
     <!-- 活动时间 -->
     <view class="mid-info">
       <image class="mid-info-icon" src="/imgs/clock2.png"></image>
-      <view class="mid-info-text">{{huodong.time}}</view>
+      <view class="mid-info-text">{{huodong.dateStr}}</view>
     </view>
     <!-- 集合地 -->
     <view class="mid-info">
       <image class="mid-info-icon" src="/imgs/jihe.png"></image>
-      <view class="mid-info-text">{{huodong.position}}</view>
+      <view class="mid-info-text">{{huodong.address}}</view>
     </view>
   </view>
 
   <!-- 报名的人 -->
   <view class="record">
-    <view class="record-num">已有{{huodong.num}}人报名</view>
+    <view class="record-num">已有{{huodong.num_baoming}}人报名</view>
     <image class='record-pic' src="/imgs/sheng.png"> </image>
-    <image class='record-pic' wx:for="{{pics}}" wx:for-item="pic" wx:key="k" src="{{pic}}"></image>
+    <image class='record-pic' wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k" src="{{pic}}"></image>
   </view>
 
   <!-- 活动详情和动态 -->
@@ -123,9 +123,11 @@
 
 </scroll-view>
 
+<image wx:if ="{{!isLoaded}}" class ="load-img" src="/imgs/timg.gif"></image>
+
 <!-- 活动详情时的底部信息 -->
 <view wx:if="{{barIndex==0}}" class ="bottom">
-  <view class ="bottom-left">{{huodong.price}}</view>
+  <view class ="bottom-left">{{huodong.money}}</view>
   <view class ="bottom-right"  bindtap ="enlist" hover-class='select1' hover-stay-time='500'>报名参加</view>
 </view>
 

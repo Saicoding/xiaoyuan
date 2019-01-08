@@ -69,7 +69,7 @@ Page({
       app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
         let page_all = res.data.data[0].page_all;
         let huodongs = res.data.data[0].list;
-
+        console.log(huodongs)
         self.initHuodongs(huodongs)
         wx.setStorageSync('type' + zcode, huodongs);//本地缓存
         self.setData({
@@ -93,12 +93,15 @@ Page({
       switch (huodong.zhuangtai) {
         case "1":
           huodong.zhuangtaiStr = "报名中"
+          huodong.color ="rgb(255, 145, 0)";
           break;
         case "2":
           huodong.zhuangtaiStr = "进行中"
+          huodong.color = "green";
           break;
         case "3":
           huodong.zhuangtaiStr = "已结束"
+          huodong.color = "red";
           break;
         default:
           console.log('获取活动状态出错')
@@ -259,9 +262,11 @@ Page({
   /**
    * 导航到详情页
    */
-  GOhuodongDetail: function() {
+  GOhuodongDetail: function(e) {
+    let h_id = e.currentTarget.dataset.id;
+    console.log(h_id);
     wx.navigateTo({
-      url: '/pages/huodong/huodongDetail/huodongDetail',
+      url: '/pages/huodong/huodongDetail/huodongDetail?h_id=' + h_id,
     })
   },
 

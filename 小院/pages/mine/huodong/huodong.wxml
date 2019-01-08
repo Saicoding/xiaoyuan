@@ -5,18 +5,18 @@
     <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
       <view class="huodong-detail">
         <view class ="icon">已报名</view>
-        <image class="huodong-detail-img" src="{{huodong.banner}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
+        <image data-id="{{huodong.h_id}}" class="huodong-detail-img" src="{{huodong.banner}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
 
-        <view class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
+        <view data-id="{{huodong.h_id}}" class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-detail-down-title">{{huodong.title}}
-            <span style="color:{{huodong.zhuangtai!=3?'green':'red'}};">【{{huodong.zhuangtaiStr}}】</span>
+            <span style="color:{{huodong.color}};">【{{huodong.zhuangtaiStr}}】</span>
           </view>
           <view class="huodong-detail-down-info">{{huodong.money=="0"?'免费':'¥ huodong.money'}}</view>
         </view>
 
         <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>{{huodong.typesname}}</view>
 
-        <view class="huodong-bottom" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
+        <view data-id="{{huodong.h_id}}" class="huodong-bottom" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-bottom-left">
             <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
             </image>

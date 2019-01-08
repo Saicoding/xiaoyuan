@@ -1,0 +1,22 @@
+<!--pages/guangchang/chat/chat.wxml-->
+<view class="head">
+  <view class="head-block">
+    <view class="head-icon-block" bindtap='back'>
+      <image class="head-icon" src="/imgs/back.png"></image>
+    </view>
+    <view class="head-title">话题圈子</view>
+    <view class="head-icon-block" style="margin-left:280rpx;" bindtap="search">
+      <image class="head-icon" src="/imgs/search1.png" style="margin-left:20rpx;width:40rpx;height:40rpx;margin-top:20rpx;"></image>
+    </view>
+  </view>
+</view>
+
+<view class="container">
+  <swiper display-multiple-items = "5" circular class="bars">
+    <block wx:for="{{bars}}" wx:for-item="bar" wx:key="k">
+      <swiper-item>
+        <view src="{{bar}}" class="bar" style="background:{{bar.selected?'#0096fa':'white'}};color:{{bar.selected?'white':'rgb(163, 163, 163)'}};border:1rpx solid {{bar.selected?'#0096fa':'rgb(226, 226, 226)'}}">{{bar.title}}</view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

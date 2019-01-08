@@ -10,10 +10,11 @@
       <view class="jishi-block-line1">小院集市</view>
       <view class="jishi-block-line2">二手、宝贝</view>
     </view>
-    <image class="jishi_gala-icon" src="/imgs/gala.png" style="margin-left:90rpx;"></image>
-    <view class="jishi-block">
-      <view class="jishi-block-line1">小院集市</view>
-      <view class="jishi-block-line2">二手、宝贝</view>
+
+    <image bindtap="GOchat" class="jishi_gala-icon" src="/imgs/gala.png" style="margin-left:90rpx;"></image>
+    <view bindtap="GOchat" class="jishi-block">
+      <view class="jishi-block-line1">犄角旮旯</view>
+      <view class="jishi-block-line2">爆料、聊天</view>
     </view>
   </view>
 
@@ -35,7 +36,7 @@
           <view hover-class='select1' hover-stay-time='500' class="firend-item-mark">关注</view>
         </view>
       </view>
-      <view style ="clear:both;"></view>
+      <view style="clear:both;"></view>
     </view>
   </view>
 </view>

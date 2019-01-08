@@ -1,0 +1,47 @@
+/* pages/guangchang/chat/chat.wxss */
+.head{
+  background: #0096fa;
+  height:90rpx;
+  padding-top:48rpx;
+}
+
+.head-block{
+  display: flex;
+}
+
+.head-icon-block{
+  height:80rpx;
+  width:80rpx;
+}
+
+.head-icon{
+  width:50rpx;
+  height:50rpx;
+  margin-left:15rpx;
+  margin-top:15rpx;
+}
+
+.head-title{
+  height:80rpx;
+  line-height: 80rpx;
+  color:white;
+  font-size:30rpx;
+}
+
+/* 导航 */
+.bars{
+  width:860rpx;
+  height:85rpx;
+  margin-top:20rpx;
+  margin-bottom:20rpx;
+  margin-left:20rpx;
+}
+
+.bar{
+  width:150rpx;
+  height:70rpx;
+  font-size:25rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+}
