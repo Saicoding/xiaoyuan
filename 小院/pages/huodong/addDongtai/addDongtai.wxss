@@ -67,9 +67,14 @@ page{
   margin-left:25rpx;
 }
 
-.slide-image{
+.slide-image-block{
   width:231rpx;
   height:130rpx;
+}
+
+.slide-image{
+  height:130rpx;
+  width:130rpx;
   border-radius: 10rpx;
   margin-top:25rpx;
 }
@@ -81,7 +86,7 @@ page{
   opacity:0.5;
   z-index: 10000;
   top:6rpx;
-  left:68rpx;
+  left:115rpx;
 }
 
 .submit{

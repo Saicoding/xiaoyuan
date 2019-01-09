@@ -12,11 +12,7 @@ Page({
    */
   data: {
     isLoaded: false,
-
-
-
-    
-    barIndex: 0
+    barIndex: 0//点击的是活动详情还是活动动态
   },
 
   /**
@@ -58,9 +54,6 @@ Page({
     let zcode = user.zcode;
     let h_id = self.data.h_id;
 
-
-
-    console.log("action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id)
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
 
@@ -178,7 +171,9 @@ Page({
     let huodong = this.data.huodong;//活动对象
     let hddate = huodong.hddate;//报名日期字符串组
     let hdtime = huodong.hdtime;//参加活动时间
-    let title = huodong.title
+    let title = huodong.title;//活动标题
+
+    //套餐信息
     let money = huodong.money;
     let money2 = huodong.money2;
     let money3 = huodong.money3;
@@ -189,6 +184,9 @@ Page({
     let money8 = huodong.money8;
     let money9 = huodong.money9;
     let money10 = huodong.money10;
+
+    //已经报名的日期
+    let buy = huodong.buy;
 
     wx.navigateTo({
       url: '/pages/huodong/enlist/enlist?h_id='+h_id+'&hddate='+hddate+'&hdtime='+hdtime+"&title="+title+
@@ -201,7 +199,8 @@ Page({
         "&money7=" + money7 +
         "&money8=" + money8 +
         "&money9=" + money9 +
-        "&money10=" + money10
+        "&money10=" + money10+
+        "&buy="+buy
       ,
     })
   }

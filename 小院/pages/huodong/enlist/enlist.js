@@ -49,13 +49,6 @@ Page({
   },
 
   /**
-   * 初始化套餐信息
-   */
-  initTaocan:function(taocans){
-    
-  },
-
-  /**
    * 初始化日期信息
    */
   initDate:function(mydates){
@@ -244,12 +237,13 @@ Page({
     let dateIndex = self.data.dateIndex;
     let hddate = mydates[dateIndex];
 
-    console.log("action=BmHuoDdong&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + options.h_id + "&hddate=" + hddate + "&hdtime=" + options.hdtime + "&mobile=" + mobile + "&tname=" + tname + "&beizhu=" + beizhu + "&taocan=" + taocan)
+
     app.post(API_URL, "action=BmHuoDdong&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + options.h_id + "&hddate=" + hddate + "&hdtime=" + options.hdtime + "&mobile=" + mobile + "&tname=" + tname + "&beizhu=" + beizhu + "&taocan=" + taocan, false, false, "", "", "", self).then(res => {
       console.log(res)
       wx.showModal({
         title: '提示',
         content: '恭喜您成功报名本次活动,可以在个人中心我的活动中查看订单',
+        showCancel:false,
         success: function (res) {
           if (res.confirm) {
             wx.navigateBack({})

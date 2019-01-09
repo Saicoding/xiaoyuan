@@ -1,5 +1,5 @@
 <!--pages/huodong/huodongDetail/huodongDetail.wxml-->
-<scroll-view wx:if ="{{isLoaded}}" scroll-y class="myscroll" style= "height:{{huodong.zhuangtai=='1'?windowHeight-120:windowHeight-40}}rpx;">
+<scroll-view wx:if ="{{isLoaded}}" scroll-y class="myscroll" style= "height:{{huodong.zhuangtai=='1'|| barIndex ==1?windowHeight-120:windowHeight-40}}rpx;">
   <!-- banner -->
   <image class="top" src="{{huodong.banner}}"> </image>
 
