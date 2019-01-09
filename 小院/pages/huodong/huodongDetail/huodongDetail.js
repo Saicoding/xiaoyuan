@@ -12,6 +12,10 @@ Page({
    */
   data: {
     isLoaded: false,
+
+
+
+    
     barIndex: 0
   },
 
@@ -54,11 +58,12 @@ Page({
     let zcode = user.zcode;
     let h_id = self.data.h_id;
 
-    console.log("action=getHdUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id)
 
 
+    console.log("action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id)
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
+
       let hd_uid = huodong.userid;
       console.log(huodong)
 

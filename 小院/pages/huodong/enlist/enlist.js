@@ -196,16 +196,43 @@ Page({
    */
   next: function() {
     let self = this;
-    let options = self.data.options;
+    let options = self.data.options;//上个页面传过来的参数
 
     //用户信息
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
-    let mobile = self.data.mobile;
+    let mobile = self.data.mobile;//填写的手机号码
+
+    if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobile))) {//验证手机号
+      wx.showToast({
+        icon:"none",
+        title: '手机号不正确',
+        duration:3000
+      })
+      return 
+    } 
+
     let tname = self.data.tname;
-    let beizhu = self.data.beizhu;
+    console.log(tname.length)
+
+    if(tname == undefined || tname == ""){//名字不能为空
+      wx.showToast({
+        icon: "none",
+        title: '您的大名不能为空',
+        duration: 3000
+      })
+      return
+    }else if(tname.length>8){//姓名长度不能大于8
+      wx.showToast({
+        icon: "none",
+        title: '名字最多8个字符',
+        duration: 3000
+      })
+    }
+
+    let beizhu = self.data.beizhu;//备注信息
 
     //得选择的套餐
     let taocans = self.data.taocans;
