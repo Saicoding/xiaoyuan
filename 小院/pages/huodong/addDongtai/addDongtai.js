@@ -10,7 +10,9 @@ Page({
    */
   data: {
     pics:[],
-    base64Imgs:[]
+    base64Imgs:[],
+    isLoadedAll:true,//都已经添加完毕
+    hasText:false,
   },
 
   /**
@@ -64,6 +66,12 @@ Page({
     buttonClicked = true;
 
     let self = this;
+
+    //用户信息
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
     let pics = self.data.pics;//现在的pics数组
     let base64Imgs = self.data.base64Imgs;//现在的base64数组
     let length = pics.length;
@@ -97,7 +105,6 @@ Page({
               wx.getImageInfo({
                 src: tempFilePath,
                 success: function (res1) {
-                  console.log(res1)
                   wx.getFileSystemManager().readFile({
                     filePath: res1.path, //选择图片返回的相对路径
                     encoding: 'base64', //编码格式
@@ -111,10 +118,48 @@ Page({
                         base64Imgs[i].long = true
                       }
 
-                      self.setData({
+                      self.setData({//先保存数据
                         pics: pics,
                         base64Imgs: base64Imgs
                       }) 
+
+                      //模拟进度条
+                      let high = 215;
+                      base64Imgs[i + length].interval = setInterval(function(){
+                        let num = Math.random()*30+1;//生成一个随机数
+                        high = high-num;
+                        if (high < 15){//在高度为200的时候清除掉interval
+                          high = 15
+                          clearInterval(base64Imgs[i + length].interval);
+                        }
+                        base64Imgs[i + length].high = high;
+                        self.setData({
+                          base64Imgs: base64Imgs
+                        })
+                      },50)
+                      if(i==0){
+                        console.log('ok')
+                        self.setData({
+                          text: res1.type+"action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data
+                        })
+                      }
+                      app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
+                        console.log('有值')
+                        console.log(res)
+                        clearInterval(base64Imgs[i + length].interval);
+                        base64Imgs[i + length].high = 0;
+                        
+                        let isLoadedAll = true;
+                        for (let j = 0; j < base64Imgs.length;j++){
+                          if (base64Imgs[j].high !=0){
+                            isLoadedAll = false
+                          }
+                        }
+                        self.setData({
+                          isLoadedAll: isLoadedAll,
+                          base64Imgs: base64Imgs
+                        })
+                      })
                     }
                   })
                 }
@@ -175,8 +220,24 @@ Page({
    */
   submit:function(){
     let self = this;
+    let text = self.data.text
+    let isLoadedAll = self.data.isLoadedAll;
+    if(!isLoadedAll){
+      wx.showToast({
+        icon:"none",
+        title: '还没有载入完毕',
+        duration:3000
+      })
+      return
+    }else if(!text){
+      wx.showToast({
+        icon: "none",
+        title: '动态文字不能为空',
+        duration: 3000
+      })
+      return
+    }
 
-    let text = this.data.text;//当前输入框的文字
     let base64s = this.data.base64Imgs;//所有的base64s
     let str = "";//base64数组字符串
 
@@ -184,15 +245,6 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
-
-    for (let i = 0; i < base64s.length;i++){
-      let base64 = base64s[i];
-      str+=base64+","
-    }
-
-    app.post(API_URL,"action=savePic&loginrandom="+loginrandom+"&zcode="+zcode+"&Pic="+str,false,false,"","","",self).then(res=>{
-      console.log(res);
-    })
   }
 
 })

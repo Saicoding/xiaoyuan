@@ -31,15 +31,15 @@ page{
 
 /* 下面部分 */
 .addpic{
-  display: flex;
   width:100%;
-  height:180rpx;
   background: white;
+  padding-bottom:25rpx;
 }
 
-.addpic-block{
-  width:130rpx;
-  height:130rpx;
+.addpic-block,.slide-image{
+  float: left;
+  width:215rpx;
+  height:215rpx;
   margin-top:25rpx;
   border:1rpx solid rgb(216, 216, 216);
   border-radius: 10rpx;
@@ -47,58 +47,52 @@ page{
 }
 
 .addpic-block-icon{
-  width:50rpx;
-  height:50rpx;
-  margin-left:40rpx;
-  margin-top:20rpx;
+  width:80rpx;
+  height:80rpx;
+  margin-left:67.5rpx;
+  margin-top:30rpx;
 }
 
 .addpic-block-text{
-  width:130rpx;
+  width:215rpx;
   text-align: center;
   color:rgb(155, 155, 155);
-  font-size:22rpx;
-
+  font-size:32rpx;
+  margin-top:10rpx;
 }
 
-.choosepics{
-  width:525rpx;
-  height:155rpx;
-  margin-left:25rpx;
-}
-
-.slide-image-block{
-  width:231rpx;
-  height:130rpx;
-}
-
-.slide-image{
-  height:130rpx;
-  width:130rpx;
+.model{
+  position: relative;
+  width:215rpx;
+  background: black;
   border-radius: 10rpx;
-  margin-top:25rpx;
+  border:1rpx solid rgb(216, 216, 216);
+  opacity: 0.3;
+  left:-1rpx;
+  top:-1rpx;
 }
 
 .delete{
-  position: absolute;
-  width:40rpx;
-  height:40rpx;
-  opacity:0.5;
-  z-index: 10000;
-  top:6rpx;
-  left:115rpx;
+  position: relative;
+  width:50rpx;
+  height:50rpx;
+  left:190rpx;
+  top:-25rpx;
+  opacity: 0.6;
+  z-index: 100001;
 }
 
 .submit{
   width:90%;
-  height:70rpx;
-  line-height: 70rpx;
+  height:90rpx;
+  line-height: 90rpx;
   text-align: center;
   border-radius: 10rpx;
-  background: linear-gradient(to right,#ffa43d,#fe8800);
+  border:none;
   color:white;
-  font-size:30rpx;
+  font-size:32rpx;
   margin:40rpx auto;
+  background: linear-gradient(to right,#ffa43d,#fe8800);
 }
 
 .select1{
@@ -106,5 +100,5 @@ page{
 }
 
 .select2{
-   background: linear-gradient(to right,#fdbb6f,#ff9f32);
+   background: linear-gradient(to right,#fcc78b,#ff9f32);
 }

@@ -1,27 +1,31 @@
 <!--pages/huodong/addDongtai/addDongtai.wxml-->
 <view class="section">
-  <textarea value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
+  <textarea maxlength="20000" show-confirm-bar="{{false}}" value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
 </view>
 <view class="clear" hover-class='select1' hover-stay-time='200' bindtap='clear'>清空</view>
 
 <view class="addpic">
+  <!-- 右侧预览图片 -->
+  <view wx:for="{{base64Imgs}}" wx:for-item="base64Img" wx:key="p">
+    <view data-url="{{pics[index]}}" class="slide-image" style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:{{base64Img.long?(215*base64Img.width/base64Img.height):215}}rpx {{base64Img.long?215:(215*base64Img.height/base64Img.width)}}rpx;background-repeat:no-repeat"
+      catchtap="viewImage">
+      <image wx:if="{{base64Img.high == 0}}" data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png" catchtap="delete"></image>
+      <view class="model" style="height:{{base64Img.high}}rpx"></view>
+    </view>
+  </view>
+
   <!-- 左侧图片 -->
-  <view class="addpic-block" bindtap='addpic' hover-class='select1' hover-stop-propagation='500'>
+  <view wx:if="{{base64Imgs.length < 9}}" class="addpic-block" bindtap='addpic' hover-class='select1' hover-stop-propagation='500'>
     <image class="addpic-block-icon" src="/imgs/camera.png"></image>
     <view class="addpic-block-text">添加图片</view>
   </view>
-  <!-- 右侧预览图片 -->
-  <swiper autoplay interval="4000" class="choosepics" display-multiple-items="{{base64Imgs.length<=3?base64Imgs.length:3}}">
-    <block wx:for="{{base64Imgs}}" wx:for-item="base64Img" wx:key="p">
-      <swiper-item>
-        <image data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png"  catchtap="delete"></image>
-        <view class = "slide-image-block">
-        <!--                      let base64url = 'data:image/' + res1.type + ';base64,' + res3.data; -->
-          <view data-url="{{pics[index]}}"  class="slide-image"  style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:{{base64Img.long?(130*base64Img.width/base64Img.height):130}}rpx {{base64Img.long?130:(130*base64Img.height/base64Img.width)}}rpx"  catchtap="viewImage" ></view>
-        </view>
-      </swiper-item>
-    </block>
-  </swiper>
+  <view style="clear:both;"></view>
 </view>
-<view></view>
-<view class="submit" hover-class='select2' hover-stay-time='500' bindtap = "submit">添加动态</view>
+
+<view wx:if="{{!isLoadedAll ||!text}}" style="background: linear-gradient(to right,#ffecd5,#fdcf9a);" class="submit" >
+  添加动态
+</view>
+
+<view wx:if="{{isLoadedAll && text}}" class="submit" bindtap="submit" hover-class='select2' hover-stay-time='500'>
+  添加动态
+</view>
