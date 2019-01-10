@@ -11,7 +11,7 @@ Page({
   data: {
     pics:[],
     base64Imgs:[],
-    isLoadedAll:true,//都已经添加完毕
+    isLoadedAll:false,//都已经添加完毕
     hasText:false,
   },
 
@@ -66,6 +66,7 @@ Page({
     buttonClicked = true;
 
     let self = this;
+    let num = 0;
 
     //用户信息
     let user = wx.getStorageSync('user');
@@ -74,6 +75,11 @@ Page({
 
     let pics = self.data.pics;//现在的pics数组
     let base64Imgs = self.data.base64Imgs;//现在的base64数组
+
+    self.setData({
+      isLoadedAll:false
+    })
+
     let length = pics.length;
     if (base64Imgs.length>=9){
       wx.showToast({
@@ -109,6 +115,7 @@ Page({
                     filePath: res1.path, //选择图片返回的相对路径
                     encoding: 'base64', //编码格式
                     success: res3 => { //成功的回调
+                      console.log('haha')
                       base64Imgs[i+length] = {};
                       base64Imgs[i + length].type = res1.type;
                       base64Imgs[i + length].base64 = res3.data;
@@ -123,43 +130,30 @@ Page({
                         base64Imgs: base64Imgs
                       }) 
 
-                      //模拟进度条
-                      let high = 215;
-                      base64Imgs[i + length].interval = setInterval(function(){
-                        let num = Math.random()*30+1;//生成一个随机数
-                        high = high-num;
-                        if (high < 15){//在高度为200的时候清除掉interval
-                          high = 15
-                          clearInterval(base64Imgs[i + length].interval);
-                        }
-                        base64Imgs[i + length].high = high;
-                        self.setData({
-                          base64Imgs: base64Imgs
-                        })
-                      },50)
-                      if(i==0){
-                        console.log('ok')
-                        self.setData({
-                          text: res1.type+"action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data
-                        })
-                      }
+
+                      res3.data = encodeURIComponent(res3.data);//需要编码
+                      base64Imgs[i + length].isLoaded = false
                       app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
-                        console.log('有值')
-                        console.log(res)
-                        clearInterval(base64Imgs[i + length].interval);
-                        base64Imgs[i + length].high = 0;
-                        
-                        let isLoadedAll = true;
-                        for (let j = 0; j < base64Imgs.length;j++){
-                          if (base64Imgs[j].high !=0){
-                            isLoadedAll = false
+                        // console.log(res)
+                        if(res.data.data[0].result == "success"){
+                          base64Imgs[i + length].isLoaded = true;
+                          num++;
+                          // console.log(num)
+                          if (num >= newTempFilePaths.length){
+                            self.setData({
+                              isLoadedAll: true
+                            })
                           }
                         }
+                       
+                                    
                         self.setData({
-                          isLoadedAll: isLoadedAll,
                           base64Imgs: base64Imgs
                         })
                       })
+                    },
+                    fail:function(res4){
+                      console.log(res4)
                     }
                   })
                 }
@@ -177,8 +171,9 @@ Page({
   viewImage:function(e){
     let pics = this.data.pics;//当前所有图片对象,带有宽高
     let url = e.currentTarget.dataset.url;
-    let index = url.indexOf(url);
-
+    let index = pics.indexOf(url);
+    console.log(url)
+    console.log(index)
     wx.previewImage({
       current: pics[index], // 当前显示图片的http链接
       urls: pics,// 需要预览的图片http链接列表

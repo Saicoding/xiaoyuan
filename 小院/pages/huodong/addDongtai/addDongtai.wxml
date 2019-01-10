@@ -1,6 +1,6 @@
 <!--pages/huodong/addDongtai/addDongtai.wxml-->
 <view class="section">
-  <textarea maxlength="20000" show-confirm-bar="{{false}}" value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
+  <textarea show-confirm-bar maxlength="20000"  value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
 </view>
 <view class="clear" hover-class='select1' hover-stay-time='200' bindtap='clear'>清空</view>
 
@@ -9,8 +9,9 @@
   <view wx:for="{{base64Imgs}}" wx:for-item="base64Img" wx:key="p">
     <view data-url="{{pics[index]}}" class="slide-image" style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:{{base64Img.long?(215*base64Img.width/base64Img.height):215}}rpx {{base64Img.long?215:(215*base64Img.height/base64Img.width)}}rpx;background-repeat:no-repeat"
       catchtap="viewImage">
-      <image wx:if="{{base64Img.high == 0}}" data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png" catchtap="delete"></image>
-      <view class="model" style="height:{{base64Img.high}}rpx"></view>
+      <image wx:if="{{base64Img.isLoaded}}" data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png" catchtap="delete"></image>
+      <view wx:if="{{!base64Img.isLoaded}}" class="model" ></view>
+      <image wx:if="{{!base64Img.isLoaded}}" src="/imgs/loading.gif" class ="imgLoadingimg"></image>
     </view>
   </view>
 

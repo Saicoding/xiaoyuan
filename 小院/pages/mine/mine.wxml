@@ -9,7 +9,7 @@
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">关注</view>
       </view>
-      <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit"></image>
+      <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap ="GOsetHeadpic"></image>
       <!-- <image class ="top-line1-icon" src =""></image> -->
       <view class="top-line1-right">
         <view class="top-line1-text" style="line-height:50rpx;">0</view>

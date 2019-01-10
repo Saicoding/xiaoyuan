@@ -69,7 +69,16 @@ page{
   border:1rpx solid rgb(216, 216, 216);
   opacity: 0.3;
   left:-1rpx;
+  height:215rpx;
   top:-1rpx;
+}
+
+.imgLoadingimg{
+  position: relative;
+  width:50rpx;
+  height:50rpx;
+  top:-140rpx;
+  left:82.5rpx;
 }
 
 .delete{

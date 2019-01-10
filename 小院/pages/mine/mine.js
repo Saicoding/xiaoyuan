@@ -51,17 +51,12 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 导航到头像设置页面
    */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  GOsetHeadpic:function(){
+    wx.navigateTo({
+      url: '/pages/mine/setHeadpic/setHeadpic',
+    })
   },
 
   /**
