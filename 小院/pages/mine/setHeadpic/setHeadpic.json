@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "myinput":"/components/model/myinput/myinput",
+    "singleSelect": "/components/model/singleSelect/singleSelect"
+  }
 }

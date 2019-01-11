@@ -1,0 +1,13 @@
+<!--components/Dialog/dialog.wxml-->
+
+<view hidden="{{!isShow}}" class="container-in" catchtap='stopBubbling' catchtouchmove='noScroll'>
+  <view class ="title">修改{{title}}</view>
+  <input value="{{value}}" type="{{inputtype}}" bindinput="_inputText" focus='{{focus}}'  class ="input" placeholder='{{placeholder}}' ></input>
+  <view class ="bottom">
+    <view class ="bottom-btn" style ="margin-left:400rpx;" bindtap='_cancel'>取消</view>
+    <view class ="bottom-btn" style ="margin-left:40rpx;" bindtap='_confirm'>确定</view>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" bindtap="tapBlank">
+</view>

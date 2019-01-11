@@ -1,0 +1,13 @@
+<!--components/Dialog/dialog.wxml-->
+
+<view hidden="{{!isShow}}" class="container-in" catchtap='stopBubbling' catchtouchmove='noScroll'>
+  <view wx:for ="{{datas}}" wx:for-item = "data" wx:key="k">
+    <view data-index = "{{index}}" class="block" bindtap = "_changeSelect">
+      <image class="icon" src="{{myindex == index?'/imgs/singleSelect.png':'/imgs/singleSelect1.png'}}"></image>
+      <view class="block-text">{{data}}</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" bindtap="tapBlank">
+</view>

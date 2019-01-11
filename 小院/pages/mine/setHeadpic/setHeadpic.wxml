@@ -1,7 +1,7 @@
 <!--pages/mine/setHeadpic/setHeadpic.wxml-->
 <view class="container">
   <!-- 头像 -->
-  <view class="block">
+  <view class="block" hover-class='select1' hover-stay-time='500' hover-class='select1' hover-stay-time='500'>
     <view class="left-text">头像</view>
     <image class="pic" src="{{headpic}}"></image>
     <view class="right-text"></view>
@@ -9,61 +9,69 @@
   </view>
 
   <!-- 昵称 -->
-  <view class="block" style="margin-top:15rpx;">
+  <view data-info ="{{nickname}}" data-inputtype="text" data-title="昵称" data-placeholder="请输入您的昵称" style="margin-top:15rpx;" bindtap="showModel" class = "block" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">昵称</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
+   <view class="right-text">{{nickname == undefined || nickname== ''?'未设置':nickname}}</view>
   </view>
 
   <!-- 性别 -->
-  <view class="block">
-    <view class="left-text">性别</view>
+  <view data-info ="{{sex}}" data-title ="性别" class="block" bindtap = "showSingleSelect" hover-class='select1' hover-stay-time='500'>
+    <view  class="left-text">性别</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{sex==undefined?'未设置':sex}}</view>
   </view>
 
   <!-- 手机号 -->
-  <view class="block">
+  <view data-info ="{{phonenum}}" data-inputtype="number" data-title="手机号" bindtap="showModel"  class="block" data-placeholder="请输入您的手机号" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">手机号</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{phonenum==undefined?'未设置':phonenum}}</view>
   </view>
 
   <!-- 学院 -->
-  <view class="block" style="margin-top:15rpx;">
+  <view data-info ="{{xueyuan}}" data-inputtype="text" data-title="学院"  bindtap="showModel"  class="block" data-placeholder="请输入所在学院名称" style="margin-top:15rpx;" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">学院</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{xueyuan==undefined?'未设置':xueyuan}}</view>
   </view>
 
   <!-- 专业 -->
-  <view class="block">
+  <view data-info ="{{zhuanye}}" data-inputtype="text" data-title="专业" bindtap="showModel" data-placeholder="请输入您的专业名称" class="block" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">专业</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{zhuanye==undefined?'未设置':zhuanye}}</view>
   </view>
 
   <!-- 入学年份 -->
-  <view class="block">
+  <view data-info ="{{year}}" class="block" data-title ="入学年份" bindtap = "showSingleSelect" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">入学年份</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{year==undefined?'未设置':year}}</view>
   </view>
 
   <!-- 学历 -->
-  <view class="block">
+  <view data-info ="{{xueli}}" class="block" data-title ="学历" bindtap = "showSingleSelect" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">学历</view>
     <image class="pic" src="/imgs/right-rate1.png"></image>
-    <view class="right-text">未知</view>
+    <view class="right-text">{{xueli==undefined?'未设置':xueli}}</view>
   </view>
 
   <!-- 学生证认证 -->
-  <view class="block" style="margin-top:15rpx;">
+  <view class="block" style="margin-top:15rpx;" bindtap = "upLoadImg" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">学生证认证</view>
-    <view class="right-text">上传图片</view>
+    <view class="right-text">{{uploadPicText}}</view>
   </view>
+    <image wx:if="{{haspic}}" class ="mypic" src="{{pic}}" bindtap = "viewImage" mode='center'></image>
 
   <!-- 保存 -->
-  <view class="block save" >
+  <view class="block save" bindtap = "save" hover-class='select1' hover-stay-time='500'>
     保存
   </view>
+
+  <!-- 带有输入框的弹框 -->
+  <myinput  id="myinput" title="{{title}}" placeholder="{{placeholder}}" bindinputText= "_inputText" bindconfirm="_confirm" bindcancel = "_cancel"></myinput>
+
+  <!-- 单选框 -->
+  <singleSelect id ="singleSelect" bindchangeSelect= "_changeSelect" ></singleSelect>
 </view>
