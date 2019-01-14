@@ -7,7 +7,7 @@
 <view class="addpic">
   <!-- 右侧预览图片 -->
   <view wx:for="{{base64Imgs}}" wx:for-item="base64Img" wx:key="p">
-    <view data-url="{{pics[index]}}" class="slide-image" style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:{{base64Img.long?(215*base64Img.width/base64Img.height):215}}rpx {{base64Img.long?215:(215*base64Img.height/base64Img.width)}}rpx;background-repeat:no-repeat"
+    <view data-url="{{pics[index]}}" class="slide-image" style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:cover;background-repeat:no-repeat"
       catchtap="viewImage">
       <image wx:if="{{base64Img.isLoaded}}" data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png" catchtap="delete"></image>
       <view wx:if="{{!base64Img.isLoaded}}" class="model" ></view>

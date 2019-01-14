@@ -106,7 +106,7 @@
             <view class ="dongtai-content-text">{{dongtai.content}}</view>
             <view class ="dongtai-content-imgs">
               <view  wx:for="{{dongtai.images}}" wx:for-item="img" wx:key="i">
-                <image data-imgurls="{{dongtai.images}}" data-imgurl= "{{img}}" bindtap ="viewImg" src="{{img}}" class ="dongtai-content-img" style="margin-right:{{(index+1)%3==0?0:10}}rpx"></image>
+                <image data-imgurls="{{dongtai.images}}" data-imgurl= "{{img}}" bindtap ="viewImg" src="{{img}}" mode="aspectFill" class ="dongtai-content-img" style="margin-right:{{(index+1)%3==0?0:10}}rpx"></image>
               </view>
             </view>
           </view>

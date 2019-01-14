@@ -301,8 +301,8 @@
 .dongtai-content-img{
   display: float;
   float:left;
-  width:231rpx;
-  height:130rpx;
+  width:180rpx;
+  height:180rpx;
   margin-bottom:10rpx;
 }
 

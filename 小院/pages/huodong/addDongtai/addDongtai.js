@@ -2,6 +2,7 @@
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let app = getApp();
 let buttonClicked = false;
+let ce = 0;
 
 Page({
 
@@ -118,7 +119,9 @@ Page({
                     filePath: res1.path, //选择图片返回的相对路径
                     encoding: 'base64', //编码格式
                     success: res3 => { //成功的回调
-                      console.log('haha')
+                      ce++;
+                      console.log(base64Imgs);
+                      console.log(ce)
                       base64Imgs[i+length] = {};
                       base64Imgs[i + length].type = res1.type;
                       base64Imgs[i + length].base64 = res3.data;
@@ -136,8 +139,9 @@ Page({
 
                       res3.data = encodeURIComponent(res3.data);//需要编码
                       base64Imgs[i + length].isLoaded = false
+                      console.log("action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data)
                       app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
-                        console.log(res)
+                        console.log('进来了')
                         if(res.data.data[0].result == "success"){
                           base64Imgs[i + length].isLoaded = true;
                           base64Imgs[i + length].url = res.data.data[0].pic;//服务器存储的pic名称
@@ -196,20 +200,12 @@ Page({
     let base64Imgs = this.data.base64Imgs;
     let index = pics.indexOf(url);
 
-    wx.showModal({
-      title: '提示',
-      content: '不喜欢该图片?',
-      success:function(res){
-        if(res.confirm){
-          pics.splice(index, 1);
-          base64Imgs.splice(index,1);
-          console.log()
-          self.setData({
-            pics: pics,
-            base64Imgs: base64Imgs
-          })
-        }
-      }
+    pics.splice(index, 1);
+    base64Imgs.splice(index, 1);
+    console.log()
+    self.setData({
+      pics: pics,
+      base64Imgs: base64Imgs
     })
   },
 
