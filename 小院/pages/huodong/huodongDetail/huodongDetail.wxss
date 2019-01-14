@@ -280,12 +280,14 @@
 }
 
 .dongtai-info-guanzhu{
-  height:80rpx;
-  line-height: 80rpx;
-  color:rgb(14, 173, 0);
-  font-size:25rpx;
-  text-align: right;
-  width:80rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:22rpx;
+  text-align: center;
+  width:120rpx;
+  color:white;
+  border-radius: 8rpx;
+  margin-top:20rpx;
 }
 
 .dongtai-content-text{
@@ -315,7 +317,7 @@
   padding-left:8rpx;
   padding-right:8rpx;
   height:35rpx;
-  background-color: rgba(15, 15, 15,0.7);
+  background-color: rgba(122, 122, 122, 0.5);
   color:white;
   border-radius: 8rpx;
   left:600rpx;

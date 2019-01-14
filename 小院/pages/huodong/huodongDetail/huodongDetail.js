@@ -64,7 +64,8 @@ Page({
 
       self.setData({
         isLoaded: true,
-        huodong: huodong
+        huodong: huodong,
+        zcode: zcode
       })
 
       app.post(API_URL, "action=getHdUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&hd_uid=" + hd_uid, false, false, "", "", "", self).then(res => {
@@ -146,11 +147,67 @@ Page({
    * 切换目录时
    */
   changeMulu: function(e) {
+    let self = this;
+
+    let h_id = self.data.h_id;
+
+    //用户信息
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
     let barIndex = e.currentTarget.dataset.index; //点击的barIndex
     let moveData = barIndex == 0 ? animate.moveX(easeOutAnimation, 0) : animate.moveX(easeOutAnimation, 175); //得到动画数据
+    let isDongtaiLoaded = this.data.isDongtaiLoaded;//活动动态是否已经载入
+
     this.setData({
       barIndex: barIndex,
       moveData: moveData
+    })
+
+    if(barIndex ==1 && !isDongtaiLoaded){
+      console.log("action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id)
+      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id,false,false,"","","",self).then(res=>{
+        console.log(res)
+        let dongtaiList = res.data.data[0];
+        let dongtai_page_all = dongtaiList.page_all;
+        let dongtais = dongtaiList.list;
+        
+        self.initDongtaiImages(dongtais);
+
+        self.setData({
+          dongtai_page_all: dongtai_page_all,//一共有多少页
+          dongtais: dongtais,//动态列表
+          isDongtaiLoaded:true//设置活动动态已经载入
+        })
+      })
+    }
+  },
+
+  /**
+   * 初始化动态图像
+   */
+  initDongtaiImages:function(dongtais){
+    for(let i = 0;i<dongtais.length;i++){
+      let dongtai = dongtais[i];
+      dongtai.images = dongtai.images.split(',').splice(1);
+      console.log(dongtai.images)
+    }
+  },
+
+  /**
+   * 查看图片
+   */
+  viewImg:function(e){
+    let url = e.currentTarget.dataset.imgurl;
+    let urls = e.currentTarget.dataset.imgurls;
+
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls,// 需要预览的图片http链接列表
+      success: function (res) {
+        console.log(res)
+      }
     })
   },
 
@@ -158,8 +215,9 @@ Page({
    * 导航到添加动态页面
    */
   GOaddDongtai: function() {
+    let h_id = this.data.h_id;
     wx.navigateTo({
-      url: '/pages/huodong/addDongtai/addDongtai',
+      url: '/pages/huodong/addDongtai/addDongtai?h_id=' + h_id,
     })
   },
 

@@ -1,7 +1,5 @@
 {
   "pages": [
- 
-      "pages/mine/setHeadpic/setHeadpic",
     "pages/index/index",
     "pages/login/login",
     "pages/selectSchool/selectSchool",
@@ -21,6 +19,7 @@
     "pages/huodong/huodongDetail/huodongDetail",
     "pages/huodong/enlist/enlist",
     "pages/mine/huodong/huodong",
+    "pages/mine/setHeadpic/setHeadpic",
     "pages/guangchang/chat/chat"
   ],
   "window": {

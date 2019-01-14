@@ -23,7 +23,9 @@ Page({
     wx.setNavigationBarTitle({
       title: '添加动态',
     })
-
+    this.setData({
+      h_id: options.h_id
+    })
   },
 
   /**
@@ -134,11 +136,11 @@ Page({
                       res3.data = encodeURIComponent(res3.data);//需要编码
                       base64Imgs[i + length].isLoaded = false
                       app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
-                        // console.log(res)
+                        console.log(res)
                         if(res.data.data[0].result == "success"){
                           base64Imgs[i + length].isLoaded = true;
+                          base64Imgs[i + length].url = res.data.data[0].pic;//服务器存储的pic名称
                           num++;
-                          // console.log(num)
                           if (num >= newTempFilePaths.length){
                             self.setData({
                               isLoadedAll: true
@@ -215,7 +217,7 @@ Page({
    */
   submit:function(){
     let self = this;
-    let text = self.data.text
+    let content = self.data.text;
     let isLoadedAll = self.data.isLoadedAll;
     if(!isLoadedAll){
       wx.showToast({
@@ -224,7 +226,7 @@ Page({
         duration:3000
       })
       return
-    }else if(!text){
+    } else if (!content){
       wx.showToast({
         icon: "none",
         title: '动态文字不能为空',
@@ -233,13 +235,32 @@ Page({
       return
     }
 
-    let base64s = this.data.base64Imgs;//所有的base64s
-    let str = "";//base64数组字符串
+    let base64Imgs = this.data.base64Imgs;//所有的base64s
 
     //用户信息
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+    let h_id = self.data.h_id;
+    let images = self.getImgsStr(base64Imgs);//根据图片数组对象得到服务器存储的图片字符串,以逗号分隔
+
+    console.log("action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images)
+    app.post(API_URL, "action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images,false,false,"","","",self).then(res=>{
+      console.log(res)
+    })
+  },
+
+  /**
+   * 根据图片数组对象得到服务器存储的图片字符串,以逗号分隔
+   */
+  getImgsStr: function (base64Imgs){
+    let str = "";
+    for(let i=0;i<base64Imgs.length;i++){
+      let url = base64Imgs[i].url;
+      str += url+",";
+    }
+    str = str.substr(0, str.length - 1);  
+    return str;
   }
 
 })

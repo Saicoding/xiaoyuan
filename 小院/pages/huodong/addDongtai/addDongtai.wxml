@@ -2,8 +2,8 @@
 <view class="section">
   <textarea show-confirm-bar maxlength="20000"  value="{{text}}" auto-focus placeholder="动态可以写于此处" bindinput='textInput' />
 </view>
-<view class="clear" hover-class='select1' hover-stay-time='200' bindtap='clear'>清空</view>
-
+<view wx:if="{{text.length > 0}}" class="clear" hover-class='select1' hover-stay-time='200' bindtap='clear'>清空</view>
+<view wx:if="{{!text.length}}"  style="width:100%;height:42rpx;"></view>
 <view class="addpic">
   <!-- 右侧预览图片 -->
   <view wx:for="{{base64Imgs}}" wx:for-item="base64Img" wx:key="p">
@@ -21,6 +21,7 @@
     <view class="addpic-block-text">添加图片</view>
   </view>
   <view style="clear:both;"></view>
+  <view wx:if ="{{base64Imgs.length < 9}}" class ="img-options">可选{{9-base64Imgs.length}}张</view>
 </view>
 
 <view wx:if="{{!isLoadedAll ||!text}}" style="background: linear-gradient(to right,#ffecd5,#fdcf9a);" class="submit" >
