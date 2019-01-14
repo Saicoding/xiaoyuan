@@ -58,7 +58,6 @@ Page({
       let huodong = res.data.data[0];
 
       let hd_uid = huodong.userid;
-      console.log(huodong)
 
       self.initHuodong(huodong);
 
@@ -166,7 +165,6 @@ Page({
     })
 
     if(barIndex ==1 && !isDongtaiLoaded){
-      console.log("action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id)
       app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id,false,false,"","","",self).then(res=>{
         console.log(res)
         let dongtaiList = res.data.data[0];
@@ -191,8 +189,45 @@ Page({
     for(let i = 0;i<dongtais.length;i++){
       let dongtai = dongtais[i];
       dongtai.images = dongtai.images.split(',').splice(1);
-      console.log(dongtai.images)
     }
+  },
+
+  /**
+   * 删除动态
+   */
+  deleteDongtai:function(e){
+    let self = this;
+    let d_id = e.currentTarget.dataset.did;
+    let h_id = self.data.h_id;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let dongtais = self.data.dongtais;
+    wx.showModal({
+      title: '提示',
+      content: '确定删除动态信息吗?',
+      success:(res)=>{
+        if(res.confirm){
+          app.post(API_URL, "action=DelHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&d_id=" + d_id, false, false, "", "", "", self).then(res => {
+            for (let i = 0; i < dongtais.length;i++){//如果删除接口请求成功就从本地数组中去除，实现实时显示
+              let dongtai = dongtais[i];
+              if (dongtai.d_id == d_id){
+                dongtais.splice(i, 1); 
+                self.setData({
+                  dongtais:dongtais
+                })
+                wx.showToast({
+                  icon:'none',
+                  title: '删除成功',
+                  duration:3000
+                })
+                break;
+              }
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -206,7 +241,7 @@ Page({
       current: url, // 当前显示图片的http链接
       urls: urls,// 需要预览的图片http链接列表
       success: function (res) {
-        console.log(res)
+
       }
     })
   },

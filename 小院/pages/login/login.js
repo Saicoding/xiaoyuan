@@ -158,7 +158,7 @@ Page({
     wx.login({
       success: res => {
         let code = res.code;
-        app.post(API_URL, "action=getSessionKey&code=" + code, false, false, "").then((res) => {
+        app.post(API_URL, "action=getSessionKey&code=" + code, true, false, "登录中").then((res) => {
           let sesstion_key = res.data.sessionKey;
           let openid = res.data.openid;
 
@@ -182,13 +182,16 @@ Page({
               let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
               let url = self.data.url; //需要导航的url
 
-              app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, true, false, "登录中").then((res) => {
+              app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, false, false, "").then((res) => {
                 let user = res.data.list[0];
                 self.processSelectScholl(user, ifGoPage);
               })
             }
           })
         })
+      },
+      fail:function(){
+
       }
     })
   },

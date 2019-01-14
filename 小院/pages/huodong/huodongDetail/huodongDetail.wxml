@@ -86,6 +86,7 @@
 
     <!-- 动态页面 -->
     <view wx:if="{{barIndex==1}}" class ="detail-dongtai">
+      <view wx:if= "{{!isDongtaiLoaded}}" ></view>
       <view wx:for="{{dongtais}}" wx:for-item="dongtai" wx:key="d">
         <view class="dongtai">
           <!-- 动态的最上面部分 -->
@@ -97,7 +98,7 @@
             </view>
             <view wx:if="{{dongtai.userid != zcode}}" class ="dongtai-info-guanzhu" style ="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
 
-            <view wx:if="{{dongtai.userid == zcode}}" class ="dongtai-info-guanzhu" style ="background:rgb(240, 29, 14);">删除动态</view>
+            <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class ="dongtai-info-guanzhu" style ="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
           </view>
 
           <!-- 动态内容 -->
@@ -121,8 +122,6 @@
       </view>
     </view>
   </view>
-
-
 </scroll-view>
 
 <image wx:if ="{{!isLoaded}}" class ="load-img" src="/imgs/timg.gif"></image>

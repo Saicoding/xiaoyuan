@@ -60,6 +60,7 @@ App({
         success: function(res) { //服务器返回数据
           let status = res.data.code;
           if (status != 1) {
+            console.log('异常')
             console.log(res)
           }
           let message = res.data.Message;

@@ -11,7 +11,7 @@ Page({
   data: {
     pics:[],
     base64Imgs:[],
-    isLoadedAll:false,//都已经添加完毕
+    isLoadedAll:true,//都已经添加完毕
     hasText:false,
   },
 
@@ -19,6 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(wx.getStorageSync('user'))
     // 设置标题
     wx.setNavigationBarTitle({
       title: '添加动态',
@@ -236,7 +237,10 @@ Page({
     }
 
     let base64Imgs = this.data.base64Imgs;//所有的base64s
-
+    let imgs = base64Imgs.map(res=>{//模拟服务器图片数组
+      return "http://neuq.chinaplat.com/app_pic/"+res.url
+    })
+    console.log(imgs)
     //用户信息
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
@@ -244,9 +248,38 @@ Page({
     let h_id = self.data.h_id;
     let images = self.getImgsStr(base64Imgs);//根据图片数组对象得到服务器存储的图片字符串,以逗号分隔
 
-    console.log("action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images)
-    app.post(API_URL, "action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images,false,false,"","","",self).then(res=>{
+    app.post(API_URL, "action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images,true,false,"发布中","","",self).then(res=>{
       console.log(res)
+      if(res.data.Message == '成功发布'){
+        let pages = getCurrentPages();
+        let prePage = pages[pages.length-2];
+        let dongtais = prePage.data.dongtais;
+        let obj = {};//模拟动态对象
+        obj.addtime = "刚刚";
+        obj.content = content;
+        obj.d_id = res.data.data[0].id;
+        obj.guanzhu = "0",
+        obj.images = imgs;
+        obj.userid = zcode;
+        obj.userimg = user.Pic;
+        obj.username = user.Nickname;
+        obj.zan = "0";
+        console.log(dongtais)
+        dongtais.unshift(obj);
+        console.log(dongtais)
+        prePage.setData({
+          dongtais: dongtais
+        })
+
+        console.log(prePage)
+        wx.navigateBack({})//返回上一页面
+
+        wx.showToast({
+          icon:'none',
+          title: '发布成功',
+          duration:3000
+        })
+      }
     })
   },
 
