@@ -156,6 +156,7 @@ page{
   font-size: 23rpx;
   line-height: 30rpx;
   margin: 0rpx auto;
+  margin-bottom:20rpx;
   text-align: center;
   color: rgb(156, 156, 156);
 }

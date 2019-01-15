@@ -12,7 +12,10 @@ Page({
    */
   data: {
     isLoaded: false,
-    barIndex: 0//点击的是活动详情还是活动动态
+    barIndex: 0, //点击的是活动详情还是活动动态
+    loadingMore: false, //是否在加载更多
+    loadingText: "", //上拉载入更多的文字
+    showLoadingGif: false, //是否显示刷新gif图
   },
 
   /**
@@ -50,7 +53,7 @@ Page({
     //下拉刷新可能触发重复登录，这时跳转到登录界面时没有停止刷新状态，需要手动设置
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
-    this.setData({//上拉加载可能触发重复登录
+    this.setData({ //上拉加载可能触发重复登录
       loadingMore: false
     })
     let self = this;
@@ -91,13 +94,13 @@ Page({
         huodong.status = "报名中";
         huodong.color = "rgb(255, 145, 0)";
         huodong.style = {
-          line1:"#0096fa",
-          line2:"rgb(228, 228, 228)",
-          line3:"rgb(228, 228, 228)",
-          circle1:"rgb(255, 145, 0)",
-          circle2:"rgb(228, 228, 228)",
+          line1: "#0096fa",
+          line2: "rgb(228, 228, 228)",
+          line3: "rgb(228, 228, 228)",
+          circle1: "rgb(255, 145, 0)",
+          circle2: "rgb(228, 228, 228)",
           circle3: "rgb(228, 228, 228)",
-          color1:"rgb(255, 145, 0)",
+          color1: "rgb(255, 145, 0)",
           color2: "rgb(228, 228, 228)",
           color3: "rgb(228, 228, 228)",
         }
@@ -163,26 +166,27 @@ Page({
 
     let barIndex = e.currentTarget.dataset.index; //点击的barIndex
     let moveData = barIndex == 0 ? animate.moveX(easeOutAnimation, 0) : animate.moveX(easeOutAnimation, 175); //得到动画数据
-    let isDongtaiLoaded = this.data.isDongtaiLoaded;//活动动态是否已经载入
+    let isDongtaiLoaded = this.data.isDongtaiLoaded; //活动动态是否已经载入
 
     this.setData({
       barIndex: barIndex,
       moveData: moveData
     })
 
-    if(barIndex ==1 && !isDongtaiLoaded){
-      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id,false,false,"","","",self).then(res=>{
+    if (barIndex == 1 && !isDongtaiLoaded) {
+      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
         console.log(res)
         let dongtaiList = res.data.data[0];
         let dongtai_page_all = dongtaiList.page_all;
         let dongtais = dongtaiList.list;
-        
+
         self.initDongtaiImages(dongtais);
 
         self.setData({
-          dongtai_page_all: dongtai_page_all,//一共有多少页
-          dongtais: dongtais,//动态列表
-          isDongtaiLoaded:true//设置活动动态已经载入
+          dongtai_page_all: dongtai_page_all, //一共有多少页
+          dongtais: dongtais, //动态列表
+          page:1,
+          isDongtaiLoaded: true //设置活动动态已经载入
         })
       })
     }
@@ -191,8 +195,8 @@ Page({
   /**
    * 初始化动态图像
    */
-  initDongtaiImages:function(dongtais){
-    for(let i = 0;i<dongtais.length;i++){
+  initDongtaiImages: function(dongtais) {
+    for (let i = 0; i < dongtais.length; i++) {
       let dongtai = dongtais[i];
       dongtai.images = dongtai.images.split(',').splice(1);
     }
@@ -201,7 +205,7 @@ Page({
   /**
    * 删除动态
    */
-  deleteDongtai:function(e){
+  deleteDongtai: function(e) {
     let self = this;
     let d_id = e.currentTarget.dataset.did;
     let h_id = self.data.h_id;
@@ -212,20 +216,20 @@ Page({
     wx.showModal({
       title: '提示',
       content: '确定删除动态信息吗?',
-      success:(res)=>{
-        if(res.confirm){
+      success: (res) => {
+        if (res.confirm) {
           app.post(API_URL, "action=DelHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&d_id=" + d_id, false, false, "", "", "", self).then(res => {
-            for (let i = 0; i < dongtais.length;i++){//如果删除接口请求成功就从本地数组中去除，实现实时显示
+            for (let i = 0; i < dongtais.length; i++) { //如果删除接口请求成功就从本地数组中去除，实现实时显示
               let dongtai = dongtais[i];
-              if (dongtai.d_id == d_id){
-                dongtais.splice(i, 1); 
+              if (dongtai.d_id == d_id) {
+                dongtais.splice(i, 1);
                 self.setData({
-                  dongtais:dongtais
+                  dongtais: dongtais
                 })
                 wx.showToast({
-                  icon:'none',
+                  icon: 'none',
                   title: '删除成功',
-                  duration:3000
+                  duration: 3000
                 })
                 break;
               }
@@ -249,12 +253,12 @@ Page({
   /**
    * 导航到动态详情页面
    */
-  GOdongtaiDetail:function(e){
+  GOdongtaiDetail: function(e) {
     let dongtai = e.currentTarget.dataset.dongtai;
     let h_id = this.data.h_id;
     let jsonStr = JSON.stringify(dongtai);
     wx.navigateTo({
-      url: '/pages/huodong/dongtaiDetail/dongtaiDetail?jsonStr=' + jsonStr+"&h_id="+h_id
+      url: '/pages/huodong/dongtaiDetail/dongtaiDetail?jsonStr=' + jsonStr + "&h_id=" + h_id
     })
   },
 
@@ -262,11 +266,11 @@ Page({
    * 报名
    */
   enlist: function() {
-    let h_id = this.data.h_id;//活动ID
-    let huodong = this.data.huodong;//活动对象
-    let hddate = huodong.hddate;//报名日期字符串组
-    let hdtime = huodong.hdtime;//参加活动时间
-    let title = huodong.title;//活动标题
+    let h_id = this.data.h_id; //活动ID
+    let huodong = this.data.huodong; //活动对象
+    let hddate = huodong.hddate; //报名日期字符串组
+    let hdtime = huodong.hdtime; //参加活动时间
+    let title = huodong.title; //活动标题
 
     //套餐信息
     let money = huodong.money;
@@ -284,8 +288,8 @@ Page({
     let buy = huodong.buy;
 
     wx.navigateTo({
-      url: '/pages/huodong/enlist/enlist?h_id='+h_id+'&hddate='+hddate+'&hdtime='+hdtime+"&title="+title+
-      "&money="+money+
+      url: '/pages/huodong/enlist/enlist?h_id=' + h_id + '&hddate=' + hddate + '&hdtime=' + hdtime + "&title=" + title +
+        "&money=" + money +
         "&money2=" + money2 +
         "&money3=" + money3 +
         "&money4=" + money4 +
@@ -294,10 +298,98 @@ Page({
         "&money7=" + money7 +
         "&money8=" + money8 +
         "&money9=" + money9 +
-        "&money10=" + money10+
-        "&buy="+buy
-      ,
+        "&money10=" + money10 +
+        "&buy=" + buy,
     })
-  }
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  scrolltolower: function() {
+    console.log('ok')
+    let self = this;
+    let loadingMore = self.data.loadingMore;
+    let h_id = self.data.h_id;
+    if (loadingMore) return; //如果还在载入中,就不继续执行
+
+    let barIndex = self.data.barIndex;//如果当前目录是活动动态
+
+    if (barIndex == 1) {
+      console.log('haah')
+      let allpage = self.data.dongtai_page_all;
+      let page = self.data.page;
+
+      if (page >= allpage) {
+        self.setData({ //正在载入
+          loadingText: "别扯了,我是有底线的..."
+        })
+        return;
+      }
+
+      self.setData({ //正在载入
+        showLoadingGif: true,
+        loadingText: "载入更多资讯 ..."
+      })
+
+      //用户信息
+      let user = wx.getStorageSync('user');
+      let loginrandom = user.Login_random;
+      let zcode = user.zcode;
+
+      let dongtais = self.data.dongtais;
+      page++;
+
+      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id+"&page="+page, false, false, "", "", "", self).then(res => {
+        let dongtaiList = res.data.data[0];
+        let newDongtais = dongtaiList.list;
+        self.initDongtaiImages(newDongtais);
+        dongtais = dongtais.concat(newDongtais);//拼接数组
+
+        self.setData({
+          showLoadingGif: false,
+          loadingText: "载入完成"
+        })
+
+        setTimeout(function () {
+          self.setData({
+            page: page,
+            loadingMore: false,
+            dongtais: dongtais,
+            loadingText: ""
+          })
+        }, 200)
+      })
+    }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let news = self.data.news;
+
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+
+    let requesttime = util.formatTime2(new Date()); //请求时间（最后请求的时间）
+
+    app.post(API_URL, "action=getNewsList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1" + "&requesttime=" + requesttime, false, false, "", "", "", self).then(res => {
+      if (res.data.data.length > 0) {
+        let newNews = res.data.data[0].list;
+        news = newNews.concat(news);
+
+        self.setData({
+          news: news
+        })
+      }
+
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+    })
+  },
 
 })
