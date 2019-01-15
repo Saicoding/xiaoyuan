@@ -20,7 +20,7 @@
           <view class="huodong-bottom-left">
             <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
             </image>
-            <image class="huodong-bottom-left-icon" src="/imgs/sheng.png"></image>
+            <image wx:if="{{huodong.bm_list.length>5}}" class="huodong-bottom-left-icon" src="/imgs/sheng.png"></image>
           </view>
           <view class="huodong-bottom-right">已报名：{{huodong.num_baoming}}人</view>
         </view>

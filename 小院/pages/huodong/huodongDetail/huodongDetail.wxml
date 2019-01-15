@@ -1,11 +1,12 @@
 <!--pages/huodong/huodongDetail/huodongDetail.wxml-->
-<scroll-view wx:if ="{{isLoaded}}" scroll-y class="myscroll" style= "height:{{huodong.zhuangtai=='1'|| barIndex ==1?windowHeight-120:windowHeight-40}}rpx;">
+<scroll-view wx:if="{{isLoaded}}" scroll-y class="myscroll" style="height:{{huodong.zhuangtai=='1'|| barIndex ==1?windowHeight-120:windowHeight-40}}rpx;">
   <!-- banner -->
   <image class="top" src="{{huodong.banner}}"> </image>
 
   <!-- 标题 -->
   <view class="title">
-    {{huodong.title}}<span style="color:{{huodong.color}}"> 【{{huodong.status}}】</span>
+    {{huodong.title}}
+    <span style="color:{{huodong.color}}"> 【{{huodong.status}}】</span>
   </view>
 
   <!-- 校园·社团 -->
@@ -20,10 +21,10 @@
   <!-- 中间部分 -->
   <view class="mid">
     <view class="mid-line1">
-      <image class ="mid-line1-icon" src="{{hdUserInfo.pic}}"></image>
-      <view class = "mid-line1-midblock">
-        <view class = "mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
-        <view class = "mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
+      <image class="mid-line1-icon" src="{{hdUserInfo.pic}}"></image>
+      <view class="mid-line1-midblock">
+        <view class="mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
+        <view class="mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
       </view>
       <image class="mid-line1-righticon" src="/imgs/chat.png"></image>
     </view>
@@ -58,65 +59,68 @@
   <!-- 报名的人 -->
   <view class="record">
     <view class="record-num">已有{{huodong.num_baoming}}人报名</view>
-    <image class='record-pic' src="/imgs/sheng.png"> </image>
-    <image class='record-pic' wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k" src="{{pic}}"></image>
+    <view class='record-pic-blank'>
+        <image class='record-pic' src="{{pic}}" wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k"></image>    
+    </view>
   </view>
+  
+  <view wx:if="{{huodong.bm_list.length>8}}" class ="record-pic-model">···</view>
 
   <!-- 活动详情和动态 -->
   <view class="detailbar">
-    <view class="detailbar-item" data-index="0" bindtap ="changeMulu">
-      <image class ="detailbar-item-icon" src="{{barIndex == 0?'/imgs/detail2.png':'/imgs/detail1.png'}}"></image>
-      <view class ="detailbar-item-title" style="color:{{barIndex == 0?'#0096fa':'black'}}">活动详情</view>
+    <view class="detailbar-item" data-index="0" bindtap="changeMulu">
+      <image class="detailbar-item-icon" src="{{barIndex == 0?'/imgs/detail2.png':'/imgs/detail1.png'}}"></image>
+      <view class="detailbar-item-title" style="color:{{barIndex == 0?'#0096fa':'black'}}">活动详情</view>
     </view>
 
-    <view class="detailbar-item" data-index="1" bindtap ="changeMulu">
-      <image class ="detailbar-item-icon" src="{{barIndex == 1?'/imgs/dongtai2.png':'/imgs/dongtai1.png'}}"></image>
-      <view class ="detailbar-item-title" style="color:{{barIndex == 1?'#0096fa':'black'}}">活动动态</view>
+    <view class="detailbar-item" data-index="1" bindtap="changeMulu">
+      <image class="detailbar-item-icon" src="{{barIndex == 1?'/imgs/dongtai2.png':'/imgs/dongtai1.png'}}"></image>
+      <view class="detailbar-item-title" style="color:{{barIndex == 1?'#0096fa':'black'}}">活动动态</view>
     </view>
   </view>
   <view class="detail-line"></view>
-  <view class = "detailbar-line" animation = "{{moveData}}"></view>
+  <view class="detailbar-line" animation="{{moveData}}"></view>
 
   <!-- 具体内容 -->
-  <view class ="detail-content">
+  <view class="detail-content">
     <!-- 活动详情的页面 -->
-    <view wx:if="{{barIndex==0}}" class ="detail-xiangqing">
+    <view wx:if="{{barIndex==0}}" class="detail-xiangqing">
       <rich-text nodes="{{huodong.content}}"></rich-text>
     </view>
 
     <!-- 动态页面 -->
-    <view wx:if="{{barIndex==1}}" class ="detail-dongtai">
-      <view wx:if= "{{!isDongtaiLoaded}}" ></view>
+    <view wx:if="{{barIndex==1}}" class="detail-dongtai">
+      <view wx:if="{{!isDongtaiLoaded}}"></view>
       <view wx:for="{{dongtais}}" wx:for-item="dongtai" wx:key="d">
         <view class="dongtai">
           <!-- 动态的最上面部分 -->
-          <view class ="dongtai-info">
-            <image class ="dongtai-info-pic" src = "{{dongtai.userimg}}"></image>
-            <view class ="dongtai-info-mid">
-              <view class ="dongtai-info-mid-nickname">{{dongtai.username}}</view>
-              <view class ="dongtai-info-mid-time">{{dongtai.addtime}}</view>
+          <view class="dongtai-info">
+            <image class="dongtai-info-pic" src="{{dongtai.userimg}}"></image>
+            <view class="dongtai-info-mid">
+              <view class="dongtai-info-mid-nickname">{{dongtai.username}}</view>
+              <view class="dongtai-info-mid-time">{{dongtai.addtime}}</view>
             </view>
-            <view wx:if="{{dongtai.userid != zcode}}" class ="dongtai-info-guanzhu" style ="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
+            <view wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
 
-            <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class ="dongtai-info-guanzhu" style ="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
+            <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class="dongtai-info-guanzhu" style="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
           </view>
 
           <!-- 动态内容 -->
-          <view data-dongtai = "{{dongtai}}" class ="dongtai-content" bindtap = "GOdongtaiDetail" hover-class='select2' hover-stay-time='500'>
-            <view class ="dongtai-content-text">{{dongtai.content}}</view>
-            <view class ="dongtai-content-imgs">
-              <view  wx:for="{{dongtai.images}}" wx:for-item="img" wx:key="i">
-                <image   src="{{img}}" mode="aspectFill" class ="dongtai-content-img" style="margin-right:{{(index+1)%3==0?0:10}}rpx"></image>
+          <view data-dongtai="{{dongtai}}" class="dongtai-content" bindtap="GOdongtaiDetail" hover-class='select2' hover-stay-time='500'>
+            <view class="dongtai-content-text">{{dongtai.content}}</view>
+            <view class="dongtai-content-imgs">
+              <view wx:for="{{dongtai.images}}" wx:for-item="img" wx:key="i">
+                <image src="{{img}}" mode="aspectFill" class="dongtai-content-img" style="margin-right:{{(index+1)%3==0?0:10}}rpx"></image>
               </view>
             </view>
           </view>
 
           <!-- 图片的数量 -->
-          <view wx:if="{{dongtai.images.length !=0}}" class ="dongtai-picnum">共{{dongtai.images.length}}张</view>
+          <view wx:if="{{dongtai.images.length !=0}}" class="dongtai-picnum">共{{dongtai.images.length}}张</view>
           <!-- 最下面的喜欢按钮 -->
           <view class="dongtai-like">
-            <image class ="dongtai-like-icon" src="/imgs/heart1.png"></image>
-            <view class ="dongtai-like-num">{{dongtai.zan}}</view>
+            <image class="dongtai-like-icon" src="/imgs/heart1.png"></image>
+            <view class="dongtai-like-num">{{dongtai.zan}}</view>
           </view>
         </view>
       </view>
@@ -124,15 +128,15 @@
   </view>
 </scroll-view>
 
-<image wx:if ="{{!isLoaded}}" class ="load-img" src="/imgs/timg.gif"></image>
+<image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif"></image>
 
 <!-- 活动详情时的底部信息 -->
-<view wx:if="{{barIndex==0 && huodong.zhuangtai == '1'}}" class ="bottom">
-  <view class ="bottom-left">{{huodong.price}}</view>
-  <view  class ="bottom-right"  bindtap ="enlist" hover-class='select1' hover-stay-time='500'>报名参加</view>
+<view wx:if="{{barIndex==0 && huodong.zhuangtai == '1'}}" class="bottom">
+  <view class="bottom-left">{{huodong.price}}</view>
+  <view class="bottom-right" bindtap="enlist" hover-class='select1' hover-stay-time='500'>报名参加</view>
 </view>
 
 <!-- 活动动态时的底部信息 -->
-<view wx:if="{{barIndex==1}}" class ="bottom">
-  <view class ="bottom-dongtai" bindtap="GOaddDongtai" hover-class='select1' hover-stay-time='500'>我要发布动态</view>
+<view wx:if="{{barIndex==1}}" class="bottom">
+  <view class="bottom-dongtai" bindtap="GOaddDongtai" hover-class='select1' hover-stay-time='500'>我要发布动态</view>
 </view>

@@ -61,6 +61,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({//上拉加载可能触发重复登录
+      loadingMore: false
+    })
     buttonClicked = false;
     let self = this;
 

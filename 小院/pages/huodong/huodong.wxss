@@ -110,6 +110,7 @@ page{
 
 .huodong-bottom-left{
   width:580rpx;
+  margin-left:20rpx;
 }
 
 .huodong-bottom-left-icon{
@@ -117,6 +118,19 @@ page{
   height:50rpx;
   border-radius: 50rpx;
   margin-right:10rpx;
+  box-shadow: -5rpx 3rpx 3rpx 4rpx rgba(0, 0, 0,0.1);
+  margin-left:-20rpx;
+}
+
+.record-pic-model{
+  width:52rpx;
+  height:52rpx;
+  font-size:40rpx;
+  line-height: 50rpx;
+  text-align: center;
+  border-radius: 52rpx;
+  background: rgba(48, 48, 48,0.5);
+  color:white;
 }
 
 .huodong-bottom-right{

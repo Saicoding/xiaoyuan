@@ -72,6 +72,12 @@ Page({
   },
 
   onShow: function() {
+    //下拉刷新可能触发重复登录，这时跳转到登录界面时没有停止刷新状态，需要手动设置
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+    this.setData({//上拉加载可能触发重复登录
+      loadingMore: false
+    })
     let self = this;
     let user = wx.getStorageSync('user'); //先看下本地是否有用户信息，如果有信息说明已经登录
     //用户信息

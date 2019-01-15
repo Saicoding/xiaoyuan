@@ -80,6 +80,7 @@
   line-height: 30rpx;
   margin: 0rpx auto;
   text-align: center;
+  margin-bottom: 15rpx;
   color: rgb(156, 156, 156);
 }
 

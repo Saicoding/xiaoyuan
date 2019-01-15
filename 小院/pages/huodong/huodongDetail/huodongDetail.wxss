@@ -155,18 +155,21 @@
 
 /* 报名的人*/
 .record{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
   height:120rpx;
-  width:100%;
   border-top:20rpx solid #f0f3fa;
   border-bottom:20rpx solid #f0f3fa;
 }
 
-.record-num,.record-pic{
-  display: float;
+
+.record-pic-blank{
+  height:120rpx;
+  margin-right:40rpx;
 }
 
 .record-num{
-  float:left;
   height:60rpx;
   border-radius: 0rpx 50rpx 50rpx 0rpx;
   background: #0096fa;
@@ -179,12 +182,28 @@
 }
 
 .record-pic{
-  float:right;
+  box-shadow: -5rpx 3rpx 3rpx 4rpx rgba(0, 0, 0,0.1);
+  margin-left:-20rpx;
   width:70rpx;
   height:70rpx;
   border-radius: 70rpx;
   margin-top:25rpx;
-  margin-right:10rpx;
+  z-index:99;
+}
+
+.record-pic-model{
+  position: relative;
+  z-index:100;
+  width:72rpx;
+  height:72rpx;
+  font-size:50rpx;
+  line-height: 75rpx;
+  text-align: center;
+  top:-110rpx;
+  border-radius: 70rpx;
+  background: rgba(48, 48, 48,0.5);
+  color:white;
+  left:638rpx;
 }
 
 /* 活动详情和动态 */

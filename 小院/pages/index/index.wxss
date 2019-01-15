@@ -15,8 +15,8 @@
 /* 中间的粗灰条 */
 .bolder-line{
   width:100%;
-  height:50rpx;
-  background:#f2f2f2;
+  height:20rpx;
+  background:#f0f3fa;
 }
 
 /* 课程信息 */
@@ -98,7 +98,7 @@
   width:400rpx;
   border-radius: 90rpx;
   height:90rpx;
-  background:rgb(233, 233, 233);
+  background:white;
   margin-left:20rpx;
   margin-top:15rpx;
 }
@@ -109,14 +109,14 @@
   padding-left:30rpx;
   width:290rpx;
   font-size:28rpx;
-   background:rgb(233, 233, 233);
+  background: white;
   border-radius: 90rpx;
 }
 
 .search-icon{
   width:50rpx;
   height:50rpx;
-   background:rgb(233, 233, 233);
+  background: white;
   margin-top:20rpx;
 }
 
