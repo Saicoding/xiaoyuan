@@ -65,6 +65,7 @@ Page({
 
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
+      console.log(huodong)
 
       let hd_uid = huodong.userid;
 
@@ -271,6 +272,7 @@ Page({
     let hddate = huodong.hddate; //报名日期字符串组
     let hdtime = huodong.hdtime; //参加活动时间
     let title = huodong.title; //活动标题
+    let buy = huodong.buy;//已经报名的日期
 
     //套餐信息
     let money = huodong.money;
@@ -284,9 +286,6 @@ Page({
     let money9 = huodong.money9;
     let money10 = huodong.money10;
 
-    //已经报名的日期
-    let buy = huodong.buy;
-
     wx.navigateTo({
       url: '/pages/huodong/enlist/enlist?h_id=' + h_id + '&hddate=' + hddate + '&hdtime=' + hdtime + "&title=" + title +
         "&money=" + money +
@@ -299,7 +298,7 @@ Page({
         "&money8=" + money8 +
         "&money9=" + money9 +
         "&money10=" + money10 +
-        "&buy=" + buy,
+        "&buy=" + buy
     })
   },
 
@@ -329,7 +328,7 @@ Page({
 
       self.setData({ //正在载入
         showLoadingGif: true,
-        loadingText: "载入更多资讯 ..."
+        loadingText: "载入更多动态 ..."
       })
 
       //用户信息

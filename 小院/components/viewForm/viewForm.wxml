@@ -3,33 +3,33 @@
 <view hidden="{{!isShow}}" class="container-in" catchtap='stopBubbling' catchtouchmove='noScroll'>
   <image class="close" src="/imgs/close.png" bindtap="hideDialog"></image>
   <view class="content">
-    <view class="title">中仕学社JAVA软件工程师课程邀请您参加线下培训班
-      <span style="color:green">【报名中】</span>
+    <view class="title">{{huodong.title}}
+      <span style="color:green">【{{huodong.zhuangtaiStr}}】</span>
     </view>
-    <view class="price">¥ 0</view>
+    <view class="price">¥ {{huodong.money}}</view>
     <view class="content-block">
       <view class="content-block-label">使用日期：</view>
-      <view class="content-block-text">2019-1-8</view>
+      <view class="content-block-text">{{huodong.shiyongshijian}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">参加方式：</view>
-      <view class="content-block-text">小院报名，线下根据课程支付学费</view>
+      <view class="content-block-text">{{huodong.canyufangshi}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">活动地址：</view>
-      <view class="content-block-text">河北省秦皇岛市金茂国际B座2203中仕学社,河北省秦皇岛市金茂国际B座2203中仕学</view>
+      <view class="content-block-text">{{huodong.huodongdidian}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">集合时间：</view>
-      <view class="content-block-text">9：0</view>
+      <view class="content-block-text">{{huodong.jiheshijian}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">集合地点：</view>
-      <view class="content-block-text">河北省秦皇岛市海港区，建设大街，186号1</view>
+      <view class="content-block-text">{{huodong.jihedidian}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">数量：</view>
-      <view class="content-block-text">1</view>
+      <view class="content-block-text">{{huodong.num_baoming}}</view>
     </view>
   </view>
 
@@ -42,23 +42,23 @@
   <view class="content" style ="margin-top:10rpx;">
     <view class="content-block">
       <view class="content-block-label">姓名：</view>
-      <view class="content-block-text">陶冶</view>
+      <view class="content-block-text">{{huodong.name}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">电话：</view>
-      <view class="content-block-text">15533658458</view>
+      <view class="content-block-text">{{huodong.mobile}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">备注：</view>
-      <view class="content-block-text">测试</view>
+      <view class="content-block-text">{{huodong.beizhu}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">退改规则：</view>
-      <view class="content-block-text">预报名不收费,线下收费</view>
+      <view class="content-block-text">{{huodong.tuigaiguize}}</view>
     </view>
     <view class="content-block">
       <view class="content-block-label">费用包含：</view>
-      <view class="content-block-text">课程学费</view>
+      <view class="content-block-text">{{huodong.feiyongbaohan}}</view>
     </view>
   </view>
 

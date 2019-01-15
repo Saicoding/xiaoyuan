@@ -12,11 +12,10 @@
   <!-- banner下的4个按钮 -->
 
   <scroll-view scroll-x class='bars'>
-    <view  class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
-<view  class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
+    <view class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
 
-    <view wx:for="{{types}}" wx:for-item="type" wx:key="t" data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};margin-right:{{index==types.length-1?20:0}}rpx;" hover-class='select1'
-      hover-stay-time='500'>{{type.name}}</view>
+    <view wx:for="{{types}}" wx:for-item="type" wx:key="t" data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};margin-right:{{index==types.length-1?20:0}}rpx;"
+      hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
   </scroll-view>
 
   <!-- 热门活动 -->
@@ -42,15 +41,21 @@
           <view class="huodong-bottom-left">
             <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
             </image>
-            <image class="huodong-bottom-left-icon" style="opacity:0.5" src="/imgs/sheng.png">
+            <image class="huodong-bottom-left-icon" style="opacity:0.3" src="/imgs/sheng.png">
             </image>
           </view>
           <view class="huodong-bottom-right">已报名：{{huodong.num_baoming}}人</view>
         </view>
       </view>
     </view>
-  </view>
 
+    <!-- 没有信息提示 -->
+    <view class="noHuodong" wx:if="{{!huodongs.length && isLoaded}}">
+      <image class="noHuodong-img" src="/imgs/nosearch2.png"></image>
+      <view class="noHuodong-text">没有找到相关信息o(╥﹏╥)o</view>
+    </view>
+
+  </view>
   <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/loading.gif" mode='aspectFit'></image>
 
   <!-- 最下面的加载条 -->

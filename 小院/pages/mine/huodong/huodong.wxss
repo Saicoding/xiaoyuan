@@ -7,7 +7,7 @@ page{
   width:89.5%;
   background: white;
   margin:30rpx auto;
-  margin-top:0rpx;
+  margin-top:25rpx;
   border-radius: 15rpx;
   padding:30rpx 20rpx 30rpx 20rpx;
   box-shadow: #dcedf8 3rpx 3rpx 8rpx 1rpx ;
@@ -84,13 +84,16 @@ page{
 
 .huodong-bottom-left{
   width:580rpx;
+  margin-left:20rpx;
 }
 
 .huodong-bottom-left-icon{
-  width:50rpx;
-  height:50rpx;
+  width: 50rpx;
+  height: 50rpx;
   border-radius: 50rpx;
-  margin-right:10rpx;
+  margin-right: 10rpx;
+  box-shadow: -5rpx 3rpx 3rpx 4rpx rgba(0, 0, 0, 0.1);
+  margin-left: -20rpx;
 }
 
 .huodong-bottom-right{

@@ -48,25 +48,20 @@ Page({
     let self = this;
 
     // 获取活动列表
-    console.log("action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&myself=1")
     app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&myself=1", false, false, "", "", "", self).then(res => {
+      console.log(res);
       if(res.data.data[0].page_all != 0){//如果没有活动
-        console.log(res.data.data.page_all)
+        let page_all = res.data.data[0].page_all;
+        let huodongs = res.data.data[0].list;
+        self.initHuodongs(huodongs)
         self.setData({
-          hasHuodong: true
+          isLoaded: true,
+          page_all: page_all,
+          page: 1,
+          hasHuodong:true,
+          huodongs: huodongs
         })
       }
-      let page_all = res.data.data[0].page_all;
-      let huodongs = res.data.data[0].list;
-      console.log(huodongs)
-      self.initHuodongs(huodongs)
-
-      self.setData({
-        isLoaded: true,
-        page_all: page_all,
-        page: 1,
-        huodongs: huodongs
-      })
     })
   },
 
@@ -94,13 +89,6 @@ Page({
           break;
       }
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
   },
 
   /**
@@ -179,7 +167,11 @@ Page({
   /**
    * 产看订单
    */
-  viewDingdan:function(){
+  viewDingdan:function(e){
+    let huodong = e.currentTarget.dataset.huodong;
+    this.viewForm.setData({
+      huodong: huodong
+    })
     this.viewForm.showDialog();
   }
 

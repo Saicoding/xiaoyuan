@@ -1,5 +1,5 @@
 <!--pages/huodong/enlist/enlist.wxml-->
-<view class="container">
+<scroll-view scroll-y class="container" scroll-top="{{scrolltop}}">
   <!-- 最上面头部部分 -->
   <view class="title">{{options.title}}</view>
   <view class="huodonginfo">
@@ -17,8 +17,11 @@
 
   <view class="dateblock">
     <view wx:for="{{options.hddate}}" wx:for-item="date" wx:key="k">
-      <view data-index= "{{index}}" data-status="{{dates[index].gone}}" bindtap="chooseDate" class="date-item" style="margin-right:{{(index+1)%4==0?'0rpx':'21rpx'}};{{dates[index].style}}">
-        {{date}}
+      <view data-index="{{index}}" data-status="{{dates[index].gone}}" bindtap="chooseDate" class="date-item" style="margin-right:{{(index+1)%4==0?'0rpx':'21rpx'}};{{dates[index].style}}">
+        <view class ="enlist-text">
+          {{date}}
+        </view>
+        <image wx:if="{{dates[index].show}}" class="enlist" src="/imgs/enlist.jpg"></image>
       </view>
     </view>
     <view style="clear:both;"></view>
@@ -37,18 +40,18 @@
     <view style="line-height:80rpx;font-size:30rpx;font-weight:bold;">¥ {{item.money}}</view>
     <view style="color:{{item.selected?'#0096fa':'rgb(129, 129, 129)'}};font-size:25rpx;line-height:10rpx;">套餐{{index+1}}</view>
   </view>
-  <view style ="clear:both;"></view>
+  <view style="clear:both;"></view>
 
   <!-- 参加人信息 -->
   <view class="time">参加人信息：</view>
   <view class="info">
     <view class="info-block">
-      <view  class="info-block-text">电话：</view>
-      <input bindinput="phoneinput" type="number" class="info-block-input" placeholder='您的联系电话' cursor-spacing="270rpx"></input>
+      <view class="info-block-text">电话：</view>
+      <input focus='{{phoneFocus}}' bindinput="phoneinput" type="number" class="info-block-input" placeholder='您的联系电话' cursor-spacing="270rpx"></input>
     </view>
     <view class="info-block">
       <view class="info-block-text">姓名：</view>
-      <input bindinput="nameinput" type="text" class="info-block-input" placeholder='您的姓名' cursor-spacing="180rpx"></input>
+      <input focus="{{nameFocus}}" bindinput="nameinput" type="text" class="info-block-input" placeholder='您的姓名' cursor-spacing="180rpx"></input>
     </view>
     <view class="info-block">
       <view class="info-block-text">备注：</view>
@@ -57,8 +60,8 @@
   </view>
 
   <!-- 活动详情时的底部信息 -->
-  <view  class="bottom">
+  <view class="bottom">
     <view class="bottom-left">免费</view>
     <view class="bottom-right" bindtap="next" hover-class='select1' hover-stay-time='500'>下一步</view>
   </view>
-</view>
+</scroll-view>

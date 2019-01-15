@@ -62,7 +62,7 @@
 }
 
 .date-item {
-  display: block;
+  position: relative;
   float: left;
   font-size: 25rpx;
   text-align: center;
@@ -71,6 +71,15 @@
   width: 161rpx;
   border-radius: 10rpx;
   margin-top: 15rpx;
+}
+
+.enlist{
+  position: relative;
+  top:-70rpx;
+  left:-77rpx;
+  width:50rpx;
+  height:50rpx;
+  z-index: 2;
 }
 
 /* 活动时间 */

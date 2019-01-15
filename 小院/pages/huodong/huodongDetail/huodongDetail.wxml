@@ -64,7 +64,7 @@
     </view>
   </view>
 
-  <view wx:if="{{huodong.bm_list.length>8}}" class="record-pic-model">···</view>
+  <view  class="record-pic-model">···</view>
 
   <!-- 活动详情和动态 -->
   <view class="detailbar">
