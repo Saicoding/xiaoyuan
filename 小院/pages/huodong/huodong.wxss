@@ -1,144 +1,153 @@
 /* pages/huodong/huodong.wxss */
-page{
+
+page {
   background: #f0f3fa;
 }
+
 /* banner */
-.swiper{
-  width:750rpx;
-  height:440rpx;
+
+.swiper {
+  width: 750rpx;
+  height: 440rpx;
 }
 
-.slide-image{
-  width:750rpx;
-  height:440rpx;
+.slide-image {
+  width: 750rpx;
+  height: 440rpx;
 }
 
 /* 四个按钮 */
-.bars{
-  width:830rpx;
-  height:120rpx;
-  margin-left:20rpx;
+
+.bars {
+  display: flex;
+  width: 750rpx;
+  height: 120rpx;
+  align-items: center;
+  white-space: nowrap;
 }
 
-.bars-huodong,.bars-btn{
-  width:150rpx;
-  height:60rpx;
-  font-size:25rpx;
+.bars-huodong, .bars-btn {
+  display: inline-block;
+  width: 150rpx;
+  height: 60rpx;
+  font-size: 25rpx;
   line-height: 60rpx;
   text-align: center;
   border-radius: 10rpx;
-  margin-top:30rpx;
+  margin-top: 30rpx;
+  margin-left: 20rpx;
 }
 
-.bars-huodong{
+.bars-huodong {
   background: #fe555c;
-  color:white;
+  color: white;
 }
 
-.bars-btn{
+.bars-btn {
   background: white;
-  color:rgb(121, 121, 121);
-  border:1rpx solid rgb(236, 236, 236);
+  color: rgb(121, 121, 121);
+  border: 1rpx solid rgb(236, 236, 236);
 }
 
-/* 热门活动 */
-.huodong{
-  width:89.5%;
+/* 活动 */
+
+.huodong {
+  width: 690rpx;
   background: white;
-  margin:30rpx auto;
-  margin-top:0rpx;
+  margin: 30rpx auto;
+  margin-top: 0rpx;
   border-radius: 15rpx;
-  padding:30rpx 20rpx 30rpx 20rpx;
-  box-shadow: #dcedf8 3rpx 3rpx 8rpx 1rpx ;
+  padding: 30rpx 20rpx 30rpx 20rpx;
+  box-shadow: #dcedf8 3rpx 3rpx 8rpx 1rpx;
 }
 
-.title{
+.title {
   display: flex;
-  height:40rpx;
+  height: 40rpx;
   line-height: 40rpx;
   margin-bottom: 20rpx;
 }
 
-.title-icon{
-  width:40rpx;
-  height:40rpx;
+.title-icon {
+  width: 40rpx;
+  height: 40rpx;
 }
 
-.title-text{
-  font-size:28rpx;
-  margin-left:20rpx;
+.title-text {
+  font-size: 28rpx;
+  margin-left: 20rpx;
 }
 
-.huodong-detail{
-  padding-bottom:30rpx;
-  margin-bottom:30rpx;
+.huodong-detail {
+  padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
   border-bottom: 1rpx solid rgb(226, 226, 226);
 }
 
-.huodong-detail-img{
-  width:100%;
-  height:350rpx;
+.huodong-detail-img {
+  width: 100%;
+  height: 350rpx;
 }
 
-.huodong-detail-down{
+.huodong-detail-down {
   display: flex;
 }
 
-.huodong-detail-down-title{
-  font-size:25rpx;
-  width:580rpx;
-  line-height:40rpx;
+.huodong-detail-down-title {
+  font-size: 25rpx;
+  width: 580rpx;
+  line-height: 40rpx;
 }
 
-.huodong-detail-down-info{
-  font-size:28rpx;
-  color:red;
-  width:150rpx;
+.huodong-detail-down-info {
+  font-size: 28rpx;
+  color: red;
+  width: 150rpx;
   text-align: center;
 }
 
-.huodong-tequan{
-  height:70rpx;
+.huodong-tequan {
+  height: 70rpx;
   line-height: 60rpx;
-  color:rgb(253, 122, 0);
-  font-size:20rpx;
+  color: rgb(253, 122, 0);
+  font-size: 20rpx;
 }
 
-.huodong-bottom{
+.huodong-bottom {
   display: flex;
 }
 
-.huodong-bottom-left{
-  width:580rpx;
-  margin-left:20rpx;
+.huodong-bottom-left {
+  width: 580rpx;
+  margin-left: 20rpx;
 }
 
-.huodong-bottom-left-icon{
-  width:50rpx;
-  height:50rpx;
+.huodong-bottom-left-icon {
+  width: 50rpx;
+  height: 50rpx;
   border-radius: 50rpx;
-  margin-right:10rpx;
-  box-shadow: -5rpx 3rpx 3rpx 4rpx rgba(0, 0, 0,0.1);
-  margin-left:-20rpx;
+  margin-right: 10rpx;
+  box-shadow: -5rpx 3rpx 3rpx 4rpx rgba(0, 0, 0, 0.1);
+  margin-left: -20rpx;
 }
 
-.record-pic-model{
-  width:52rpx;
-  height:52rpx;
-  font-size:40rpx;
+.record-pic-model {
+  width: 52rpx;
+  height: 52rpx;
+  font-size: 40rpx;
   line-height: 50rpx;
   text-align: center;
   border-radius: 52rpx;
-  background: rgba(48, 48, 48,0.5);
-  color:white;
+  background: rgba(48, 48, 48, 0.5);
+  color: white;
 }
 
-.huodong-bottom-right{
-  width:200rpx;
-  height:50rpx;
+.huodong-bottom-right {
+  width: 200rpx;
+  height: 50rpx;
   line-height: 50rpx;
-  color:rgb(175, 175, 175);
-  font-size:20rpx;
+  color: rgb(175, 175, 175);
+  font-size: 20rpx;
   text-align: right;
   letter-spacing: 1rpx;
 }
@@ -156,7 +165,7 @@ page{
   font-size: 23rpx;
   line-height: 30rpx;
   margin: 0rpx auto;
-  margin-bottom:20rpx;
+  margin-bottom: 20rpx;
   text-align: center;
   color: rgb(156, 156, 156);
 }
@@ -174,10 +183,10 @@ page{
   vertical-align: middle;
 }
 
-.select1{
+.select1 {
   background: rgb(224, 224, 224);
 }
 
-.select2{
+.select2 {
   opacity: 0.4;
 }
