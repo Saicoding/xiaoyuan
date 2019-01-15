@@ -380,3 +380,7 @@
 .select1{
   background: linear-gradient(to right,#ffc380,#ffa033);
 }
+
+.select2{
+  opacity: 0.7
+}

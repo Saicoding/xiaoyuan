@@ -20,7 +20,8 @@
     "pages/huodong/enlist/enlist",
     "pages/mine/huodong/huodong",
     "pages/mine/setHeadpic/setHeadpic",
-    "pages/guangchang/chat/chat"
+    "pages/guangchang/chat/chat",
+    "pages/huodong/dongtaiDetail/dongtaiDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",

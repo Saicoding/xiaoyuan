@@ -1,0 +1,86 @@
+<!--pages/huodong/dongtaiDetail/dongtaiDetail.wxml-->
+<view class="container">
+  <view style="border-top:15rpx solid #f0f3fa;"></view>
+  <view class="dongtai">
+    <!-- 动态的最上面部分 -->
+    <view class="dongtai-info">
+      <image class="dongtai-info-pic" src="{{dongtai.userimg}}"></image>
+      <view class="dongtai-info-mid">
+        <view class="dongtai-info-mid-nickname">{{dongtai.username}}</view>
+        <view class="dongtai-info-mid-time">{{dongtai.addtime}}</view>
+      </view>
+      <view wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
+
+      <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class="dongtai-info-guanzhu" style="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
+    </view>
+
+    <!-- 动态内容 -->
+    <view data-dongtai="{{dongtai}}" class="dongtai-content" bindtap="GOdongtaiDetail" hover-class='select2' hover-stay-time='500'>
+      <view class="dongtai-content-text">{{dongtai.content}}</view>
+      <view class="dongtai-content-imgs">
+        <view wx:for="{{dongtai.images}}" wx:for-item="img" wx:key="i">
+          <image src="{{img}}" mode="widthFix" class="dongtai-content-img"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 喜欢按钮 -->
+  <view class ="like">
+    <image src="/imgs/icon-agree.png" class ="like-icon"></image>
+    <view class ="like-num">0</view>
+  </view>
+
+  <!-- 评论block -->
+  <view class="comments">
+    <view class="comments-top">
+      <image class="comments-top-icon" src="/imgs/comment1.png"></image>
+      <view class="comments-top-text">评论 {{comments.length}} 条</view>
+    </view>
+
+    <view class="comments-content">
+      <!-- 我的评论 -->
+      <view wx:if="{{mycomment.nickname!=undefined}}" class="comments-content-block" style="background:rgb(149, 213, 255);">
+        <image class="comment-img" src="{{mycomment.userpic}}" mode="aspectFit"></image>
+        <view class="comment-right">
+          <text class="comment-right-line2" space='nbsp' style="color:rgb(255, 146, 103);">{{mycomment.addtime}}  来自{{mycomment.nickname}}</text>
+          <view class="comment-right-line3">{{mycomment.content}}</view>
+        </view>
+      </view>
+      <!-- 正常评论 -->
+      <view wx:for="{{comments}}" wx:for-item="comment" wx:key="k">
+        <view class="comments-content-block">
+          <image class="comment-img" src="{{comment.userpic}}" mode="aspectFit"></image>
+          <view class="comment-right">
+            <view class="comment-right-line1" space='nbsp'>{{comment.nickname}} ({{index+1}}楼)</view>
+            <text class="comment-right-line2" space='nbsp'>{{comment.addtime}}  来自({{comment.from}})</text>
+            <view class="comment-right-line3">{{comment.content}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 没有评论时显示 -->
+      <view wx:if="{{comments.length == 0 && !mycomment}}" class ="hasNoMessage">
+        <image class ="hasNoMessage-img" src="/imgs/noMessage.png"></image>
+        <view class = "hasNoMessage-text">一条评论都没有o(╥﹏╥)o</view>
+      </view>
+    </view>
+  </view>
+
+    <!-- 分隔条 -->
+  <view style="border-top:15rpx solid #f0f3fa;margin-bottom:20rpx;"></view>
+
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
+
+  <!-- 评论 -->
+  <view class="comment">
+    <image class="comment-icon" src="/imgs/comment.png" mode="aspectFit"></image>
+    <input value="{{currentComment}}" bindinput='inputComment' cursor-spacing="10" class="comment-input"></input>
+
+    <view hover-class='select1' hover-stay-time="500" bindtap="sendComment" class="comment-button">发表</view>
+  </view>
+</view>

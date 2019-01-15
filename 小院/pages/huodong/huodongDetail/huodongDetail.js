@@ -231,28 +231,24 @@ Page({
   },
 
   /**
-   * 查看图片
-   */
-  viewImg:function(e){
-    let url = e.currentTarget.dataset.imgurl;
-    let urls = e.currentTarget.dataset.imgurls;
-
-    wx.previewImage({
-      current: url, // 当前显示图片的http链接
-      urls: urls,// 需要预览的图片http链接列表
-      success: function (res) {
-
-      }
-    })
-  },
-
-  /**
    * 导航到添加动态页面
    */
   GOaddDongtai: function() {
     let h_id = this.data.h_id;
     wx.navigateTo({
       url: '/pages/huodong/addDongtai/addDongtai?h_id=' + h_id,
+    })
+  },
+
+  /**
+   * 导航到动态详情页面
+   */
+  GOdongtaiDetail:function(e){
+    let dongtai = e.currentTarget.dataset.dongtai;
+    let h_id = this.data.h_id;
+    let jsonStr = JSON.stringify(dongtai);
+    wx.navigateTo({
+      url: '/pages/huodong/dongtaiDetail/dongtaiDetail?jsonStr=' + jsonStr+"&h_id="+h_id
     })
   },
 

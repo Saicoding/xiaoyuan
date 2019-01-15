@@ -84,19 +84,9 @@ Page({
    */
   login: function() {
     let self = this;
-    let loaded = self.data.loaded;
-
-    if (!loaded) {
-      wx.showToast({
-        title: '请稍等1秒钟再试',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
 
     //限制连续点击
-    if (buttonClicked && !loaded) return;
+    if (buttonClicked) return;
     buttonClicked = true;
 
 
@@ -152,7 +142,7 @@ Page({
   wxLogin: function(e) {
     let self = this;
     //限制连续点击
-    if (buttonClicked && !loaded) return;
+    if (buttonClicked) return;
     buttonClicked = true;
 
     wx.login({
@@ -181,7 +171,7 @@ Page({
 
               let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
               let url = self.data.url; //需要导航的url
-
+              console.log("action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex)
               app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, false, false, "").then((res) => {
                 let user = res.data.list[0];
                 self.processSelectScholl(user, ifGoPage);

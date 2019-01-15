@@ -42,6 +42,7 @@ Page({
     let self = this;
 
     // 获取活动列表
+    console.log("action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&myself=1")
     app.post(API_URL, "action=getActivityList_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&myself=1", false, false, "", "", "", self).then(res => {
       if(res.data.data[0].page_all != 0){//如果没有活动
         console.log(res.data.data.page_all)
