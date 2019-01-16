@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/userInfo/userInfo",
     "pages/index/index",
     "pages/login/login",
     "pages/selectSchool/selectSchool",
@@ -26,7 +27,7 @@
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#0096fa",
+    "navigationBarBackgroundColor": "#2983fe",
     "navigationBarTitleText": "小院",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true

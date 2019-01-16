@@ -89,3 +89,7 @@ page{
   margin-left: 10rpx;
   vertical-align: middle;
 }
+
+.select1{
+  background: rgb(224, 224, 224);
+}

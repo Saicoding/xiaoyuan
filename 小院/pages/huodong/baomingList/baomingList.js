@@ -189,5 +189,15 @@ Page({
           }
         }
     })
+  },
+
+  GOuserInfo:function(e){
+    if(buttonClicked) return;
+    buttonClicked = true;    
+    let userid = e.currentTarget.dataset.userid;
+
+    wx.navigateTo({
+      url: '/pages/userInfo/userInfo?userid='+userid,
+    })
   }
 })

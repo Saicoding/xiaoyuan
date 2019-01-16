@@ -264,6 +264,16 @@ Page({
   },
 
   /**
+   * 导航到报名列表
+   */
+  GObaomingList: function () {
+    let h_id = this.data.h_id;
+    wx.navigateTo({
+      url: '/pages/huodong/baomingList/baomingList?h_id=' + h_id,
+    })
+  },
+
+  /**
    * 报名
    */
   enlist: function() {

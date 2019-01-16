@@ -57,7 +57,7 @@
   </view>
 
   <!-- 报名的人 -->
-  <view class="record">
+  <view class="record"  bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
     <view class="record-num">已有{{huodong.num_baoming}}人报名</view>
     <view class='record-pic-blank'>
       <image class='record-pic' src="{{pic}}" wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k"></image>
@@ -100,7 +100,7 @@
                 <view class="dongtai-info-mid-nickname">{{dongtai.username}}</view>
                 <view class="dongtai-info-mid-time">{{dongtai.addtime}}</view>
               </view>
-              <view data-userid="{{dongtai.userid}}" wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" bindtap = "toogleMark">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
+              <view data-userid="{{dongtai.userid}}" wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" bindtap = "toogleMark">{{dongtai.guanzhu=='0'?'关注':'取消关注'}}</view>
 
               <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class="dongtai-info-guanzhu" style="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
             </view>

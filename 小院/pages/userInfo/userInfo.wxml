@@ -1,0 +1,61 @@
+<!--pages/userInfo/userInfo.wxml-->
+<view class="container">
+  <view class="up">
+    <!-- 上面的部分 -->
+    <view class="up-top">
+      <view class="info">
+        <view class="info-text1">陶冶</view>
+        <view class="info-text2">物理系</view>
+      </view>
+      <view class="up-button">
+        <view class="up-button-block" style ="background: linear-gradient(to right,#ffca50,#ffb812);">
+          <image class ="up-button-block-icon" src="/imgs/add.png"></image>
+          <view class ="up-button-block-text">加关注</view>
+        </view>
+        <view class="up-button-block" style ="background: linear-gradient(to right,#ff7a52,#fd3b00);margin-top:20rpx;">
+          <image class ="up-button-block-icon" src="/imgs/plane.png"></image>
+          <view class ="up-button-block-text">发私信</view>
+        </view>
+      </view>
+      <view class="pic-outcontainer">
+        <image class="pic" src="{{user.Pic}}" mode="aspectFit"></image>
+        <image class="pic-icon" src="{{user.Sex ==1?'/imgs/nv.png':'/imgs/nan.png'}}"></image>
+      </view>
+      <view style="clear:both;"></view>
+    </view>
+    <!-- 下面的 关注 粉丝 人气 已学课程 -->
+    <view class="up-mid">
+      <view class="up-mid-item">
+        <view class="up-mid-item-text">Ta的关注</view>
+        <view class="up-mid-item-num">6</view>
+      </view>
+      <view class="up-mid-item">
+        <view class="up-mid-item-text">Ta的粉丝</view>
+        <view class="up-mid-item-num">1</view>
+      </view>
+      <view class="up-mid-item">
+        <view class="up-mid-item-text">人气</view>
+        <view class="up-mid-item-num">6</view>
+      </view>
+      <view class="up-mid-item">
+        <view class="up-mid-item-text">已学课程</view>
+        <view class="up-mid-item-num">3</view>
+      </view>
+
+    </view>
+
+    <image class="up-backimg1" src="/imgs/img-head.png"></image>
+    <image class="up-backimg2" src="/imgs/front-back.png"></image>
+  </view>
+
+  <!-- 空白条 -->
+  <view style="border-top:15rpx solid #f0f3fa;"></view>
+  
+  <view class ="dingzhi">
+    <view class ="dingzhi-top">
+      <image src="/imgs/dingzhi.png" class ="dingzhi-top-icon"></image>
+      <view class ="dingzhi-top-title">学习定制</view>
+    </view>
+  </view>
+</view>
+
