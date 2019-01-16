@@ -12,7 +12,7 @@
   <!-- banner下的4个按钮 -->
 
   <scroll-view scroll-x class='bars'>
-    <view class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
+    <view wx:if="{{isLoaded}}" class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
 
     <view wx:for="{{types}}" wx:for-item="type" wx:key="t" data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};margin-right:{{index==types.length-1?20:0}}rpx;"
       hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
@@ -37,7 +37,7 @@
 
         <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>{{huodong.typesname}}</view>
 
-        <view data-id="{{huodong.h_id}}" class="huodong-bottom" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
+        <view data-id="{{huodong.h_id}}" class="huodong-bottom" bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
           <view class="huodong-bottom-left">
             <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
             </image>

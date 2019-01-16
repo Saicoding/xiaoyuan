@@ -21,7 +21,8 @@
     "pages/mine/huodong/huodong",
     "pages/mine/setHeadpic/setHeadpic",
     "pages/guangchang/chat/chat",
-    "pages/huodong/dongtaiDetail/dongtaiDetail"
+    "pages/huodong/dongtaiDetail/dongtaiDetail",
+    "pages/huodong/baomingList/baomingList"
   ],
   "window": {
     "backgroundTextStyle": "dark",

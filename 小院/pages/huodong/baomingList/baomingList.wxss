@@ -1,0 +1,91 @@
+/* pages/huodong/baomingList/baomingList.wxss */
+page{
+  background: #f0f3fa;
+}
+
+.block{
+  display: flex;
+  height:120rpx;
+  background: white;
+  border-bottom: 1rpx solid rgb(218, 218, 218);
+  line-height: 120rpx;
+}
+
+.block-headpic{
+  margin-left:30rpx;
+}
+
+.block-name{
+  font-size:25rpx;
+  width:450rpx;
+}
+
+.headpic-img{
+  width:60rpx;
+  height:60rpx;
+  border-radius: 60rpx;
+  margin-top:30rpx;
+}
+
+.headpic-icon{
+  position: relative;
+  height:25rpx;
+  width:25rpx;
+  left:-22rpx;
+}
+
+
+.record-text{
+  width:730rpx;
+  text-align: right;
+  font-size:22rpx;
+  color:rgb(128, 128, 128);
+  height:50rpx;
+  line-height: 50rpx;
+  padding-right:20rpx;
+}
+
+
+.block-guanzhu{
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:22rpx;
+  text-align: center;
+  width:120rpx;
+  color:white;
+  border-radius: 8rpx;
+  margin-top:40rpx;
+  margin-left:50rpx;
+}
+
+.load-img{
+  display: block;
+  width:40rpx;
+  height:40rpx;
+  margin: 0 auto;
+  margin-top:200rpx;
+}
+
+
+.loading-block {
+  width: 100%;
+  height: 70rpx;
+  font-size: 23rpx;
+  line-height: 70rpx;
+  margin: 0rpx auto;
+  text-align: center;
+  color: rgb(156, 156, 156);
+}
+
+.loading-gif {
+  width: 30rpx;
+  height: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loading-text {
+  display: inline-block;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}

@@ -1,0 +1,25 @@
+<!--pages/huodong/baomingList/baomingList.wxml-->
+<view wx:if="{{isLoaded}}" class="container">
+  <view wx:for="{{baomingList}}" wx:for-item="baoming" wx:key="b">
+    <view class="block">
+      <view class="block-headpic">
+        <image src="{{baoming.HeadImg}}" class="headpic-img"></image>
+        <image src="{{baoming.sex =='女'?'/imgs/woman.png':'/imgs/man.png'}}" class="headpic-icon"></image>
+      </view>
+      <view class="block-name">{{baoming.uname}}</view>
+      <view wx:if="{{zcode != baoming.userid}}" class="block-guanzhu" style="background:{{baoming.guanzhu==0?'#ff5d24':'rgb(211, 211, 211)'}}">{{baoming.guanzhu==0?'关注':'已关注'}}</view>
+    </view>
+  </view>
+
+  <view class="record-text">共有{{record}}人报名</view>
+
+
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
+</view>
+
+<!-- 加载动画 -->
+<image class="load-img" wx:if="{{!isLoaded}}" src="/imgs/loading.gif"></image>

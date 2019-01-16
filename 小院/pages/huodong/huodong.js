@@ -266,6 +266,16 @@ Page({
   },
 
   /**
+   * 导航到报名列表
+   */
+  GObaomingList:function(e){
+    let h_id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/huodong/baomingList/baomingList?h_id='+h_id,
+    })
+  },
+
+  /**
    * 导航到详情页
    */
   GOhuodongDetail: function(e) {
