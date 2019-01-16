@@ -7,7 +7,7 @@
         <image src="{{baoming.sex =='女'?'/imgs/woman.png':'/imgs/man.png'}}" class="headpic-icon"></image>
       </view>
       <view class="block-name">{{baoming.uname}}</view>
-      <view wx:if="{{zcode != baoming.userid}}" class="block-guanzhu" style="background:{{baoming.guanzhu==0?'#ff5d24':'rgb(211, 211, 211)'}}">{{baoming.guanzhu==0?'关注':'已关注'}}</view>
+      <view data-userid ="{{baoming.userid}}" wx:if="{{zcode != baoming.userid}}" class="block-guanzhu" style="background:{{baoming.guanzhu==0?'#ff5d24':'rgb(211, 211, 211)'}}" bindtap = "toogleMark">{{baoming.guanzhu==0?'关注':'已关注'}}</view>
     </view>
   </view>
 

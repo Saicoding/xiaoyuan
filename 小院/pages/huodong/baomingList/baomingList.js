@@ -155,9 +155,39 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 切换是否关注
    */
-  onShareAppMessage: function () {
+  toogleMark:function(e){
+    if(buttonClicked) return;
+    buttonClicked = true;
+    let self = this;
+    let userid = e.currentTarget.dataset.userid;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode= user.zcode;
 
+    let baomingList  = self.data.baomingList;
+
+    app.post(API_URL,"action=user_gz&loginrandom="+loginrandom+"&zcode="+zcode+"&userid="+userid,false,false,"","","",self).then(res=>{
+        let result = res.data.data[0];
+        if(result){
+          for (let i = 0; i < baomingList.length;i++){
+            let baoming = baomingList[i];
+            if(baoming.userid == userid){//找到点击的人
+              baoming.guanzhu = baoming.guanzhu == 0 ?1:0;
+              buttonClicked = false;
+              self.setData({
+                baomingList: baomingList
+              })
+              wx.showToast({
+                icon:'none',
+                title: baoming.guanzhu ==0?'取消关注成功':'关注成功',
+                duration:3000
+              })
+              return;
+            }
+          }
+        }
+    })
   }
 })
