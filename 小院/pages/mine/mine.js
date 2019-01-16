@@ -54,8 +54,10 @@ Page({
    * 导航到头像设置页面
    */
   GOsetHeadpic:function(){
+    let userInfo = this.data.userInfo;
+    let userInfoStr = JSON.stringify(userInfo);
     wx.navigateTo({
-      url: '/pages/mine/setHeadpic/setHeadpic',
+      url: '/pages/mine/setHeadpic/setHeadpic?userInfoStr=' + userInfoStr,
     })
   },
 

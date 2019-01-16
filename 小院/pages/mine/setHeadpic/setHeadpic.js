@@ -10,15 +10,19 @@ Page({
    */
   data: {
     headpic: '/imgs/icon8.png',
-    uploadPicText:'上传图片'
+    uploadPicText: '上传图片'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let userInfo = JSON.parse(options.userInfoStr);
     wx.setNavigationBarTitle({
       title: '基本资料',
+    })
+    this.setData({
+      userInfo: userInfo
     })
   },
 
@@ -35,6 +39,11 @@ Page({
    */
   onShow: function() {
     buttonClicked: false
+    let userInfo = this.data.userInfo;
+    if (userInfo.zs_colleage_img){//如果有图片了，展示框就用此图片
+      userInfo.showImage = userInfo.zs_colleage_img
+      console.log(userInfo.zs_colleage_img)
+    }
   },
 
   /**
@@ -65,7 +74,7 @@ Page({
    */
   showSingleSelect: function(e) {
     let title = e.currentTarget.dataset.title;
-    let info = e.currentTarget.dataset.info == undefined ? '未设置' : e.currentTarget.dataset.info;
+    let info = !e.currentTarget.dataset.info ? '未设置' : e.currentTarget.dataset.info;
     let datas = [];
     let myindex = [];
     switch (title) {
@@ -106,8 +115,10 @@ Page({
    */
   _inputText: function(e) {
     let text = e.detail.text; //输入框的内容
+    let title = e.detail.title; //输入框的种类
+
     this.setData({
-      text: text
+      text: text,
     })
   },
 
@@ -117,29 +128,28 @@ Page({
   _changeSelect: function(e) {
     let title = this.singleSelect.data.title;
     let index = e.detail.myindex;
+    let userInfo = this.data.userInfo;
 
     let datas = [];
     switch (title) {
       case "性别":
         datas = ['未设置', '保密', '男', '女'];
-        this.setData({
-          sex: datas[index]
-        })
+          userInfo.Sex= datas[index]
         break;
       case "入学年份":
         datas = ['未设置', '2014', '2015', '2016', '2017']
-        this.setData({
-          year: datas[index]
-        })
+        userInfo.ruxue= datas[index]
         break;
       case "学历":
         datas = ['未设置', '中专', '大专', '本科', '硕士', '博士']
-
-        this.setData({
-          xueli: datas[index]
-        })
+        userInfo.xueli=datas[index]
         break;
     }
+
+    console.log(userInfo)
+    this.setData({
+      userInfo:userInfo
+    })
   },
 
   /**
@@ -148,31 +158,27 @@ Page({
   _confirm: function(e) {
     let title = e.detail.title;
     let text = this.data.text;
+    let userInfo = this.data.userInfo;
     switch (title) {
-      case "昵称":
-        this.setData({
-          nickname: text,
-          text: ""
-        })
+      case '昵称':
+        userInfo.Nicename = text
         break;
-      case "手机号":
-        this.setData({
-          phonenum: text,
-          text: ""
-        })
+      case '手机号':
+        userInfo.Mobile = text
         break;
-      case "学院":
-        this.setData({
-          xueyuan: text,
-          text: ""
-        })
+      case '学院':
+        userInfo.yuanxi = text
         break;
-      case "专业":
-        this.setData({
-          zhuanye: text,
-          text: ""
-        })
+      case '专业':
+        userInfo.zhuanye = text
+
+        break;
     }
+
+    this.setData({
+      userInfo: userInfo,
+      text: ""
+    })
   },
 
   /**
@@ -199,10 +205,11 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+    let userInfo = self.data.userInfo;
 
     self.setData({
       isLoaded: false,
-      uploadPicText:'上传中...'
+      uploadPicText: '上传中...'
     })
 
     wx.chooseImage({
@@ -234,8 +241,9 @@ Page({
                       base64Img.long = true
                     }
 
+                    userInfo.showImage = tempFilePath//展示用图片
+
                     self.setData({ //先保存数据
-                      pic: tempFilePath,
                       base64Img: base64Img,
                       haspic: true,
                     })
@@ -246,15 +254,18 @@ Page({
                     app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
                       buttonClicked = false
                       if (res.data.data[0].result == "success") {
-                          self.setData({
-                            isLoaded: true,                    
-                            uploadPicText:"已上传"
-                          })
-                      }else{
+                        console.log(res.data.data[0])
+                        userInfo.zs_colleage_img = res.data.data[0].pic//存储用参数
+                        self.setData({
+                          isLoaded: true,
+                          userInfo: userInfo,
+                          uploadPicText: "已上传"
+                        })
+                      } else {
                         wx.showToast({
-                          icon:'none',
+                          icon: 'none',
                           title: '上传失败',
-                          duration:3000
+                          duration: 3000
                         })
                       }
                     })
@@ -268,17 +279,64 @@ Page({
           }
         })
 
+      },
+      fail:function(){
+        buttonClicked = false
       }
     })
   },
 
-  viewImage:function(){
+  /**
+   * 产看图片
+   */
+  viewImage: function() {
     let pic = this.data.pic;
     wx.previewImage({
       current: pic, // 当前显示图片的http链接
-      urls: [pic],// 需要预览的图片http链接列表
-      success: function (res) {  
-      }
+      urls: [pic], // 需要预览的图片http链接列表
+      success: function(res) {}
+    })
+  },
+
+  /**
+   * 保存信息
+   */
+  save: function() {
+    console.log(buttonClicked)
+    let self = this;
+    if (buttonClicked) return;
+    buttonClicked = true;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let userInfo = self.data.userInfo;
+
+    let nickname = userInfo.Nicename;
+    let sex = userInfo.Sex;
+    let mobile = userInfo.Mobile;
+    let zs_yuanxi = userInfo.yuanxi;
+    let zs_professional = userInfo.zhuanye;
+    let zs_ruxue = userInfo.ruxue;
+    let zs_edution = userInfo.xueli;
+    let zs_colleage_img = userInfo.zs_colleage_img ;
+
+    app.post(API_URL, "action=saveUserInfo" +
+      "&loginrandom=" + loginrandom +
+      "&zcode=" + zcode +
+      "&nickname=" + nickname +
+      "&sex=" + sex +
+      "&mobile=" + mobile +
+      "&zs_yuanxi=" + zs_yuanxi +
+      "&zs_professional=" + zs_professional +
+      "&zs_ruxue=" + zs_ruxue +
+      "&zs_edution=" + zs_edution +
+      "&zs_colleage_img=" + zs_colleage_img, true, true, "保存中", "", "", self).then(res => {
+        buttonClicked = false;
+        wx.showToast({
+          icon:'none',
+          title: '保存成功',
+          duration:3000
+        })
     })
   }
 })

@@ -6,7 +6,8 @@ page{
 
 }
 
-.block{
+
+.block,.block-pic{
   clear: both;
   width:710rpx;
   padding-left:20rpx;
@@ -16,6 +17,11 @@ page{
   line-height: 80rpx;
   border-bottom: 1rpx solid rgb(236, 236, 236);
   background: white;
+}
+
+.block-pic{
+  height:120rpx;
+  line-height: 120rpx;
 }
 
 .left-text{

@@ -14,6 +14,7 @@ Page({
     loadingMore: false, //是否在加载更多
     loadingText: "", //上拉载入更多的文字
     isLoaded:false,//是否已经加载
+    barsLoaded:false,//bars是否已经载入完毕
   },
 
   /**
@@ -68,6 +69,7 @@ Page({
         console.log(types)
         self.setData({
           types:types,
+          barsLoaded:true
         })
       })
 

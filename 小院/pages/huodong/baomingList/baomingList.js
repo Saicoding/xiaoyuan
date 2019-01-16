@@ -24,7 +24,7 @@ Page({
 
     let h_id = options.h_id;//活动id
     this.setData({
-      h_id: h_id 
+      h_id: h_id
     })
   },
 
