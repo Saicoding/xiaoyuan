@@ -354,6 +354,7 @@ Page({
         let newDongtais = dongtaiList.list;
         self.initDongtaiImages(newDongtais);
         dongtais = dongtais.concat(newDongtais);//拼接数组
+        console.log(newDongtais)
 
         self.setData({
           showLoadingGif: false,

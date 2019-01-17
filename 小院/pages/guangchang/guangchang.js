@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isDeveloping:true,
     friends:[
       {
         pic:'/imgs/vip.png',

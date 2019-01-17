@@ -41,7 +41,7 @@ Page({
     buttonClicked: false
     let userInfo = this.data.userInfo;
     if (userInfo.zs_colleage_img){//如果有图片了，展示框就用此图片
-      userInfo.showImage = userInfo.zs_colleage_img
+      userInfo.showImage = "http://neuq.chinaplat.com/app_pic/"+userInfo.zs_colleage_img
       console.log(userInfo.zs_colleage_img)
     }
   },

@@ -1,13 +1,13 @@
 <!--pages/huodong/baomingList/baomingList.wxml-->
 <view wx:if="{{isLoaded}}" class="container">
   <view wx:for="{{baomingList}}" wx:for-item="baoming" wx:key="b">
-    <view data-userid="{{baoming.userid}}" class="block" bindtap = "GOuserInfo" hover-class='select1' hover-stay-time='500'>
+    <view data-guanzhu = "{{baoming.guanzhu}}" data-userid="{{baoming.userid}}" class="block" bindtap = "GOuserInfo" hover-class='select1' hover-stay-time='500'>
       <view class="block-headpic">
         <image src="{{baoming.HeadImg}}" class="headpic-img"></image>
         <image src="{{baoming.sex =='女'?'/imgs/woman.png':'/imgs/man.png'}}" class="headpic-icon"></image>
       </view>
       <view class="block-name">{{baoming.uname}}</view>
-      <view data-userid ="{{baoming.userid}}" wx:if="{{zcode != baoming.userid}}" class="block-guanzhu" style="background:{{baoming.guanzhu==0?'#ff5d24':'rgb(211, 211, 211)'}}" catchtap = "toogleMark">{{baoming.guanzhu==0?'关注':'取消关注'}}</view>
+      <view  data-userid ="{{baoming.userid}}" wx:if="{{zcode != baoming.userid}}" class="block-guanzhu" style="background:{{baoming.guanzhu==0?'#ff5d24':'rgb(211, 211, 211)'}}" catchtap = "toogleMark">{{baoming.guanzhu==0?'关注':'取消关注'}}</view>
     </view>
   </view>
 

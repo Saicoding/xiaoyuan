@@ -192,12 +192,13 @@ Page({
   },
 
   GOuserInfo:function(e){
+    console.log(e)
     if(buttonClicked) return;
     buttonClicked = true;    
     let userid = e.currentTarget.dataset.userid;
-
+    let guanzhu = e.currentTarget.dataset.guanzhu;
     wx.navigateTo({
-      url: '/pages/userInfo/userInfo?userid='+userid,
+      url: '/pages/userInfo/userInfo?userid='+userid+"&guanzhu="+guanzhu,
     })
   }
 })

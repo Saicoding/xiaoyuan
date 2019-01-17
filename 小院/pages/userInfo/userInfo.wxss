@@ -59,7 +59,7 @@
 }
 
 .info {
-  margin-top: 60rpx;
+  margin-top: 40rpx;
 }
 
 .pic-outcontainer {
@@ -68,23 +68,31 @@
 }
 
 .info, .info-text1, .info-text2 {
-  width: 300rpx;
+  width: 280rpx;
   text-align: left;
 }
 
-.up-button,.up-button-block{
+.up-button,.up-button-block,.up-button-block2{
   width:230rpx;
 }
 
 .up-button{
   margin-top:60rpx;
 }
+
+.up-button-block2{
+  display: flex;
+  justify-content: center;
+  border-radius: 10rpx;
+  background: linear-gradient(to right,#ff7a52,#fd3b00);margin-top:20rpx;
+}
+
 .up-button-block{
   display: flex;
   justify-content: center;
   border-radius: 10rpx;
 }
-.up-button-block,.up-button-block-text{
+.up-button-block,.up-button-block-text,.up-button-block2{
   height:50rpx;
   line-height: 50rpx;
 }
@@ -103,8 +111,13 @@
 
 .info-text1 {
   padding-left: 30rpx;
+  height:80rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: white;
-  font-size: 50rpx;
+  font-size: 40rpx;
+  overflow: hidden;
+  line-height: 80rpx;
 }
 
 .info-text2 {
@@ -143,3 +156,155 @@
   line-height: 60rpx;
   font-size: 22rpx;
 }
+
+/* 学习定制 */
+.dingzhi-top{
+  display: flex;
+  width:100%;
+  height:90rpx;
+  line-height: 90rpx;
+  font-size:28rpx;
+}
+
+.dingzhi-top-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-top:25rpx;
+  margin-left:20rpx;
+}
+
+.dingzhi-top-title{
+  margin-left:10rpx;
+}
+
+.dingzhiList{
+  width:710rpx;
+  margin:0 auto;
+}
+
+.dingzhi-btn{
+  float: left;
+  width:226rpx;
+  font-size:22rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color:white;
+  background: linear-gradient(to right,#f76747,#fa2f01);
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  height:60rpx;
+  margin-top:15rpx;
+  border-radius: 10rpx;
+}
+
+/* 他的动态 */
+.dongtai-top{
+  display: flex;
+  width:100%;
+  height:90rpx;
+  line-height: 90rpx;
+  font-size:28rpx;
+}
+
+.dongtai-top-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-top:25rpx;
+  margin-left:20rpx;
+}
+
+.dongtai-top-title{
+  margin-left:10rpx;
+}
+/* 动态list */
+.dongtai-block{
+  border-left:1rpx dashed rgb(187, 187, 187);
+  width:690rpx;
+  margin:0 auto;
+  margin-bottom: 20rpx;
+}
+
+.dongtai-circl-icon{
+  position: relative;
+  width:15rpx;
+  height:15rpx;
+  border:1rpx solid rgb(187, 187, 187);
+  background: white;
+  border-radius: 15rpx;
+  left:-10rpx;
+}
+
+.dongtai-time{
+  height:25rpx;
+  font-size:25rpx;
+  color:rgb(160, 160, 160);
+  margin-left:40rpx;
+  margin-top:-25rpx;
+}
+
+.dongtai-title{
+  font-size:25rpx;
+  margin-left:50rpx;
+  height:25rpx;
+  margin-top:20rpx;
+}
+
+.dongtai-img{
+  width:300rpx;
+  height:225rpx;
+  margin-left:40rpx;
+  margin-top:20rpx;
+  border-radius: 10rpx;
+}
+
+.load-img {
+  display: block;
+  width: 96rpx;
+  height: 112rpx;
+  margin: 200rpx auto;
+}
+
+/* 加载条 */
+
+.loading-block {
+  width: 100%;
+  height: 80rpx;
+  font-size: 23rpx;
+  line-height: 80rpx;
+  margin: 0rpx auto;
+  text-align: center;
+  color: rgb(156, 156, 156);
+}
+
+.loading-gif {
+  width: 30rpx;
+  height: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loading-text {
+  display: inline-block;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}
+
+
+/* 点击按钮后的样式 */
+.select1{
+  background: linear-gradient(to right,#ffbdae,#ff7050);
+}
+
+.select2{
+  background: linear-gradient(to right,#fde4aa,#fcc649);
+}
+
+.select3{
+  opacity: 0.8;
+}
+
+.select4{
+  background: linear-gradient(to right,#ffdcd1,#ff7f58);
+}
+
