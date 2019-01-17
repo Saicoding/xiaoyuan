@@ -20,7 +20,7 @@
       <view data-title="{{course.title}}" data-typesid="{{course.id}}" bindtap='GOViewAll' class="course" hover-class='select1' hover-stay-time='500'>
         <image wx:if="{{!isLoaded}}" class="course-icon" src="/imgs/loading1.gif" style="margin-left:100rpx;" mode="aspectFit"></image>
         <image wx:if="{{isLoaded}}" class="course-icon" src="{{course.pic}}" mode="aspectFit"></image>
-        <view wx:if="{{isLoaded}}" class="course-name">{{course.title}}</view>
+                <view wx:if="{{isLoaded}}" class="course-name">{{course.title}}</view>
       </view>
     </view>
 

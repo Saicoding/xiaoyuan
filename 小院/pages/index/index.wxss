@@ -30,6 +30,7 @@
   float:left;
   width:226rpx;
   height:60rpx;
+  line-height: 60rpx;
   border-radius: 20rpx;
   border:1rpx solid rgb(212, 212, 212);
   margin-top:20rpx;
@@ -40,16 +41,19 @@
 }
 
 .course-icon{
-  display: inline-block;
-  vertical-align: middle;
+  display: float;
+  float:left;
   width:34rpx;
   height:34rpx;
   margin-left:20rpx;
+  margin-top:13rpx;
 }
 
 .course-name{
-  display: inline-block;
-  vertical-align: middle;
+  display: float;
+  float:left;
+  height:60rpx;
+  line-height: 60rpx;
   font-size:26rpx;
   margin-left:20rpx;
 }

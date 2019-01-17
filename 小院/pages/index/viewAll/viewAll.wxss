@@ -9,6 +9,7 @@
 }
 
 .container {
+
 }
 
 .kelist {
@@ -68,43 +69,59 @@
 }
 
 .search {
-  height: 80rpx;
+  position: fixed;
+  display: flex;
+  padding-top:50rpx;
+  height: 85rpx;
   width: 100%;
-  background: #0096fa;
+  background: #2983fe;
   margin-bottom: 20rpx;
 }
 
+.back-container{
+  width:80rpx;
+  height:80rpx;
+}
+.back{
+  width:50rpx;
+  height:50rpx;
+  margin-top:15rpx;
+  margin-left:15rpx;
+}
+
 .search-block {
-  width: 375rpx;
-  background: white;
   height: 60rpx;
-  margin: 0 auto;
   border-radius: 60rpx;
+  margin-left:40rpx;
 }
 
 .mywxSearch-input, .search-icon {
   display: float;
 }
 
-.search-icon {
-  float: right;
-  margin-top: 10rpx;
-  margin-right: 10rpx;
-}
-
 .mywxSearch-input {
   float: left;
-  width: 300rpx;
+  width: 350rpx;
   height: 60rpx;
   font-size: 22rpx;
   background: white;
   outline: none;
-  padding-left: 15rpx;
+  padding-left: 25rpx;
   line-height: 70rpx;
   border-radius: 60rpx;
+  margin-top:10rpx;
 }
 
 .search-icon {
+  position: relative;
+  left:-50rpx;
+  top:10rpx;
   width: 40rpx;
   height: 40rpx;
+  margin-top:10rpx;
 }
+
+.select{
+  background: rgba(0, 0, 0,0.1);
+}
+

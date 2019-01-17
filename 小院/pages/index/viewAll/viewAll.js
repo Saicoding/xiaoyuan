@@ -3,9 +3,6 @@
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let WxSearch = require('../../../wxSearch/wxSearch.js');
-let animate = require('../../../common/animate.js');
-let easeOutAnimation = animate.easeOutAnimation();
-let easeInAnimation = animate.easeInAnimation();
 
 
 let buttonClicked = false; //默认还没有点击可以导航页面的按钮
@@ -43,7 +40,7 @@ Page({
         windowHeight = (windowHeight * (750 / windowWidth));
         //初始化的时候渲染wxSearchdata
         console.log(windowHeight)
-        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification'], true, true, "", 82);
+        WxSearch.init(self, windowHeight, ['中仕学社', '小程序', 'wxParse', 'wxSearch', 'wxNotification'], true, true, "", 140);
         WxSearch.initMindKeys(['中仕学社', '微信小程序开发', '微信开发', '微信小程序']);
         self.setData({
           windowWidth: windowWidth,
@@ -167,6 +164,14 @@ Page({
       })
     })
   },
+  /**
+   * 导航到上一页面
+   */
+  back:function(){
+    wx.navigateBack({
+      
+    })
+  },
 
   /**
  * 搜索课程
@@ -228,20 +233,10 @@ Page({
   },
   wxSearchFocus: function (e) {
     var that = this
-    console.log(easeOutAnimation)
-    let lengthData = animate.longer(easeInAnimation, 375, 600);
-    that.setData({
-      lengthData: lengthData 
-    })
     WxSearch.wxSearchFocus(e, that);
   },
   wxSearchBlur: function (e) {
     var that = this
-    let lengthData = animate.shorter(easeOutAnimation, 375, 600 );
-    console.log('ok')
-    that.setData({
-      lengthData: lengthData
-    })
     WxSearch.wxSearchBlur(e, that);
   },
   wxSearchKeyTap: function (e) {
