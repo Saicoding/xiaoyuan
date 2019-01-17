@@ -1,7 +1,6 @@
 <!--pages/index/viewAll/viewAll.wxml-->
 <import src="/wxSearch/wxSearch.wxml" />
 
-<view class="container">
   <!-- 搜索框 -->
   <view class="search">
     <view class="search-block" animation = "{{lengthData}}">
@@ -10,6 +9,8 @@
       <template is="wxSearch" data="{{wxSearchData}}" />
     </view>
   </view>
+
+<view class="container">
   <view wx:if="{{!hasKecheng}}" style="text-align:center;font-size:25rpx;margin-top:200rpx;color:rgb(180, 180, 180);">没有找到课程</view>
   <!-- 课程列表 -->
   <view wx:if="{{isLoaded}}" class="kelist">

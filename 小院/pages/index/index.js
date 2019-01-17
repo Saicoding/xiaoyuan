@@ -371,5 +371,6 @@ Page({
     if (e._relatedInfo.anchorTargetText == "") {
       WxSearch.wxSearchHiddenPancel(that);
     }
-  }
+  },
+
 })

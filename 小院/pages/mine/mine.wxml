@@ -1,6 +1,6 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
-    <view class ="top-black"></view>
+  <view class="top-black"></view>
   <!-- 上面部分 -->
   <view class="top">
     <!-- 第一行 -->
@@ -9,7 +9,9 @@
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">关注</view>
       </view>
-      <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap ="GOsetHeadpic"></image>
+      <view class="pic-outcontainer">
+        <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap="GOsetHeadpic"></image>
+      </view>
       <!-- <image class ="top-line1-icon" src =""></image> -->
       <view class="top-line1-right">
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
@@ -17,10 +19,10 @@
       </view>
     </view>
     <view class="top-line1-nickname">
-      <view class ="top-line1-nickname-text">{{userInfo.Nicename}}</view>
-      <image  class ="top-line1-nickname-icon" src="/imgs/vip.png"></image>
+      <view class="top-line1-nickname-text">{{userInfo.Nicename}}</view>
+      <image class="top-line1-nickname-icon" src="/imgs/vip.png"></image>
     </view>
-    
+
 
     <!-- 第二行 -->
     <view class="top-line2">
@@ -46,7 +48,7 @@
   </view>
   <!-- 中间的 -->
   <view class="mid">
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap = "GOviewall">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap="GOviewall">
       <image class="mid-line-item-icon" src="/imgs/icon1.png"></image>
       <view class="mid-line-item-text">我的课程</view>
     </view>
@@ -61,7 +63,7 @@
       <view class="mid-line-item-text">我的信息</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;" bindtap = "GOmyhuodong">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;" bindtap="GOmyhuodong">
       <image class="mid-line-item-icon" src="/imgs/icon4.png"></image>
       <view class="mid-line-item-text">我的活动</view>
     </view>

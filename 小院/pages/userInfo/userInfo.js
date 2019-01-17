@@ -218,8 +218,9 @@ Page({
    */
   GOchat:function(e){
     let userid = e.currentTarget.dataset.userid;
+    let username = e.currentTarget.dataset.username;
     wx.navigateTo({
-      url: '/pages/chat/chat?userid='+userid,
+      url: '/pages/chat/chat?userid='+userid+"&username="+username,
     })
   }
 

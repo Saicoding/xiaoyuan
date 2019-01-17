@@ -46,11 +46,21 @@ page{
   margin-left:50rpx;
 }
 
+.pic-outcontainer{
+  width: 127rpx;
+  height: 127rpx;
+  border-radius: 127rpx;
+  background: white;
+  margin-left:50rpx;
+}
+
 .top-line1-mid{
   width:120rpx;
   height:120rpx;
+  border: 1rpx solid rgba(41, 131, 254, 0.3);
   border-radius: 120rpx;
-  margin-left:50rpx;
+  margin-top:1rpx;
+  margin-left:1rpx;
 }
 
 .top-line1-nickname{

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/chat-list/chat-list",
     "pages/login/login",
     "pages/selectSchool/selectSchool",
     "pages/guangchang/guangchang",
@@ -24,7 +25,10 @@
     "pages/huodong/dongtaiDetail/dongtaiDetail",
     "pages/huodong/baomingList/baomingList",
     "pages/userInfo/userInfo",
-    "pages/chat/chat"
+    "pages/IM/IM",
+    "pages/chat/chat",
+    "pages/chat-input/chat-input",
+    "pages/friends/friends"
   ],
   "window": {
     "backgroundTextStyle": "dark",

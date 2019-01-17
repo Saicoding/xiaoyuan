@@ -28,10 +28,6 @@ Page({
     let self = this;
     let title = options.title ? options.title:'小院';
 
-    wx.setNavigationBarTitle({
-      title: title,
-    })
-
     this.setData({
       options:options,
       first: true //第一次载入默认首次载入

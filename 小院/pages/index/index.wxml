@@ -1,5 +1,4 @@
 <import src="/wxSearch/wxSearch.wxml" />
-
 <!--index.wxml-->
 <view data-com="waimian" class="container" catchtap="hideSearchChanle">
   <!-- 头部banner -->

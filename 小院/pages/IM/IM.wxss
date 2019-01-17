@@ -1,0 +1,30 @@
+/* pages/chat/chat.wxss */
+.container{
+
+}
+
+.bottom{
+  position: fixed;
+  display: flex;
+  bottom:0rpx;
+  background: #e4e4e4;
+  height:100rpx;
+  width:100%;
+}
+
+.bottom-icon{
+  width:60rpx;
+  height:60rpx;
+  margin-top:20rpx;
+  margin-left:20rpx;
+}
+
+.bottom-input{
+  background: white;
+  width:465rpx;
+  border-radius: 10rpx;
+  margin-left:20rpx;
+  height:70rpx;
+  margin-top:15rpx;
+  padding-left:15rpx;
+}

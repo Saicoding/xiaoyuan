@@ -1,6 +1,12 @@
 //app.js
+import AppIMDelegate from "./delegate/app-im-delegate";
 App({
-  onLaunch: function() {
+  getIMHandler() {
+    return this.appIMDelegate.getIMHandlerDelegate();
+  },
+  onLaunch: function (options) {
+    this.appIMDelegate = new AppIMDelegate(this);
+    this.appIMDelegate.onLaunch(options);
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -24,6 +30,12 @@ App({
     })
 
     // wx.clearStorage();
+  },
+  onHide() {
+    this.appIMDelegate.onHide();
+  },
+  onShow(options) {
+    this.appIMDelegate.onShow(options);
   },
 
   /** 
@@ -116,6 +128,6 @@ App({
   },
 
   globalData: {
-    userInfo: null
+    userInfo: {},
   }
 })

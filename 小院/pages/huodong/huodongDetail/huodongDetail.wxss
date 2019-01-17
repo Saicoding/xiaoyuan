@@ -414,6 +414,23 @@
   margin-top:10rpx;
 }
 
+.top-model{
+  position: relative;
+  width:50rpx;
+  height:50rpx;
+  border-radius: 60rpx;
+  background: rgba(0, 0, 0,0.3);
+  top:-80rpx;
+  left:670rpx;
+}
+
+.top-shoucang{
+  width:30rpx;
+  height:30rpx;
+  margin-top:10rpx;
+  margin-left:10rpx;
+}
+
 .loading-img{
   display: block;
   margin:0 auto;
