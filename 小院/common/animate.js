@@ -44,10 +44,24 @@ function moveX(myAnimation, x) {
   return myAnimation.export();
 }
 
+/**
+ * 变形动画
+ */
+function scale(myAnimation, x) {
+  myAnimation.scale(x, x).step({
+    duration: 300,
+  })
+  myAnimation.scale(1, 1).step({
+    duration: 300,
+  })
+  return myAnimation.export();
+}
+
 module.exports = {
   easeOutAnimation: easeOutAnimation,
   easeInAnimation: easeInAnimation,
   shorter: shorter,
   longer: longer,
-  moveX: moveX
+  moveX: moveX,
+  scale: scale
 }

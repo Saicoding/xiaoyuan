@@ -90,6 +90,7 @@
 }
 
 .search-block {
+  width: 350rpx;
   height: 60rpx;
   border-radius: 60rpx;
   margin-left:40rpx;
@@ -100,8 +101,7 @@
 }
 
 .mywxSearch-input {
-  float: left;
-  width: 350rpx;
+  width: 280rpx;
   height: 60rpx;
   font-size: 22rpx;
   background: white;
@@ -112,16 +112,23 @@
   margin-top:10rpx;
 }
 
-.search-icon {
+.search-icon-block{
   position: relative;
-  left:-50rpx;
+  background: white;
+  width:80rpx;
+  height:60rpx;
+  left:-80rpx;
   top:10rpx;
+  border-radius:  0rpx 60rpx 60rpx 0rpx;
+}
+
+.search-icon {
   width: 40rpx;
   height: 40rpx;
+  margin-left:20rpx;
   margin-top:10rpx;
 }
 
 .select{
   background: rgba(0, 0, 0,0.1);
 }
-

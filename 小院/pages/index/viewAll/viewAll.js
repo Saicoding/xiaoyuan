@@ -3,7 +3,8 @@
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let WxSearch = require('../../../wxSearch/wxSearch.js');
-
+let animation = require('../../../common/animate.js');
+let myanimation = animation.easeOutAnimation();
 
 let buttonClicked = false; //默认还没有点击可以导航页面的按钮
 
@@ -23,10 +24,11 @@ Page({
    */
   onLoad: function (options) {
     let self = this;
-    let title = options.title ? options.title:'小院';
+    let title = options.title ? options.title:'搜索从这里开始';
 
     this.setData({
       options:options,
+      title:title,
       first: true //第一次载入默认首次载入
     })
   },
@@ -178,7 +180,7 @@ Page({
  */
   search: function (e) {
     let self = this;
-
+    let searchAnimation = animation.scale(myanimation,2);
     //用户信息
     let user = wx.getStorageSync('user'); //先看下本地是否有用户信息，如果有信息说明已经登录
     let loginrandom = user.Login_random;
@@ -190,6 +192,7 @@ Page({
     self.setData({
       isLoaded: false,
       hasKecheng: true,
+      searchAnimation: searchAnimation
     })
 
     self.wxSearchFn(self);
