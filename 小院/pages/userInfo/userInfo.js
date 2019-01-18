@@ -43,10 +43,12 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode =user.zcode;
+    let myHeadpic = user.Pic;
     let userid = self.data.userid;//当前查看用户的id
 
     self.setData({
-      zcode: zcode
+      zcode: zcode,
+      myHeadpic: myHeadpic
     })
 
     //个人信息
@@ -239,10 +241,12 @@ Page({
    * 导航到发私信
    */
   GOchat:function(e){
-    let userid = e.currentTarget.dataset.userid;
-    let username = e.currentTarget.dataset.username;
+    let userid = e.currentTarget.dataset.userid;//聊天人的id
+    let username = e.currentTarget.dataset.username;//名字
+    let headpic = e.currentTarget.dataset.headpic;//头像
+    let myHeadpic = this.data.myHeadpic;
     wx.navigateTo({
-      url: '/pages/chat/chat?userid='+userid+"&username="+username,
+      url: '/pages/IM/IM?userid=' + userid + "&username=" + username + "&headpic=" + headpic + "&myHeadpic=" + myHeadpic,
     })
   }
 

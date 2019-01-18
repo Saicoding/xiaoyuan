@@ -145,6 +145,50 @@ function getTimeObj(t) {
   return timeObj;//时间对象
 }
 
+/**
+ * 根据给定时间格式 2019/1/18 15:43:17,得到字符串
+ */
+function getTimestr(timestr){
+  let month = timestr.split('/')[1];//月份
+  let day = timestr.split('/')[2].split(' ')[0];//日
+  let hour = timestr.split('/')[2].split(' ')[1].split(':')[0];//小时
+  let minute = timestr.split('/')[2].split(' ')[1].split(':')[1];//分钟
+  let zaowan = "";
+  if(hour >= 0 && hour <= 5){//凌晨
+    zaowan = "凌晨";
+  }else if(hour >=6 && hour <=8){//早上
+    zaowan = "早上"
+  }else if(hour >=9 && hour <=10){//上午
+    zaowan = "上午"
+  } else if (hour >= 11 && hour <= 12) {//中午
+    zaowan = "中午"
+  } else if (hour >= 13 && hour <= 14) {//下午
+    zaowan = "下午"
+  } else if (hour >= 15 && hour <= 16) {//傍晚
+    zaowan = "傍晚"
+  } else if (hour >= 17 && hour <= 18) {//黄昏
+    zaowan = "黄昏"
+  } else if (hour >= 19 && hour <= 21) {//晚上
+    zaowan = "晚上"
+  } else if (hour >= 22 && hour <= 23) {//深夜
+    zaowan = "深夜"
+  } 
+
+  let str = month + '月' + day+'日'+' '+zaowan+hour+":"+minute
+  return str;
+}
+
+/**
+ * 获取当前时间的时和分
+ */
+function getTimeNow(){
+  let myDate = new Date(); //实例一个时间对象；
+  let hour = myDate.getHours() < 10 ? "0" + myDate.getHours() : myDate.getHours(); //获取系统时，
+  let minute = myDate.getMinutes() < 10 ? "0" + myDate.getMinutes() : myDate.getMinutes(); //获取系统时，
+
+  return hour+":"+minute;
+}
+
 module.exports = {
   getGoneTimeStr: getGoneTimeStr,
   getTime: getTime,
@@ -155,5 +199,7 @@ module.exports = {
   leftTime: leftTime,
   leftTime2: leftTime2,
   getTimeObj: getTimeObj,
-  ifGone: ifGone
+  ifGone: ifGone,
+  getTimestr: getTimestr,
+  getTimeNow: getTimeNow
 }

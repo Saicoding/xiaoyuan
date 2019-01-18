@@ -12,7 +12,7 @@
           <image class="up-button-block-icon" src="{{guanzhu==0?'/imgs/add.png':'/imgs/cancel.png'}}"></image>
           <view class="up-button-block-text">{{guanzhu==0?'加关注':'取消关注'}}</view>
         </view>
-        <view data-username="{{userInfo.Nicename}}" data-userid ="{{userid}}" class="up-button-block2"  bindtap='GOchat' hover-class='select4' hover-stay-time='400'>
+        <view data-headpic ="{{userInfo.Pic}}" data-username="{{userInfo.Nicename}}" data-userid ="{{userid}}" class="up-button-block2"  bindtap='GOchat' hover-class='select4' hover-stay-time='400'>
           <image class="up-button-block-icon" src="/imgs/plane.png"></image>
           <view class="up-button-block-text">发私信</view>
         </view>

@@ -133,6 +133,7 @@
   opacity: 0.9;
   overflow: hidden;
   margin-left:15rpx;
+   border-radius: 10rpx;
 }
 
 .comment-input,.comment-button,.comment-icon{
@@ -143,8 +144,8 @@
 .comment-input{
   background: rgb(224, 224, 224);
   height:60rpx;
-  border-radius: 5rpx;
-  width:485rpx;
+  border-radius: 10rpx;
+  width:483rpx;
   margin-top:10rpx;
   font-size:25rpx;
   padding-left:70rpx;
@@ -158,10 +159,11 @@
   z-index: 10000;
   top:18rpx;
   left:10rpx;
+  border-radius: 10rpx;
 }
 
 .comment-button{
-  width:120rpx;
+  width:125rpx;
   height:60rpx;
   color:white;
   margin-top:10rpx;
@@ -169,7 +171,7 @@
   text-align: center;
   line-height: 60rpx;
   border-radius:5rpx;
-  margin-left:45rpx;
+  margin-left:40rpx;
   background: rgb(253, 23, 23);
 }
 
