@@ -12,6 +12,7 @@ Page({
    */
   data: {
     isLoaded: false,
+    imDetail: true, //活动详情页
     barIndex: 0, //点击的是活动详情还是活动动态
     loadingMore: false, //是否在加载更多
     loadingText: "", //上拉载入更多的文字
@@ -186,7 +187,7 @@ Page({
         self.setData({
           dongtai_page_all: dongtai_page_all, //一共有多少页
           dongtais: dongtais, //动态列表
-          page:1,
+          page: 1,
           isDongtaiLoaded: true //设置活动动态已经载入
         })
       })
@@ -256,8 +257,10 @@ Page({
    */
   GOdongtaiDetail: function(e) {
     let dongtai = e.currentTarget.dataset.dongtai;
+    console.log(dongtai)
     let h_id = this.data.h_id;
     let jsonStr = JSON.stringify(dongtai);
+    jsonStr = encodeURIComponent(jsonStr);
     wx.navigateTo({
       url: '/pages/huodong/dongtaiDetail/dongtaiDetail?jsonStr=' + jsonStr + "&h_id=" + h_id
     })
@@ -266,7 +269,7 @@ Page({
   /**
    * 导航到报名列表
    */
-  GObaomingList: function () {
+  GObaomingList: function() {
     let h_id = this.data.h_id;
     wx.navigateTo({
       url: '/pages/huodong/baomingList/baomingList?h_id=' + h_id,
@@ -282,7 +285,7 @@ Page({
     let hddate = huodong.hddate; //报名日期字符串组
     let hdtime = huodong.hdtime; //参加活动时间
     let title = huodong.title; //活动标题
-    let buy = huodong.buy;//已经报名的日期
+    let buy = huodong.buy; //已经报名的日期
 
     //套餐信息
     let money = huodong.money;
@@ -313,6 +316,34 @@ Page({
   },
 
   /**
+   * 赞
+   */
+  zan: function(e) {
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let dongtais = self.data.dongtais;
+    let h_id = self.data.h_id;
+    let index = e.currentTarget.dataset.index;
+    let dtid = e.currentTarget.dataset.id;
+
+    app.post(API_URL, "action=SaveHdDdongtai_agree&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&dtid=" + dtid, false, false, "", "", "", self).then(res => {
+      let dongtai = dongtais[index];
+        dongtai.zan = parseInt(dongtai.zan) + 1;
+        dongtai.zan_self = 1;
+        wx.showToast({
+          icon: 'none',
+          title: '称赞成功',
+          duration: 3000
+        })
+        self.setData({
+          dongtais: dongtais
+        })
+    })
+  },
+
+  /**
    * 页面上拉触底事件的处理函数
    */
   scrolltolower: function() {
@@ -322,7 +353,7 @@ Page({
     let h_id = self.data.h_id;
     if (loadingMore) return; //如果还在载入中,就不继续执行
 
-    let barIndex = self.data.barIndex;//如果当前目录是活动动态
+    let barIndex = self.data.barIndex; //如果当前目录是活动动态
 
     if (barIndex == 1) {
       console.log('haah')
@@ -349,11 +380,11 @@ Page({
       let dongtais = self.data.dongtais;
       page++;
 
-      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id+"&page="+page, false, false, "", "", "", self).then(res => {
+      app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&page=" + page, false, false, "", "", "", self).then(res => {
         let dongtaiList = res.data.data[0];
         let newDongtais = dongtaiList.list;
         self.initDongtaiImages(newDongtais);
-        dongtais = dongtais.concat(newDongtais);//拼接数组
+        dongtais = dongtais.concat(newDongtais); //拼接数组
         console.log(newDongtais)
 
         self.setData({
@@ -361,7 +392,7 @@ Page({
           loadingText: "载入完成"
         })
 
-        setTimeout(function () {
+        setTimeout(function() {
           self.setData({
             page: page,
             loadingMore: false,
@@ -405,7 +436,7 @@ Page({
   /**
    * 切换是否关注
    */
-  toogleMark: function (e) {
+  toogleMark: function(e) {
     if (buttonClicked) return;
     buttonClicked = true;
     let self = this;
@@ -414,18 +445,19 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
-    let baomingList = self.data.baomingList;
+    let dongtais = self.data.dongtais;
+    console.log(dongtais)
 
     app.post(API_URL, "action=user_gz&loginrandom=" + loginrandom + "&zcode=" + zcode + "&userid=" + userid, false, false, "", "", "", self).then(res => {
       let result = res.data.data[0];
       if (result) {
-        for (let i = 0; i < baomingList.length; i++) {
-          let baoming = baomingList[i];
-          if (baoming.userid == userid) {//找到点击的人
+        for (let i = 0; i < dongtais.length; i++) {
+          let baoming = dongtais[i];
+          if (baoming.userid == userid) { //找到点击的人
             baoming.guanzhu = baoming.guanzhu == 0 ? 1 : 0;
             buttonClicked = false;
             self.setData({
-              baomingList: baomingList
+              dongtais: dongtais
             })
             wx.showToast({
               icon: 'none',
@@ -442,8 +474,8 @@ Page({
   /**
    * 切换收藏状态
    */
-  toogleShoucang:function(){
-    if(buttonClicked) return;
+  toogleShoucang: function() {
+    if (buttonClicked) return;
     buttonClicked = true;
     let self = this;
     let h_id = self.data.h_id;
@@ -452,18 +484,31 @@ Page({
     let zcode = user.zcode;
     let huodong = self.data.huodong;
 
-    app.post(API_URL,"action=HdShouCang&loginrandom="+loginrandom+"&zcode="+zcode+"&h_id="+h_id,false,false,"","","",self).then(res=>{
-      if(res.data.data.result){
-        if (huodong.ShouCang =="" || huodong.ShouCang=="0"){
+    app.post(API_URL, "action=HdShouCang&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
+      if (res.data.data.result) {
+        if (huodong.ShouCang == "" || huodong.ShouCang == "0") {
           huodong.ShouCang = "1";
-        }else{
+        } else {
           huodong.ShouCang = "0";
         }
 
         self.setData({
-          huodong:huodong
+          huodong: huodong
         })
       }
+    })
+  },
+
+  /**
+   * 导航到个人主页
+   */
+  GOuserInfo: function(e) {
+    if (buttonClicked) return;
+    buttonClicked = true;
+    let userid = e.currentTarget.dataset.userid;
+    let guanzhu = e.currentTarget.dataset.guanzhu;
+    wx.navigateTo({
+      url: '/pages/userInfo/userInfo?userid=' + userid + "&guanzhu=" + guanzhu,
     })
   }
 })

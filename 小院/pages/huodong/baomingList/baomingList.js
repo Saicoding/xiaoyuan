@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imBaomingList:true,
     isLoaded:false,
     loadingMore: false, //是否在加载更多
     loadingText: "", //上拉载入更多的文字
@@ -192,7 +193,6 @@ Page({
   },
 
   GOuserInfo:function(e){
-    console.log(e)
     if(buttonClicked) return;
     buttonClicked = true;    
     let userid = e.currentTarget.dataset.userid;

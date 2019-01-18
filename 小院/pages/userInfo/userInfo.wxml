@@ -7,7 +7,7 @@
         <view class="info-text1">{{userInfo.Nicename?userInfo.Nicename:'未命名'}}</view>
         <view class="info-text2">{{userInfo.yuanxi&&userInfo.yuanxi!='0'?userInfo.yuanxi:'未命名'}}</view>
       </view>
-      <view class="up-button">
+      <view wx:if="{{zcode !=userid}}" class="up-button">
         <view class="up-button-block" bindtap = "toogleMark"  style="{{guanzhu==0?'background: linear-gradient(to right,#ffca50,#ffb812););':'background: linear-gradient(to right,rgb(238, 238, 238),rgb(153, 153, 153)'}}" >
           <image class="up-button-block-icon" src="{{guanzhu==0?'/imgs/add.png':'/imgs/cancel.png'}}"></image>
           <view class="up-button-block-text">{{guanzhu==0?'加关注':'取消关注'}}</view>
@@ -26,11 +26,11 @@
     <!-- 下面的 关注 粉丝 人气 已学课程 -->
     <view class="up-mid">
       <view class="up-mid-item">
-        <view class="up-mid-item-text">Ta的关注</view>
+        <view class="up-mid-item-text">{{zcode == userid?'wo':'Ta'}}的关注</view>
         <view class="up-mid-item-num">{{userInfo.guanzhu}}</view>
       </view>
       <view class="up-mid-item">
-        <view class="up-mid-item-text">Ta的粉丝</view>
+        <view class="up-mid-item-text">{{zcode == userid?'wo':'Ta'}}的粉丝</view>
         <view class="up-mid-item-num">{{userInfo.num_fans}}</view>
       </view>
       <view class="up-mid-item">
@@ -75,13 +75,13 @@
     <!-- 标题 -->
     <view class="dongtai-top">
       <image class="dongtai-top-icon" src="/imgs/dongtai.png"></image>
-      <view class="dongtai-top-title">Ta的动态</view>
+      <view class="dongtai-top-title">{{zcode == userid?'我':'Ta'}}的动态</view>
     </view>
 
     <!-- 动态列表 -->
     <view class ="dongtaiList">
       <view wx:for="{{dongtaiList}}" wx:for-item="dongtai" wx:key = "d">
-        <view data-title= "{{dongtai.title}}" data-id="{{dingzhi.tid}}"   class ="dongtai-block" bindtap = "GOkedetail" hover-class='select3' hover-stay-time='400' >
+        <view data-title= "{{dongtai.title}}" data-id="{{dongtai.tid}}"   class ="dongtai-block" bindtap = "GOkedetail" hover-class='select3' hover-stay-time='400' >
           <view class ="dongtai-circl-icon"></view>
           <view class ="dongtai-time" space='nbsp'>{{dongtai.time1  }}   <span style ="font-size:22rpx;margin-left:15rpx;">{{  dongtai.time2}}</span></view>
           <view class ="dongtai-title">{{dongtai.title}}</view>

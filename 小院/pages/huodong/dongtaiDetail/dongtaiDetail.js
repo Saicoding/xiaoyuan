@@ -20,7 +20,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let dongtai = JSON.parse(options.jsonStr);
+    let jsonStr = decodeURIComponent(options.jsonStr)
+    let dongtai = JSON.parse(jsonStr);
     console.log(dongtai)
     this.setData({
       dongtai: dongtai,
@@ -43,7 +44,7 @@ Page({
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
     this.setData({//上拉加载可能触发重复登录
-      loadingMore: false
+      loadingMore: false,
     })
     let self = this;
 
@@ -51,8 +52,7 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
-
-    let dongtai = self.data.dongtai;
+    let dongtai = self.data.dongtai;//上个页面传过来的信息
     let dt_id = dongtai.d_id;
 
     buttonClicked = false;
@@ -72,20 +72,6 @@ Page({
         pagenow: pagenow
       })
     })
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
 
   },
 
@@ -225,4 +211,48 @@ Page({
     })
   },
 
+  /**
+   * 赞
+   */
+  zan:function(){
+    let self = this;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    let dongtai = self.data.dongtai;
+    let h_id = self.data.h_id;
+    let dtid = dongtai.d_id;
+
+    app.post(API_URL,"action=SaveHdDdongtai_agree&loginrandom="+loginrandom+"&zcode="+zcode+"&h_id="+h_id+"&dtid="+dtid,false,false,"","","",self).then(res=>{
+      let pages = getCurrentPages();
+      let prepage = pages[pages.length-2];
+      let dongtais = prepage.data.dongtais;//上个页面的动态列表
+
+      for(let i = 0;i<dongtais.length;i++){
+        let predongtai = dongtais[i];
+        if (predongtai.d_id == dtid){
+          predongtai.zan = parseInt(predongtai.zan) + 1;
+          predongtai.zan_self = 1;
+        }
+        break;
+      }
+
+      dongtai.zan = parseInt(dongtai.zan)+1;
+      dongtai.zan_self = 1;
+
+      wx.showToast({
+        icon:'none',
+        title: '称赞成功',
+        duration:3000
+      })
+
+      prepage.setData({//上个页面的动态
+        dongtais: dongtais
+      })
+
+      self.setData({
+        dongtai:dongtai
+      })
+    })
+  }
 })

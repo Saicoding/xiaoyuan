@@ -26,9 +26,9 @@
   </view>
 
   <!-- 喜欢按钮 -->
-  <view class ="like">
-    <image src="/imgs/icon-agree.png" class ="like-icon"></image>
-    <view class ="like-num">0</view>
+  <view class ="like" bindtap = "zan">
+    <image src="{{(dongtai.zan_self=='0'||dongtai.zan_self==0 || dongtai.zan_self==undefined)?'/imgs/icon-agree.png':'/imgs/icon-agree-select.png'}}" class ="like-icon"></image>
+    <view class ="like-num">{{dongtai.zan}}</view>
   </view>
 
   <!-- 评论block -->

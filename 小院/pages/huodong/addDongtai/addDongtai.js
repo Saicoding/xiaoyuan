@@ -260,6 +260,7 @@ Page({
         obj.userimg = user.Pic;
         obj.username = user.Nickname;
         obj.zan = "0";
+        obj.zan_self = "0";
         console.log(dongtais)
         dongtais.unshift(obj);
         console.log(dongtais)

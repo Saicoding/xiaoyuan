@@ -129,7 +129,7 @@ Page({
 
     if (page >= pageall) {
       self.setData({ //正在载入
-        loadingText: "没有了..."
+        loadingText: "-------------别扯了,我是有底线的-------------"
       })
       return;
     }
@@ -137,7 +137,7 @@ Page({
     self.setData({ //正在载入
       showLoadingGif: true,
       loadingMore:true,
-      loadingText: "载入更多资讯 ..."
+      loadingText: "载入更多课程 ..."
     })
 
     //用户信息

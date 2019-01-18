@@ -45,6 +45,10 @@ Page({
     let zcode =user.zcode;
     let userid = self.data.userid;//当前查看用户的id
 
+    self.setData({
+      zcode: zcode
+    })
+
     //个人信息
     app.post(API_URL,"action=getUserIndexInfo&loginrandom="+loginrandom+"&zcode="+zcode+"&userid="+userid,false,false,"","","",self).then(res=>{
       let userInfo = res.data.data[0];
@@ -161,12 +165,33 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
+    console.log('ok')
     app.post(API_URL, "action=user_gz&loginrandom=" + loginrandom + "&zcode=" + zcode + "&userid=" + userid, false, false, "", "", "", self).then(res => {
       buttonClicked = false;
       let result = res.data.data[0];
       if (result) {
         guanzhu = guanzhu == 0 ? 1:0;
-        userInfo.guanzhu = guanzhu == 0 ? userInfo.guanzhu - 1 : userInfo.guanzhu + 1;//实时更新关注信息
+        userInfo.num_fans = guanzhu == 0 ? userInfo.num_fans - 1 : userInfo.num_fans + 1;//实时更新关注信息
+        let pages = getCurrentPages();
+        let prepage = pages[pages.length-2];
+        if (prepage.data.imDetail){//如果上一页面是详情页
+          let dongtais = prepage.data.dongtais;
+          for(let i = 0;i<dongtais.length;i++){
+            let dongtai = dongtais[i];
+            if (dongtai.userid == userid){
+              dongtai.guanzhu = guanzhu;
+              prepage.setData({
+                dongtais:dongtais
+              })
+              console.log(userid)
+              console.log(dongtais)
+              break;
+            }
+          }
+        }
+
+
+
         self.setData({
           guanzhu: guanzhu,
           userInfo: userInfo

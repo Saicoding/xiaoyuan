@@ -98,12 +98,12 @@
           <view class="dongtai">
             <!-- 动态的最上面部分 -->
             <view class="dongtai-info">
-              <image class="dongtai-info-pic" src="{{dongtai.userimg}}"></image>
-              <view class="dongtai-info-mid">
+              <image data-guanzhu ="{{dongtai.guanzhu}}" data-userid ="{{dongtai.userid}}" class="dongtai-info-pic" src="{{dongtai.userimg}}"  bindtap = "GOuserInfo"      hover-class ="select2" hover-stay-time = "400"></image>
+              <view data-guanzhu ="{{dongtai.guanzhu}}" data-userid ="{{dongtai.userid}}" class="dongtai-info-mid" bindtap = "GOuserInfo"      hover-class ="select2" hover-stay-time = "400">
                 <view class="dongtai-info-mid-nickname">{{dongtai.username}}</view>
                 <view class="dongtai-info-mid-time">{{dongtai.addtime}}</view>
               </view>
-              <view data-userid="{{dongtai.userid}}" wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" bindtap="toogleMark">{{dongtai.guanzhu=='0'?'关注':'取消关注'}}</view>
+              <view  data-userid="{{dongtai.userid}}" wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" bindtap="toogleMark">{{dongtai.guanzhu=='0'?'关注':'取消关注'}}</view>
 
               <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class="dongtai-info-guanzhu" style="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
             </view>
@@ -120,8 +120,8 @@
             <!-- 图片的数量 -->
             <view wx:if="{{dongtai.images.length !=0}}" class="dongtai-picnum">共{{dongtai.images.length}}张</view>
             <!-- 最下面的喜欢按钮 -->
-            <view class="dongtai-like">
-              <image class="dongtai-like-icon" src="/imgs/heart1.png"></image>
+            <view data-index="{{index}}" data-id="{{dongtai.d_id}}" class="dongtai-like" bindtap = "zan">
+              <image class="dongtai-like-icon" src="{{(dongtai.zan_self == '0'||dongtai.zan_self == 0)?'/imgs/heart1.png':'/imgs/heart2.png'}}"></image>
               <view class="dongtai-like-num">{{dongtai.zan}}</view>
             </view>
           </view>

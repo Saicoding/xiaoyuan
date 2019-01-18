@@ -1,12 +1,6 @@
 //app.js
-import AppIMDelegate from "./delegate/app-im-delegate";
 App({
-  getIMHandler() {
-    return this.appIMDelegate.getIMHandlerDelegate();
-  },
   onLaunch: function (options) {
-    this.appIMDelegate = new AppIMDelegate(this);
-    this.appIMDelegate.onLaunch(options);
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -31,20 +25,14 @@ App({
 
     // wx.clearStorage();
   },
-  onHide() {
-    this.appIMDelegate.onHide();
-  },
-  onShow(options) {
-    this.appIMDelegate.onShow(options);
-  },
 
   /** 
    * 自定义post函数，返回Promise
    * +-------------------
-   * author: 武当山道士<912900700@qq.com>
+   * author: Sai<417353147@qq.com>
    * +-------------------
    * @param {String}      url 接口网址
-   * @param {arrayObject} data 要传的数组对象 例如: {name: '武当山道士', age: 32}
+   * @param {arrayObject} data 要传的数组对象 例如: {name: 'Sai', age: 32}
    * +-------------------
    * @return {Promise}    promise 返回promise供后续操作
    */
@@ -110,6 +98,13 @@ App({
             })
           } else if (status == -613) {
             console.log('余额不足')
+            wx.showToast({
+              icon: 'none',
+              title: message,
+              duration: 3000
+            })
+          } else if(status == -181){
+            console.log('已称赞过')
             wx.showToast({
               icon: 'none',
               title: message,

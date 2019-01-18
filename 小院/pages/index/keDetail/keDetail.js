@@ -140,6 +140,7 @@ Page({
         isLoaded: false
       })
 
+      console.log("action=GetCourseInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&kc_id=" + kc_id)
       app.post(API_URL, "action=GetCourseInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&kc_id=" + kc_id, false, false, "", "", "", self).then(res => {
         let kelist = res.data.data[0]; //所有课程信息
 
