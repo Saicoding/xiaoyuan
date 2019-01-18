@@ -22,7 +22,7 @@ Page({
   onLoad: function(options) {
     let jsonStr = decodeURIComponent(options.jsonStr)
     let dongtai = JSON.parse(jsonStr);
-    console.log(dongtai)
+
     this.setData({
       dongtai: dongtai,
       h_id: options.h_id
@@ -43,7 +43,7 @@ Page({
     //下拉刷新可能触发重复登录，这时跳转到登录界面时没有停止刷新状态，需要手动设置
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
-    this.setData({//上拉加载可能触发重复登录
+    this.setData({ //上拉加载可能触发重复登录
       loadingMore: false,
     })
     let self = this;
@@ -52,14 +52,16 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
-    let dongtai = self.data.dongtai;//上个页面传过来的信息
+    let dongtai = self.data.dongtai; //上个页面传过来的信息
     let dt_id = dongtai.d_id;
 
     buttonClicked = false;
+    self.setData({//为了判断是不是自己
+      zcode: zcode
+    })
 
     //获取评论
     app.post(API_URL, "action=getHdDongtaiPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&dt_id=" + dt_id + "&page=1", false, false, "", "", "", self).then(res => {
-      console.log(res)
       let comments = res.data.data[0].list;
       let pageall = res.data.data[0].pageall; //评论总页数
       let pagenow = res.data.data[0].pagenow; //当前评论页
@@ -102,7 +104,6 @@ Page({
 
     //保存评论内容到服务器
     app.post(API_URL, "action=SaveHdDongtaiPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + comment_content + "&dt_id=" + dt_id, false, false, "", "", "", self).then(res => {
-      console.log(res)
 
       //自定义一个时时显示的评论对象
       let mycomment = {};
@@ -160,7 +161,7 @@ Page({
     page++;
 
     //获取评论
-    app.post(API_URL, "action=getHdDongtaiPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&dt_id=" + dt_id + "&page="+page, false, false, "", "", "", self).then(res => {
+    app.post(API_URL, "action=getHdDongtaiPL&loginrandom=" + loginrandom + "&zcode=" + zcode + "&dt_id=" + dt_id + "&page=" + page, false, false, "", "", "", self).then(res => {
       comments = comments.concat(res.data.data[0].list);
 
       self.setData({
@@ -168,7 +169,7 @@ Page({
         loadingText: "载入完成"
       })
 
-      setTimeout(function () {
+      setTimeout(function() {
         self.setData({
           page: page,
           loadingMore: false,
@@ -203,7 +204,6 @@ Page({
 
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
-
       self.setData({
         comments: comments,
         page: 1
@@ -214,7 +214,7 @@ Page({
   /**
    * 赞
    */
-  zan:function(){
+  zan: function() {
     let self = this;
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
@@ -223,36 +223,139 @@ Page({
     let h_id = self.data.h_id;
     let dtid = dongtai.d_id;
 
-    app.post(API_URL,"action=SaveHdDdongtai_agree&loginrandom="+loginrandom+"&zcode="+zcode+"&h_id="+h_id+"&dtid="+dtid,false,false,"","","",self).then(res=>{
+    app.post(API_URL, "action=SaveHdDdongtai_agree&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&dtid=" + dtid, false, false, "", "", "", self).then(res => {
       let pages = getCurrentPages();
-      let prepage = pages[pages.length-2];
-      let dongtais = prepage.data.dongtais;//上个页面的动态列表
+      let prepage = pages[pages.length - 2];
+      let dongtais = prepage.data.dongtais; //上个页面的动态列表
 
-      for(let i = 0;i<dongtais.length;i++){
+      for (let i = 0; i < dongtais.length; i++) {
         let predongtai = dongtais[i];
-        if (predongtai.d_id == dtid){
+        if (predongtai.d_id == dtid) {
           predongtai.zan = parseInt(predongtai.zan) + 1;
           predongtai.zan_self = 1;
         }
         break;
       }
 
-      dongtai.zan = parseInt(dongtai.zan)+1;
+      dongtai.zan = parseInt(dongtai.zan) + 1;
       dongtai.zan_self = 1;
 
       wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '称赞成功',
-        duration:3000
+        duration: 3000
       })
 
-      prepage.setData({//上个页面的动态
+      prepage.setData({ //上个页面的动态
         dongtais: dongtais
       })
 
       self.setData({
-        dongtai:dongtai
+        dongtai: dongtai
       })
+    })
+  },
+  /**
+   * 切换是否关注
+   */
+  toogleMark: function(e) {
+    if (buttonClicked) return;
+    buttonClicked = true;
+    let self = this;
+    let userid = e.currentTarget.dataset.userid;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+
+    let dongtai = self.data.dongtai;
+
+    app.post(API_URL, "action=user_gz&loginrandom=" + loginrandom + "&zcode=" + zcode + "&userid=" + userid, false, false, "", "", "", self).then(res => {
+      let result = res.data.data[0];
+      if (result) {
+        let pages = getCurrentPages();
+        let prepage = pages[pages.length-2];
+        let dongtais = prepage.data.dongtais;//上个页面的动态信息
+
+        dongtai.guanzhu = dongtai.guanzhu == 0 ? 1 : 0;
+
+        for(let i = 0;i<dongtais.length;i++){//，本页面设置关注后，设置上个页面的动态关注信息，做到返回上个页面后关注同步
+          let predongtai = dongtais[i];
+          if (predongtai.d_id == dongtai.d_id){
+            predongtai.guanzhu = dongtai.guanzhu;
+            prepage.setData({
+              dongtais: dongtais
+            })
+            break;
+          }
+        }
+
+        buttonClicked = false;
+        self.setData({
+          dongtai: dongtai
+        })
+        wx.showToast({
+          icon: 'none',
+          title: dongtai.guanzhu == 0 ? '取消关注成功' : '关注成功',
+          duration: 3000
+        })
+      }
+    })
+  },
+
+  /**
+   * 删除动态
+   */
+  deleteDongtai: function (e) {
+    let self = this;
+    let d_id = e.currentTarget.dataset.did;
+    let h_id = self.data.h_id;
+    let user = wx.getStorageSync('user');
+    let loginrandom = user.Login_random;
+    let zcode = user.zcode;
+    wx.showModal({
+      title: '提示',
+      content: '确定删除动态信息吗?',
+      success: (res) => {
+        if (res.confirm) {
+          app.post(API_URL, "action=DelHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&d_id=" + d_id, false, false, "", "", "", self).then(res => {
+            let pages = getCurrentPages();
+            let prepage = pages[pages.length - 2];
+            let dongtais = prepage.data.dongtais;
+
+            for (let i = 0; i < dongtais.length; i++) { //如果删除接口请求成功就从本地数组中去除，实现实时显示
+              let dongtai = dongtais[i];
+
+              if (dongtai.d_id == d_id) {
+                dongtais.splice(i, 1);
+                prepage.setData({
+                  dongtais: dongtais
+                })
+
+                wx.navigateBack({})
+                wx.showToast({
+                  icon: 'none',
+                  title: '删除成功',
+                  duration: 3000
+                })
+                break;
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+ * 导航到个人主页
+ */
+  GOuserInfo: function (e) {
+    if (buttonClicked) return;
+    buttonClicked = true;
+    let userid = e.currentTarget.dataset.userid;
+    let guanzhu = e.currentTarget.dataset.guanzhu;
+    wx.navigateTo({
+      url: '/pages/userInfo/userInfo?userid=' + userid + "&guanzhu=" + guanzhu,
     })
   }
 })

@@ -20,7 +20,7 @@ Page({
    */
   onLoad: function(options) {
     let userid = options.userid;
-    let guanzhu = options.guanzhu;
+    let guanzhu = options.guanzhu == 'undefined' ? 0 : options.guanzhu;
     this.setData({
       userid: userid,
       guanzhu:guanzhu
@@ -165,7 +165,6 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
-    console.log('ok')
     app.post(API_URL, "action=user_gz&loginrandom=" + loginrandom + "&zcode=" + zcode + "&userid=" + userid, false, false, "", "", "", self).then(res => {
       buttonClicked = false;
       let result = res.data.data[0];
@@ -183,8 +182,6 @@ Page({
               prepage.setData({
                 dongtais:dongtais
               })
-              console.log(userid)
-              console.log(dongtais)
               break;
             }
           }

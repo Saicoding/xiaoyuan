@@ -4,12 +4,12 @@
   <view class="dongtai">
     <!-- 动态的最上面部分 -->
     <view class="dongtai-info">
-      <image class="dongtai-info-pic" src="{{dongtai.userimg}}"></image>
-      <view class="dongtai-info-mid">
+      <image data-guanzhu ="{{dongtai.guanzhu}}" data-userid ="{{dongtai.userid}}" class="dongtai-info-pic" src="{{dongtai.userimg}}"  bindtap = "GOuserInfo"  hover-class ="select2" hover-stay-time = "400"></image>
+      <view data-guanzhu ="{{dongtai.guanzhu}}" data-userid ="{{dongtai.userid}}" class="dongtai-info-mid" hover-class ="select2" hover-stay-time = "400">
         <view class="dongtai-info-mid-nickname">{{dongtai.username}}</view>
         <view class="dongtai-info-mid-time">{{dongtai.addtime}}</view>
       </view>
-      <view wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
+      <view data-userid ="{{dongtai.userid}}" wx:if="{{dongtai.userid != zcode}}" class="dongtai-info-guanzhu" bindtap="toogleMark" style="background:{{dongtai.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}">{{dongtai.guanzhu=='0'?'关注':'已关注'}}</view>
 
       <view data-did="{{dongtai.d_id}}" wx:if="{{dongtai.userid == zcode}}" class="dongtai-info-guanzhu" style="background:rgb(240, 29, 14);" bindtap="deleteDongtai">删除动态</view>
     </view>
@@ -50,7 +50,7 @@
       <!-- 正常评论 -->
       <view wx:for="{{comments}}" wx:for-item="comment" wx:key="k">
         <view class="comments-content-block">
-          <image class="comment-img" src="{{comment.userpic}}" mode="aspectFit"></image>
+          <image  data-userid ="{{comment.userid}}" class="comment-img" src="{{comment.userpic}}" mode="aspectFit" bindtap = "GOuserInfo"  hover-class ="select2" hover-stay-time = "400"></image>
           <view class="comment-right">
             <view class="comment-right-line1" space='nbsp'>{{comment.nickname}} ({{index+1}}楼)</view>
             <text class="comment-right-line2" space='nbsp'>{{comment.addtime}}  来自({{comment.from}})</text>
