@@ -54,23 +54,16 @@ Component({
       })
     },
 
-    //输入文字
-    _inputText: function (e) {
-      let value = e.detail.value;
-      let title = this.data.title
-      this.triggerEvent('inputText', { text: value, title: title });//输入文字时返回修改的标题和输入框的内容
+    //点击了删除按钮
+    _delete:function(){
+      this.hideDialog();
+      this.triggerEvent('delete');
     },
 
-    //确定按钮被执行
-    _confirm: function (e) {
-      let title = this.data.title;
-      this.triggerEvent('confirm', { title: title });
+    //点击了撤回按钮
+    _chehui:function(){
       this.hideDialog();
-    },
-
-    //取消按钮被执行
-    _cancel: function (e) {
-      this.hideDialog();
+      this.triggerEvent('chehui');
     }
   }
 })

@@ -60,6 +60,14 @@
   text-align: center;
 }
 
+.chehui{
+  font-size:22rpx;
+  text-align: center;
+  height:100rpx;
+  line-height: 100rpx;
+  color:#a5a5a5;
+}
+
 /* 最下面部分 */
 
 .bottom {

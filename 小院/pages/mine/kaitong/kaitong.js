@@ -1,6 +1,7 @@
 // pages/mine/kaitong/kaitong.js
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
+let md5 = require('../../../common/MD5.js');
 let buttonClicked = false;
 Page({
 
@@ -50,7 +51,7 @@ Page({
         'text2': '免费享受最新考试题库'
       }
     ],
-    index:0
+    index: 0
   },
 
   /**
@@ -58,12 +59,12 @@ Page({
    */
   onLoad: function(options) {
     let Vip = options.Vip == '1' ? '1' : '0';
-    let Ktime = options.Ktime ? options.Ktime:'';
-    let Jtime = options.Jtime?options.Jtime:'';
+    let Ktime = options.Ktime ? options.Ktime : '';
+    let Jtime = options.Jtime ? options.Jtime : '';
     this.setData({
-      Vip:Vip,
+      Vip: Vip,
       Ktime: Ktime,
-      Jtime:Jtime
+      Jtime: Jtime
     })
   },
 
@@ -84,7 +85,7 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
     //获取价格信息
-    app.post(API_URL, 'action=VipInfo&loginrandom=' + loginrandom+'&zcode='+zcode,false,false,"","","",self).then(res=>{
+    app.post(API_URL, 'action=VipInfo&loginrandom=' + loginrandom + '&zcode=' + zcode, false, false, "", "", "", self).then(res => {
       console.log(res);
     })
 
@@ -154,9 +155,9 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+    let price = self.data.price;
 
     if (type == "yue") {
-      console.log("action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index)
       app.post(API_URL, "action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index, false, false, "", "", "", self).then(res => {
 
         let vip_jtime = res.data.data[0].vip_jtime;
@@ -167,11 +168,75 @@ Page({
           content: '恭喜您,充值成功,VIP到期时间：' + vip_jtime
         })
 
-        self.setData({//更新截止时间
-          Vip:'1',
+        self.setData({ //更新截止时间
+          Vip: '1',
           Jtime: vip_jtime,
           Ktime: vip_ktime,
         })
+      })
+    } else if (type == "wx") {
+      // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          let code = res.code;
+          app.post(API_URL, "action=getSessionKey&code=" + code, true, false, "购买中").then((res) => {
+            console.log(res)
+            let openid = res.data.openid;
+
+            console.log("action=unifiedorder&loginrandom=" + loginrandom + "&zcode=" + zcode + "&product=" + price + "&openid=" + openid)
+            app.post(API_URL, "action=unifiedorder&loginrandom=" + loginrandom + "&zcode=" + zcode + "&product=0.01" + "&openid=" + openid, true, false, "购买中").then((res) => {
+              console.log(res)
+              let status = res.data.code;
+
+              if (status == "1") {
+                let timestamp = Date.parse(new Date());
+                timestamp = timestamp / 1000;
+                timestamp = timestamp.toString();
+                let nonceStr = "TEST";
+                let prepay_id = res.data.prepay_id;
+                let appId = "wxfc4ecbaf91acfaf6";
+                let myPackage = "prepay_id=" + prepay_id;
+                let key = "e625b97ae82c3622af5f5a56d1118825";
+
+                let str = "appId=" + appId + "&nonceStr=" + nonceStr + "&package=" + myPackage + "&signType=MD5&timeStamp=" + timestamp + "&key=" + key;
+                let paySign = md5.md5(str).toUpperCase();
+
+                let myObject = {
+                  'timeStamp': timestamp,
+                  'nonceStr': nonceStr,
+                  'package': myPackage,
+                  'paySign': paySign,
+                  'signType': "MD5",
+                  success: function(res) {
+                    console.log(res)
+                    app.post(API_URL, "action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index, false, false, "", "", "", self).then(res => {
+
+                      let vip_jtime = res.data.data[0].vip_jtime;
+                      let vip_ktime = res.data.data[0].vip_ktime;
+
+                      wx.showModal({
+                        title: '提示',
+                        content: '恭喜您,充值成功,VIP到期时间：' + vip_jtime
+                      })
+
+                      self.setData({ //更新截止时间
+                        Vip: '1',
+                        Jtime: vip_jtime,
+                        Ktime: vip_ktime,
+                      })
+                    })
+
+                  },
+                  fail: function(res) {
+                    console.log(res)
+                  }
+                }
+                wx.requestPayment(myObject)
+              }
+            })
+          })
+        }
       })
     }
   }

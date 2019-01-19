@@ -1,7 +1,7 @@
 <!--pages/chat/chat.wxml-->
 <view class="container">
   <scroll-view scroll-y="{{ifCanScroll}}" class="content" style="height:{{windowHeight-95}}rpx;" scroll-top="{{scrollTop}}" upper-threshold="100rpx" bindscrolltoupper="scrolltoupper">
-    <view wx:if="{{loadingMore}}" style = "width:100%;height:60rpx;"></view>
+    <view wx:if="{{loadingMore}}" style="width:100%;height:60rpx;"></view>
     <!-- 单条信息 -->
     <view wx:for="{{chats}}" wx:for-item="chat" wx:key="c">
       <!-- 对话人 -->
@@ -10,28 +10,37 @@
         <view class="chat-block">
           <image class="chat-headpic" src="{{headpic}}"></image>
           <view class="chat-triangle"></view>
-          <view data-id ="{{chat.id}}" class="chat-content" bindlongpress='showModel'>{{chat.content}}</view>
+          <view data-id="{{chat.id}}" class="chat-content" bindlongpress='showModel'>{{chat.content}}</view>
         </view>
       </view>
       <!-- 我自己 -->
       <view wx:if="{{chat.laiyuan=='go'}}" class="chat">
         <view class="chat-date">{{chat.addtime}}</view>
         <view class="chat-block" style="justify-content: flex-end">
-          <view data-id ="{{chat.id}}" class="chat-content" style="background:#94eb68;" bindlongpress='showModel'>{{chat.content}}</view>
+          <view data-id="{{chat.id}}" class="chat-content" style="background:#94eb68;" bindlongpress='showModel'>{{chat.content}}</view>
           <view class="chat-triangle" style="margin-right:20rpx;margin-left:-1rpx;  transform: rotate(180deg);border-color: transparent #94eb68 transparent transparent;"></view>
           <image class="chat-headpic" src="{{myHeadpic}}"></image>
         </view>
       </view>
+
+      <!-- 撤回信息 -->
+      <view wx:if="{{chat.chehui}}" class="chat">
+        <view class="chat-date">{{chat.addtime}}</view>
+
+        <view data-text="{{chat.content}}" class="chehui" bindtap="reEdit">你撤回了一条消息
+          <span  style="color:#2f66d3;height:100rpx;" >重新编辑</span>
+        </view>
+      </view>
     </view>
-    <view style = "width:100%;height:50rpx;"></view>
+    <view style="width:100%;height:50rpx;"></view>
   </scroll-view>
   <view class="bottom">
     <image class="bottom-icon" src="/imgs/sound.png"></image>
-    <input cursor-spacing="14rpx" value="{{value}}" class="bottom-input" bindinput='typing' bindblur="blur"></input>
+    <input focus='{{focus}}' cursor-spacing="14rpx" value="{{value}}" class="bottom-input" bindinput='typing' bindblur="blur"></input>
     <image class="bottom-icon" src="/imgs/face.png"></image>
     <image wx:if="{{!text|| text == ''}}" class="bottom-icon" src="/imgs/more.png"></image>
     <view wx:if="{{text}}" animation="{{butAnimation}}" class="bottom-send" bindtap="sendMessage">发送</view>
   </view>
 </view>
 
-<chatModel id ="chatModel"></chatModel>
+<chatModel id="chatModel" binddelete="_delete" bindchehui="_chehui"></chatModel>

@@ -7,12 +7,12 @@
     <view class="item-block-text">复制</view>
   </view>
 
-  <view class="item-block">
+  <view class="item-block" bindtap="_chehui">
     <image class="item-block-icon" src="/imgs/cancel1.png"></image>
     <view class="item-block-text">撤回</view>
   </view>
 
-  <view class="item-block">
+  <view class="item-block" bindtap = "_delete">
     <image class="item-block-icon" src="/imgs/delete1.png"></image>
     <view class="item-block-text">删除</view>
   </view>

@@ -22,6 +22,7 @@
 .item-block-icon {
   width: 30rpx;
   height: 30rpx;
+  margin-top:10rpx;
   margin-left: 10rpx;
   flex-shrink: 0;
 }
@@ -42,7 +43,7 @@
   border-style: solid;
   border-color: black transparent transparent; /*灰 透明 透明 */
   position: absolute;
-  top: 82rpx;
+  top: 80rpx;
 }
 
 .modal {

@@ -49,6 +49,7 @@ Page({
         userInfo: userInfo
       })
     })
+
   },
 
   /**
