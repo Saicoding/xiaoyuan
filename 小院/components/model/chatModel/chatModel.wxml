@@ -1,0 +1,27 @@
+<!--components/Dialog/dialog.wxml-->
+
+<view hidden="{{!isShow}}" class="container-in" catchtap='stopBubbling' catchtouchmove='noScroll' style="top:{{y-100}}rpx;left:{{x>375?345:20}}rpx;">
+  <view class="triangel" style = "left:{{x<=375?x-25:(x-750+380)}}rpx"></view>
+  <view class="item-block">
+    <image class="item-block-icon" src="/imgs/copy.png"></image>
+    <view class="item-block-text">复制</view>
+  </view>
+
+  <view class="item-block">
+    <image class="item-block-icon" src="/imgs/cancel1.png"></image>
+    <view class="item-block-text">撤回</view>
+  </view>
+
+  <view class="item-block">
+    <image class="item-block-icon" src="/imgs/delete1.png"></image>
+    <view class="item-block-text">删除</view>
+  </view>
+
+  <view class="item-block">
+    <image class="item-block-icon" src="/imgs/multy.png"></image>
+    <view class="item-block-text">多选</view>
+  </view>
+</view>
+
+<view wx:if="{{isShow}}" class="modal" bindtap="tapBlank">
+</view>
