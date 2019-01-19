@@ -1,7 +1,7 @@
 {
   "pages": [
-        "pages/IM/IM",
-        "pages/index/index",
+    "pages/index/index",
+    "pages/IM/IM",
     "pages/login/login",
     "pages/selectSchool/selectSchool",
     "pages/guangchang/guangchang",
@@ -24,7 +24,9 @@
     "pages/guangchang/chat/chat",
     "pages/huodong/dongtaiDetail/dongtaiDetail",
     "pages/huodong/baomingList/baomingList",
-    "pages/userInfo/userInfo"
+    "pages/userInfo/userInfo",
+    "pages/IM/IMlist/IMlist",
+    "pages/mine/guanzhuAndfensi/guanzhuAndfensi"
   ],
   "window": {
     "backgroundTextStyle": "dark",

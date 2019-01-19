@@ -26,11 +26,6 @@ Page({
     let myHeadpic = options.myHeadpic;
     let username = options.username;
 
-    userid = 210637;
-    username = "定脉卫";
-    headpic = "http://www.chinaplat.com/user/UserHeadImg/178732.jpg";
-    myHeadpic = "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKq6blyJAQ87O4N2qhSbaFIaGoqSibItrgLagwd3cLT8dzgiasgJicg2LX5ias1iclel7lvMesbeptafVA/132";
-
     wx.setNavigationBarColor({
       frontColor: '#000000',
       backgroundColor: '#ececec',
@@ -323,5 +318,6 @@ Page({
       })
     })
 
-  }
+  },
+  
 })

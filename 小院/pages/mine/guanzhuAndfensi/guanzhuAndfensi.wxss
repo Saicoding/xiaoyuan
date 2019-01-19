@@ -1,0 +1,85 @@
+/* pages/mine/guanzhuAndfensi/guanzhuAndfensi.wxss */
+
+.bar {
+  display: flex;
+  justify-content: space-around;
+  width: 640rpx;
+  margin: 0 auto;
+}
+
+.bar-title {
+  width: 320rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 25rpx;
+}
+
+.movebar-line {
+  position: relative;
+  width: 200rpx;
+  height: 5rpx;
+  background: #0096fa;
+  left: 115rpx;
+  top: -1rpx;
+}
+
+.bar-line {
+  position: relative;
+  width: 100%;
+  border-top: 1rpx solid rgb(240, 240, 240);
+}
+
+/* 关注列表 */
+.guanzhu{
+  display: flex;
+  height:110rpx;
+  width:100%;
+}
+
+.guanzhu-pic{
+  width:70rpx;
+  height:70rpx;
+  margin-top:20rpx;
+  border-radius: 15rpx;
+}
+
+.guanzhu-icon{
+  position: relative;
+  width:30rpx;
+  height:30rpx;
+  border-radius: 30rpx;
+  top:65rpx;
+  left:80rpx;
+}
+
+.guanzhu-right{
+  display: flex;
+  width:630rpx;
+  height:110rpx;
+  margin-left:20rpx;
+  border-bottom: 1rpx solid rgb(231, 231, 231);
+}
+
+.guanzhu-right-title{
+  width:460rpx;
+  height:110rpx;
+  font-size:28rpx;
+  line-height: 110rpx;
+}
+
+.guanzhu-right-button {
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 22rpx;
+  text-align: center;
+  width: 120rpx;
+  color: white;
+  border-radius: 8rpx;
+  margin-top: 35rpx;
+  margin-left:30rpx;
+}
+
+.select1{
+  background: rgb(236, 236, 236);
+}

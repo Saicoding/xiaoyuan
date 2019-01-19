@@ -1,0 +1,16 @@
+<!--pages/IM/IMlist/IMlist.wxml-->
+<view class="container">
+  <view wx:for="{{chatList}}" wx:for-item="chat" wx:key="c">
+    <view data-headpic="{{chat.pic}}" data-username="{{chat.nickname==''?'陌生人':chat.nickname}}" data-toid="{{chat.toid}}" class="chat" bindtap="GOIM" hover-class='select1' hover-stay-time='400'>
+      <image class="chat-pic" src="{{chat.pic}}"></image>
+
+      <view class="chat-right">
+        <view class="chat-mid">
+          <view class="chat-mid-name">{{chat.nickname == ''?'陌生人':chat.nickname}}</view>
+          <view class="chat-mid-content">{{chat.content}}</view>
+        </view>
+        <view class="chat-time">{{chat.chattime}}</view>
+      </view>
+    </view>
+  </view>
+</view>

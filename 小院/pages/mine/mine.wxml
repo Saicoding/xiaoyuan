@@ -5,15 +5,15 @@
   <view class="top">
     <!-- 第一行 -->
     <view class="top-line1">
-      <view class="top-line1-left">
-        <view class="top-line1-text" style="line-height:50rpx;">0</view>
+      <view class="top-line1-left" bindtap = "GOguanzhuList" hover-class='select3' hover-stay-time='500'>
+        <view class="top-line1-text" style="line-height:50rpx;">{{guanzhu_records}}</view>
         <view class="top-line1-text">关注</view>
       </view>
       <view class="pic-outcontainer">
         <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap="GOsetHeadpic"></image>
       </view>
       <!-- <image class ="top-line1-icon" src =""></image> -->
-      <view class="top-line1-right">
+      <view class="top-line1-right" bindtap = "GOfensiList" hover-class='select3' hover-stay-time='500'>
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">粉丝</view>
       </view>
@@ -58,7 +58,7 @@
       <view class="mid-line-item-text">我的爆料</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap = "GOIMlist">
       <image class="mid-line-item-icon" src="/imgs/icon3.png"></image>
       <view class="mid-line-item-text">我的信息</view>
     </view>

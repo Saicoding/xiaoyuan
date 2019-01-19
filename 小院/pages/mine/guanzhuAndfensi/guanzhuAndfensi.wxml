@@ -1,0 +1,27 @@
+<!--pages/mine/guanzhuAndfensi/guanzhuAndfensi.wxml-->
+<view class="container">
+  <view class="bar">
+    <view class="bar-title" data-index="0" bindtap="changeMulu">我的关注</view>
+    <view class="bar-title" data-index="1" bindtap="changeMulu">我的粉丝</view>
+  </view>
+
+  <view class="bar-line"></view>
+  <view class="movebar-line" animation="{{moveData}}"></view>
+
+  <!-- 关注 -->
+  <view wx:if="{{barIndex ==0}}">
+    <view wx:for="{{guanzhu_list}}" wx:for-item="guanzhu" wx:key="g">
+      <view data-guanzhu="{{guanzhu.guanzhu}}" data-userid="{{guanzhu.userid}}" class="guanzhu" bindtap="GOuserInfo" hover-class='select1' hover-stay-time='500'>
+        <image class="guanzhu-icon" src="{{guanzhu.sex=='男'?'/imgs/man.png':'/imgs/woman.png'}}"></image>
+        <image class="guanzhu-pic" src="{{guanzhu.HeadImg}}"></image>
+        <view class="guanzhu-right">
+          <view class="guanzhu-right-title">{{guanzhu.uname==""?'陌生人':guanzhu.uname}}</view>
+          <view data-types="0" data-userid="{{guanzhu.userid}}" class="guanzhu-right-button" style="background:{{guanzhu.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" catchtap="toogleMark">{{guanzhu.guanzhu==0?'关注':'取消关注'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 粉丝 -->
+  <view wx:if="{{barIndex ==1}}"></view>
+</view>
