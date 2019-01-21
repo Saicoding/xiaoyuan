@@ -23,5 +23,22 @@
   </view>
 
   <!-- 粉丝 -->
-  <view wx:if="{{barIndex ==1}}"></view>
+  <view wx:if="{{barIndex ==1}}">
+    <view wx:for="{{fensi_list}}" wx:for-item="fensi" wx:key="g">
+      <view data-guanzhu="{{fensi.guanzhu}}" data-userid="{{fensi.userid}}" class="guanzhu" bindtap="GOuserInfo" hover-class='select1' hover-stay-time='500'>
+        <image class="guanzhu-icon" src="{{fensi.sex=='男'?'/imgs/man.png':'/imgs/woman.png'}}"></image>
+        <image class="guanzhu-pic" src="{{fensi.HeadImg}}"></image>
+        <view class="guanzhu-right">
+          <view class="guanzhu-right-title">{{fensi.uname==""?'陌生人':fensi.uname}}</view>
+          <view data-types="1" data-userid="{{fensi.userid}}" class="guanzhu-right-button" style="background:{{fensi.guanzhu=='0'?'#ff5d24':'rgb(211, 211, 211)'}}" catchtap="toogleMark">{{fensi.guanzhu==0?'关注':'取消关注'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
 </view>
