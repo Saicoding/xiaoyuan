@@ -127,9 +127,10 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+    let card_no = self.data.card_no;
 
     if (type == "chongzhika") {
-      app.post(API_URL, "action=BuyVIP&zcode=" + zcode + "&loginrandom=" + loginrandom + "&years=" + index, false, false, "", "", "", self).then(res => {
+      app.post(API_URL, "action=UseCzCard&zcode=" + zcode + "&loginrandom=" + loginrandom + "&card_no=" + card_no, false, false, "", "", "", self).then(res => {
 
         let vip_jtime = res.data.data[0].vip_jtime;
         let vip_ktime = res.data.data[0].vip_ktime;
