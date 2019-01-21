@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isLoaded:false
   },
 
   /**
@@ -40,6 +40,10 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
+    self.setData({
+      isLoaded:false
+    })
+
     app.post(API_URL,"action=getChatUserList&loginrandom="+loginrandom+"&zcode="+zcode+"&page=1",false,false,"","","",self).then(res=>{
       let chatList = res.data.data;
       console.log(res)
@@ -47,7 +51,8 @@ Page({
         title: '小院('+chatList.length+')',
       })
       self.setData({
-        chatList:chatList
+        chatList:chatList,
+        isLoaded: true
       })
     })
   },

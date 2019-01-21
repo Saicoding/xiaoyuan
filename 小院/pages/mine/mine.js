@@ -61,6 +61,14 @@ Page({
       })
     })
   },
+  /**
+   * 导航到账户中心
+   */
+  GOzhanghuzhongxin:function(){
+    wx.navigateTo({
+      url: '/pages/mine/zhanghuzhongxin/zhanghuzhongxin',
+    })
+  },
 
   /**
    * 导航到头像设置页面

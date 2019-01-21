@@ -1,0 +1,60 @@
+<!--pages/mine/zhanghuzhongxin/zhanghuzhongxin.wxml-->
+<view class="container">
+  <!-- 最上面部分 -->
+  <view class="up">
+    <view class="up-title">
+      <image class="up-title-icon" src="/imgs/renminbi.png"></image>
+      <view class="up-title-text">账户总金额(学币)</view>
+    </view>
+
+    <view class="up-num">0</view>
+
+    <view class="up-jifen">积分：786</view>
+
+    <image class="up-backimg1" src="/imgs/img-head.png"></image>
+    <image class="up-backimg2" src="/imgs/front-back.png"></image>
+  </view>
+
+  <!-- 中间部分 -->
+  <view class="mid">
+    <view class="mid-item" bindtap='GOjifen' hover-class='select1' hover-stay-time='500' style = "border-right:1rpx solid rgba(0, 0, 0,0.1)">
+      <image class='mid-item-icon' src="/imgs/jifen.png"></image>
+      <view class="mid-item-text">积分记录</view>
+    </view>
+
+    <view class="mid-item" bindtap='GOxuebi' hover-class='select1' hover-stay-time='500' style = "border-right:1rpx solid rgba(0, 0, 0,0.1)">
+      <image class='mid-item-icon' src="/imgs/xuebi.png"></image>
+      <view class="mid-item-text">学币记录</view>
+    </view>
+
+    <view class="mid-item" bindtap='GOxueshi' hover-class='select1' hover-stay-time='500'>
+      <image class='mid-item-icon' src="/imgs/xueshi.png"></image>
+      <view class="mid-item-text">学时记录</view>
+    </view>
+  </view>
+
+  <!-- 下面充值部分 -->
+  <view class="down">
+    <view class="down-item">
+      <view class="down-item-line1">
+        <image class="down-item-line1-icon" src="/imgs/weixinzhifu.png"></image>
+        <view class="down-item-line1-text">微信充值</view>
+      </view>
+      <view class="down-item-line2" >
+        <input class="down-item-line2-input"></input>
+        <view class="down-item-line2-btn1" bindtap = "pay" hover-class='select2' hover-stay-time='500'>充值</view>
+      </view>
+    </view>
+
+    <view class="down-item">
+      <view class="down-item-line1">
+        <image class="down-item-line1-icon" src="/imgs/chongzhika.png"></image>
+        <view class="down-item-line1-text">充值卡号充值</view>
+      </view>
+      <view class="down-item-line2">
+        <input class="down-item-line2-input"></input>
+        <view class="down-item-line2-btn2" bindtap = "pay" hover-class='select3' hover-stay-time='500'>充值</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -26,7 +26,8 @@
     "pages/huodong/baomingList/baomingList",
     "pages/userInfo/userInfo",
     "pages/IM/IMlist/IMlist",
-    "pages/mine/guanzhuAndfensi/guanzhuAndfensi"
+    "pages/mine/guanzhuAndfensi/guanzhuAndfensi",
+    "pages/mine/zhanghuzhongxin/zhanghuzhongxin"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -98,17 +98,17 @@ page{
 }
 
 .top-line2-block{
-  text-align: center;
   color:white;
   font-size:23rpx;
-  width:80rpx;
-  height:100rpx;
+  width:215rpx;
+  height:80rpx;
 }
 
 .top-line2-text{
-  width:80rpx;
+  width:215rpx;
   height:40rpx;
   line-height: 40rpx;
+  text-align: center;
 }
 
 .line{
@@ -165,4 +165,8 @@ page{
 
 .select3{
   background: rgb(211, 211, 211);
+}
+
+.select4{
+  background: rgba(255, 255, 255,0.1);
 }
