@@ -2,7 +2,8 @@
 <view class="container">
   <view wx:for="{{chatList}}" wx:for-item="chat" wx:key="c">
     <view data-headpic="{{chat.pic}}" data-username="{{chat.nickname==''?'陌生人':chat.nickname}}" data-toid="{{chat.toid}}" class="chat" bindtap="GOIM" hover-class='select1' hover-stay-time='400'>
-      <image class="chat-pic" src="{{chat.pic}}"></image>
+      <view wx:if ="{{chat.new}}" class ="num">{{chat.new}}</view>
+      <image class="chat-pic" src="{{chat.pic}}" style ="margin-left:{{chat.new?0:35}}rpx;"></image>
 
       <view class="chat-right">
         <view class="chat-mid">

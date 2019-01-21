@@ -10,20 +10,33 @@
   height:80rpx;
   margin-top:25rpx;
   border-radius: 15rpx;
-  margin-left:25rpx;
+  flex-shrink: 0;
+}
+
+.num{
+  position: relative;
+  width:35rpx;
+  height:35rpx;
+  border-radius: 35rpx;
+  background: rgb(255, 102, 0);
+  color:white;
+  font-size:20rpx;
+  text-align: center;
+  line-height: 35rpx;
+  left:90rpx;
+  top:15rpx;
 }
 
 .chat-right{
   display: flex;
   height:130rpx;
   border-bottom: 1rpx solid #e9e8e8;
-  width:680rpx;
+  width:630rpx;
   margin-left:25rpx;
-
 }
 
 .chat-mid,.chat-name,.chat-mid-content{
-  width:440rpx;
+  width:400rpx;
 }
 
 .chat-mid{
@@ -33,7 +46,7 @@
 .chat-mid-name{
   font-size:28rpx;
   height:70rpx;
-  line-height: 80rpx;
+  line-height: 85rpx;
 }
 
 .chat-mid-content{
