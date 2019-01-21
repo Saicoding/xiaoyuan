@@ -7,9 +7,9 @@
       <view class="up-title-text">账户总金额(学币)</view>
     </view>
 
-    <view class="up-num">0</view>
+    <view class="up-num">{{xuebi}}</view>
 
-    <view class="up-jifen">积分：786</view>
+    <view class="up-jifen">积分：{{jifen}}</view>
 
     <image class="up-backimg1" src="/imgs/img-head.png"></image>
     <image class="up-backimg2" src="/imgs/front-back.png"></image>
@@ -41,8 +41,8 @@
         <view class="down-item-line1-text">微信充值</view>
       </view>
       <view class="down-item-line2" >
-        <input class="down-item-line2-input"></input>
-        <view class="down-item-line2-btn1" bindtap = "pay" hover-class='select2' hover-stay-time='500'>充值</view>
+        <input value="{{lastvalue}}" type = "digit" class="down-item-line2-input" bindinput="wxpayInput"></input>
+        <view data-type = "wx" class="down-item-line2-btn1" bindtap = "pay" hover-class='select2' hover-stay-time='500'>充值</view>
       </view>
     </view>
 
@@ -52,8 +52,8 @@
         <view class="down-item-line1-text">充值卡号充值</view>
       </view>
       <view class="down-item-line2">
-        <input class="down-item-line2-input"></input>
-        <view class="down-item-line2-btn2" bindtap = "pay" hover-class='select3' hover-stay-time='500'>充值</view>
+        <input type = "text"  class="down-item-line2-input"></input>
+        <view data-type = "chongzhika" class="down-item-line2-btn2" bindtap = "pay" hover-class='select3' hover-stay-time='500'>充值</view>
       </view>
     </view>
   </view>

@@ -27,7 +27,10 @@
     "pages/userInfo/userInfo",
     "pages/IM/IMlist/IMlist",
     "pages/mine/guanzhuAndfensi/guanzhuAndfensi",
-    "pages/mine/zhanghuzhongxin/zhanghuzhongxin"
+    "pages/mine/zhanghuzhongxin/zhanghuzhongxin",
+    "pages/mine/zhanghuzhongxin/jifenRecord/jifenRecord",
+    "pages/mine/zhanghuzhongxin/xuebiRecord/xuebiRecord",
+    "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord"
   ],
   "window": {
     "backgroundTextStyle": "dark",

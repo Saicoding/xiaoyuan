@@ -132,7 +132,8 @@ page {
   height: 50rpx;
   margin-top: 25rpx;
   margin-left: 40rpx;
-  width: 520rpx;
+  padding-left:10rpx;
+  width: 510rpx;
 }
 
 .down-item-line2-btn1, .down-item-line2-btn2 {

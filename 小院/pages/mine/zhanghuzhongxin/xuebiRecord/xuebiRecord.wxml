@@ -1,0 +1,22 @@
+<!--pages/mine/zhanghuzhongxin/jifenRecord/jifenRecord.wxml-->
+<view class="container">
+  <view wx:for="{{list}}" wx:for-item="record" wx:key="l">
+    <view class="block">
+      <view class="block-info">
+        <view class="block-info-left">{{record.title}}</view>
+        <view class="block-info-right">{{record.shouzhi}} {{record.money}}</view>
+      </view>
+      <view class ="block-time">{{record.addtime}}</view>
+    </view>
+  </view>
+  <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
+</view>
+
+<view wx:if="{{list.length == 0}}">
+  <image style="display:block;margin:0 auto;margin-top:50rpx;width:160rpx;height:160rpx;" src="/imgs/glanceRecordNo.png"></image>
+  <view style="text-align:center;font-size:22rpx;color:rgb(200, 200, 200);margin-top:20rpx;">当前没有记录</view>
+</view>
