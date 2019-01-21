@@ -14,7 +14,8 @@ Page({
    */
   data: {
     isLoadingMore: false,
-    ifCanScroll: true //设置是否可以滚动
+    ifCanScroll: true, //设置是否可以滚动
+    toView:'',
   },
 
   /**
@@ -97,6 +98,36 @@ Page({
         scrollTop: 10000
       })
 
+      let interval = setInterval(res => {
+        app.post(API_URL, "action=getUserChat&loginrandom=" + loginrandom + "&zcode=" + zcode + "&toid=" + toid + '&page=1&newchat=yes', false, false, "", "", "", self).then(res => {
+          let newchats = res.data.data[0].list; //请求的新消息
+          console.log(newchats)
+          let chats = self.data.chats; //当前消息
+
+          if (newchats.length > 0) { //有消息时才执行
+            newchats = newchats.map(res1 => { //格式化时间
+              res1.addtime = time.getTimestr(res1.addtime);
+              return res1;
+            })
+
+            chats = chats.concat(newchats); //连接当前聊天信息和新消息数组
+            console.log(chats)
+
+            self.setData({
+              chats: chats,
+            })
+
+            self.setData({ //滚动到最下面
+              scrollTop: 10000
+            })
+          }
+
+        })
+      }, 3000)
+
+      self.setData({//存储定时器
+        interval: interval
+      })
     })
   },
 
@@ -112,6 +143,19 @@ Page({
     })
   },
 
+  /**
+   * 生命周期事件
+   */
+  onHide: function() {
+    clearInterval(this.data.interval);
+  },
+
+  /**
+   * 生命周期事件
+   */
+  onUnload: function() {
+    clearInterval(this.data.interval);
+  },
   /**
    * 发送信息
    */
@@ -215,12 +259,12 @@ Page({
         if (chat.id == longtapId) { //如果撤回成功，本地删除该元素
           let index = chats.indexOf(chat);
           if (index > -1) {
-            chats.splice(index, 1);//撤回成功后去除这条聊天
-            let obj = {};//模拟撤回聊天对象
+            chats.splice(index, 1); //撤回成功后去除这条聊天
+            let obj = {}; //模拟撤回聊天对象
             obj.addtime = time.getTimeNow();
             obj.content = chat.content;
             obj.chehui = true;
-            chats.push(obj);//添加撤回这个对象用户显示
+            chats.push(obj); //添加撤回这个对象用户显示
             self.setData({
               chats: chats
             })
@@ -235,14 +279,14 @@ Page({
   /**
    * 重新编辑
    */
-  reEdit:function(e){
+  reEdit: function(e) {
     let self = this;
-    let text = e.currentTarget.dataset.text;//点击重新编辑的
+    let text = e.currentTarget.dataset.text; //点击重新编辑的
     this.setData({
-      value:text,
-      focus: true//聚焦键盘
+      value: text,
+      focus: true //聚焦键盘
     })
- 
+
   },
 
   /**
@@ -289,7 +333,6 @@ Page({
   scrolltoupper: function() {
     let self = this;
     let isLoadingMore = self.data.isLoadingMore; //是否正在载入更多
-    if (isLoadingMore) return; //如果正在载入就什么都不做
 
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
@@ -301,10 +344,18 @@ Page({
 
     if (page >= pageall) return; //如果到最后一页什么都不做
 
+    self.setData({//设置正在载入更多
+      isLoadingMore: true
+    })
+    if (isLoadingMore) {
+      return; //如果正在载入就什么都不做
+    }
+
     page++;
 
     app.post(API_URL, "action=getUserChat&loginrandom=" + loginrandom + "&zcode=" + zcode + "&toid=" + toid + "&page=" + page, false, false, "", "", "", self).then(res => {
       let newchats = res.data.data[0].list;
+
       newchats = newchats.map(res => { //格式化时间
         res.addtime = time.getTimestr(res.addtime);
         return res;
@@ -315,9 +366,14 @@ Page({
       self.setData({
         chats: chats,
         page: page,
+        isLoadingMore:false
+      })
+
+      self.setData({
+        toView: 'c' + newchats.length
       })
     })
 
   },
-  
+
 })
