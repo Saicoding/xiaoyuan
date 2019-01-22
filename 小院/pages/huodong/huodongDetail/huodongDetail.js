@@ -66,6 +66,7 @@ Page({
 
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
+      console.log(huodong)
 
       let hd_uid = huodong.userid;
 
@@ -475,17 +476,15 @@ Page({
    * 切换收藏状态
    */
   toogleShoucang: function() {
-    if (buttonClicked) return;
-    buttonClicked = true;
     let self = this;
     let h_id = self.data.h_id;
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
     let huodong = self.data.huodong;
-
     app.post(API_URL, "action=HdShouCang&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
-      if (res.data.data.result) {
+      console.log(res)
+      if (res.data.data[0].result) {
         if (huodong.ShouCang == "" || huodong.ShouCang == "0") {
           huodong.ShouCang = "1";
         } else {
