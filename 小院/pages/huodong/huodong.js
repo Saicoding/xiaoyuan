@@ -58,6 +58,7 @@ Page({
     if (isReLoad || first) {
       app.post(API_URL, "action=getIndexPic&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
         let banners = res.data.data;
+        console.log(banners)
         self.setData({
           banners: banners
         })

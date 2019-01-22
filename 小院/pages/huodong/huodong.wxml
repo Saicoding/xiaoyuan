@@ -4,7 +4,7 @@
   <swiper class="swiper" interval="3000" autoplay="true" circular="true" indicator-dots="true" indicator-color="rgb(216, 216, 216);" indicator-active-color="white">
     <block wx:for="{{banners}}" wx:key="k">
       <swiper-item>
-        <image src="{{item.pic}}" class="slide-image" />
+        <image data-id="{{item.id}}" src="{{item.pic}}" class="slide-image" bindtap="GOhuodongDetail" hover-class='select2' hover-stay-time='500' />
       </swiper-item>
     </block>
   </swiper>

@@ -45,7 +45,7 @@ Page({
     if (userInfo.zs_colleage_img){//如果有图片了，展示框就用此图片
      
       userInfo.showImage = userInfo.zs_colleage_img
-      if(userInfo.rz != ''){
+      if(userInfo.rz == '1'){
         uploadPicText = '已认证'
       }
       this.setData({
@@ -272,8 +272,8 @@ Page({
                     app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
                       buttonClicked = false
                       if (res.data.data[0].result == "success") {
-                        console.log(res.data.data[0])
                         userInfo.zs_colleage_img = res.data.data[0].pic//存储用参数
+                        userInfo.showImage = res.data.data[0].pic
                         self.setData({
                           isLoaded: true,
                           userInfo: userInfo,
