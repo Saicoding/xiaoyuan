@@ -192,18 +192,14 @@
 }
 
 .record-pic-model{
-  position: relative;
-  z-index:100;
   width:70rpx;
   height:70rpx;
   font-size:50rpx;
   line-height: 75rpx;
   text-align: center;
-  top:-110rpx;
   border-radius: 70rpx;
   background: rgba(48, 48, 48,0.5);
   color:white;
-  left:641rpx;
 }
 
 /* 活动详情和动态 */
