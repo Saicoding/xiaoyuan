@@ -51,6 +51,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     //下拉刷新可能触发重复登录，这时跳转到登录界面时没有停止刷新状态，需要手动设置
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -244,6 +245,21 @@ Page({
   },
 
   /**
+   * 导航到地图页面
+   */
+  GOmap: function(e) {
+    let self = this;
+    this.getPermission(self);
+    let huodong = this.data.huodong;
+    let address_x = huodong.address_x;
+    let address_y = huodong.address_y
+    let address = e.currentTarget.dataset.address;
+    wx.navigateTo({
+      url: '/pages/huodong/map/map?address_x=' + address_x + "&address_y=" + address_y + "&address=" + address,
+    })
+  },
+
+  /**
    * 导航到添加动态页面
    */
   GOaddDongtai: function() {
@@ -331,16 +347,16 @@ Page({
 
     app.post(API_URL, "action=SaveHdDdongtai_agree&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&dtid=" + dtid, false, false, "", "", "", self).then(res => {
       let dongtai = dongtais[index];
-        dongtai.zan = parseInt(dongtai.zan) + 1;
-        dongtai.zan_self = 1;
-        wx.showToast({
-          icon: 'none',
-          title: '称赞成功',
-          duration: 3000
-        })
-        self.setData({
-          dongtais: dongtais
-        })
+      dongtai.zan = parseInt(dongtai.zan) + 1;
+      dongtai.zan_self = 1;
+      wx.showToast({
+        icon: 'none',
+        title: '称赞成功',
+        duration: 3000
+      })
+      self.setData({
+        dongtais: dongtais
+      })
     })
   },
 
@@ -488,9 +504,9 @@ Page({
         if (huodong.ShouCang == "" || huodong.ShouCang == "0") {
           huodong.ShouCang = "1";
           wx.showToast({
-            icon:'none',
+            icon: 'none',
             title: '收藏成功',
-            duration:3000
+            duration: 3000
           })
         } else {
           huodong.ShouCang = "0";
@@ -524,15 +540,82 @@ Page({
   /**
    * 导航到聊天窗口
    */
-  GOchat:function(e){
+  GOchat: function(e) {
     let user = wx.getStorageSync('user');
-    let headpic = e.currentTarget.dataset.headpic;//点击的头像
-    let myHeadpic = user.Pic;//我的头像
-    let username = e.currentTarget.dataset.username;//点击的用户名
+    let headpic = e.currentTarget.dataset.headpic; //点击的头像
+    let myHeadpic = user.Pic; //我的头像
+    let username = e.currentTarget.dataset.username; //点击的用户名
 
-    let toid = e.currentTarget.dataset.userid;//点击的用户id
+    let toid = e.currentTarget.dataset.userid; //点击的用户id
     wx.navigateTo({
       url: '/pages/IM/IM?userid=' + toid + "&headpic=" + headpic + "&myHeadpic=" + myHeadpic + "&username=" + username,
     })
+  },
+
+  /**
+   * 获取地理位置权限
+   */
+  getPermission: function(obj) {
+    wx.chooseLocation({
+      success: function(res) {
+        obj.setData({
+          addr: res.address //调用成功直接设置地址
+        })
+      },
+      fail: function() {
+        wx.getSetting({
+          success: function(res) {
+            var statu = res.authSetting;
+            if (!statu['scope.userLocation']) {
+              wx.showModal({
+                title: '是否授权当前位置',
+                content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+                success: function(tip) {
+                  if (tip.confirm) {
+                    wx.openSetting({
+                      success: function(data) {
+                        console.log(data)
+                        if (data.authSetting["scope.userLocation"] === true) {
+                          wx.showToast({
+                            title: '授权成功',
+                            icon: 'success',
+                            duration: 1000
+                          })
+                          //授权成功之后，再调用chooseLocation选择地方
+                          wx.chooseLocation({
+                            success: function(res) {
+                              obj.setData({
+                                addr: res.address
+                              })
+                            },
+                          })
+                        } else {
+                          wx.showToast({
+                            title: '授权失败了',
+                            icon: 'none',
+                            duration: 1000
+                          })
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          },
+          fail: function(res) {
+            wx.showToast({
+              title: '调用授权窗口失败',
+              icon: 'success',
+              duration: 1000
+            })
+          }
+        })
+      }
+    })
+  },
+
+  getphonenumber:function(e){
+    console.log(e)
   }
 })

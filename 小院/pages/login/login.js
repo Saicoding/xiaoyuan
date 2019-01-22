@@ -174,7 +174,7 @@ Page({
               console.log("action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex)
               app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, false, false, "").then((res) => {
                 let user = res.data.list[0];
-                self.processSelectScholl(user, ifGoPage);
+                self.processSelectScholl(user, ifGoPage); 
               })
             }
           })

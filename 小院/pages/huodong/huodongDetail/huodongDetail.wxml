@@ -14,6 +14,7 @@
 
   <!-- 校园·社团 -->
   <view class="info">#{{huodong.typesname}}#</view>
+  <button open-type="openSetting"  bindopensetting ="getphonenumber">测试 </button>
 
   <!-- 线下 免费 -->
   <view class="type">
@@ -53,7 +54,7 @@
       <view class="mid-info-text">{{huodong.dateStr}}</view>
     </view>
     <!-- 集合地 -->
-    <view class="mid-info">
+    <view data-address="{{huodong.address}}" class="mid-info" bindtap='GOmap' hover-class='select3' hover-stay-time='500'>
       <image class="mid-info-icon" src="/imgs/jihe.png"></image>
       <view class="mid-info-text">{{huodong.address}}</view>
     </view>

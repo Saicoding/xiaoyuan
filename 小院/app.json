@@ -30,7 +30,8 @@
     "pages/mine/zhanghuzhongxin/zhanghuzhongxin",
     "pages/mine/zhanghuzhongxin/jifenRecord/jifenRecord",
     "pages/mine/zhanghuzhongxin/xuebiRecord/xuebiRecord",
-    "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord"
+    "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord",
+    "pages/huodong/map/map"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -66,14 +67,6 @@
         "selectedIconPath": "/imgs/huodong2.png",
         "color": "#000000",
         "text": "活动"
-      },
-      {
-        "pagePath": "pages/guangchang/guangchang",
-        "selectedColor": "#13b7f6",
-        "iconPath": "/imgs/guangchang1.png",
-        "selectedIconPath": "/imgs/guangchang2.png",
-        "color": "#000000",
-        "text": "广场"
       },
       {
         "pagePath": "pages/mine/mine",

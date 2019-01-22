@@ -1,0 +1,6 @@
+/* pages/huodong/map/map.wxss */
+
+.map{
+  width:100%;
+  color:rgb(255, 60, 0);
+}

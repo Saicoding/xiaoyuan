@@ -36,6 +36,15 @@ App({
    * +-------------------
    * @return {Promise}    promise 返回promise供后续操作
    */
+
+      //  {
+      //   "pagePath": "pages/guangchang/guangchang",
+      //   "selectedColor": "#13b7f6",
+      //   "iconPath": "/imgs/guangchang1.png",
+      //   "selectedIconPath": "/imgs/guangchang2.png",
+      //   "color": "#000000",
+      //   "text": "广场"
+      // },
   post: function(url, data, ifShow, ifCanCancel, title, pageUrl, ifGoPage, self) {
     if (ifShow) {
       wx.showLoading({
