@@ -1,7 +1,7 @@
 <!--pages/index/viewAll/viewAll.wxml-->
 <import src="/wxSearch/wxSearch.wxml" />
 <!-- 搜索框 -->
-<view class="search">
+<view class="search" style="padding-top:{{statusBarHeight+5}}rpx;">
   <view class="back-container" bindtap="back" hover-class='select' hover-stay-time='400'>
     <image class="back" src="/imgs/back.png"></image>
   </view>

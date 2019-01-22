@@ -487,8 +487,18 @@ Page({
       if (res.data.data[0].result) {
         if (huodong.ShouCang == "" || huodong.ShouCang == "0") {
           huodong.ShouCang = "1";
+          wx.showToast({
+            icon:'none',
+            title: '收藏成功',
+            duration:3000
+          })
         } else {
           huodong.ShouCang = "0";
+          wx.showToast({
+            icon: 'none',
+            title: '取消收藏成功',
+            duration: 3000
+          })
         }
 
         self.setData({

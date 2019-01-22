@@ -39,6 +39,8 @@ Page({
       success: function (res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
+        let statusBarHeight = res.statusBarHeight * (750 / windowWidth);
+
         windowHeight = (windowHeight * (750 / windowWidth));
         //初始化的时候渲染wxSearchdata
         console.log(windowHeight)
@@ -46,7 +48,8 @@ Page({
         WxSearch.initMindKeys(['中仕学社', '微信小程序开发', '微信开发', '微信小程序']);
         self.setData({
           windowWidth: windowWidth,
-          windowHeight: windowHeight
+          windowHeight: windowHeight,
+          statusBarHeight: statusBarHeight
         })
       }
     });
