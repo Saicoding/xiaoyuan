@@ -145,6 +145,7 @@ Page({
     let index=  e.currentTarget.dataset.index;
     let lastindex= this.data.lastTaocanIndex;
     let taocans = this.data.taocans;
+    console.log(taocans)
     taocans[lastindex].selected = false;
     taocans[index].selected = true;
     this.setData({
@@ -204,6 +205,19 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+
+    //得到选择的日期
+    let mydates = self.data.mydates;
+    let dateIndex = self.data.dateIndex;
+    let hddate = mydates[dateIndex];
+    if(!hddate){
+      wx.showToast({
+        icon: "none",
+        title: '还没有选择日期！',
+        duration: 3000
+      })
+      return 
+    }
 
     let mobile = self.data.mobile;//填写的手机号码
 
@@ -265,11 +279,6 @@ Page({
     let taocans = self.data.taocans;
     let lastTaocanIndex = self.data.lastTaocanIndex;
     let taocan = lastTaocanIndex+1;
-
-    //得到选择的日期
-    let mydates = self.data.mydates;
-    let dateIndex = self.data.dateIndex;
-    let hddate = mydates[dateIndex];
 
 
     app.post(API_URL, "action=BmHuoDdong&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + options.h_id + "&hddate=" + hddate + "&hdtime=" + options.hdtime + "&mobile=" + mobile + "&tname=" + tname + "&beizhu=" + beizhu + "&taocan=" + taocan, true, false, "报名中", "", "", self).then(res => {

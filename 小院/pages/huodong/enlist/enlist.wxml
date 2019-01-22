@@ -61,7 +61,7 @@
 
   <!-- 活动详情时的底部信息 -->
   <view class="bottom">
-    <view class="bottom-left">免费</view>
+    <view class="bottom-left">{{taocans[lastTaocanIndex].money=='0.00'?'免费':'¥'+taocans[lastTaocanIndex].money}}</view>
     <view class="bottom-right" bindtap="next" hover-class='select1' hover-stay-time='500'>下一步</view>
   </view>
 </scroll-view>
