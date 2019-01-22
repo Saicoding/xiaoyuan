@@ -68,12 +68,6 @@ App({
           let message = res.data.Message;
           if (status == 1) { //请求成功
             resolve(res);
-          } else if (status == -2) { //
-            wx.showToast({
-              icon: 'none',
-              title: message,
-              duration: 3000
-            })
           } else if (status == -201) { //重复登录
             console.log('重复登录')
             if (self) { //如果传了这个参数
@@ -84,41 +78,13 @@ App({
             wx.navigateTo({
               url: '/pages/login/login?url=' + pageUrl + '&ifGoPage=' + ifGoPage
             })
-          } else if (status == 2011) {
-            console.log('没有院校,需要绑定院校');
-            wx.showToast({
-              icon: 'none',
-              title: message,
-              duration: 3000
-            })
-          } else if (status == -5) {
-            console.log('找回密码不存在')
-            wx.showToast({
-              icon: 'none',
-              title: message,
-              duration: 3000
-            })
-          } else if (status == -613 || status =="-613") {
-            console.log('余额不足')
-            wx.showToast({
-              icon: 'none',
-              title: message,
-              duration: 3000
-            })
-          } else if(status == -181){
-            console.log('已称赞过')
-            wx.showToast({
-              icon: 'none',
-              title: message,
-              duration: 3000
-            })
-          }
 
-          if (errorCode == -9201){
-            console.log('只能撤销2分钟内的消息')
+          } else{
+            console.log(status);
+            console.log(message);
             wx.showToast({
               icon: 'none',
-              title: errorMessage,
+              title: message,
               duration: 3000
             })
           }

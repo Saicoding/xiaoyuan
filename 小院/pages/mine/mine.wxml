@@ -53,27 +53,28 @@
       <view class="mid-line-item-text">我的课程</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
+    <!-- <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;">
       <image class="mid-line-item-icon" src="/imgs/icon2.png"></image>
       <view class="mid-line-item-text">我的爆料</view>
-    </view>
+    </view> -->
 
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap = "GOIMlist">
       <image class="mid-line-item-icon" src="/imgs/icon3.png"></image>
       <view class="mid-line-item-text">我的信息</view>
+      <view class ="message">{{messages.length}}</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;" bindtap="GOmyhuodong">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap="GOmyhuodong">
       <image class="mid-line-item-icon" src="/imgs/icon4.png"></image>
       <view class="mid-line-item-text">我的活动</view>
     </view>
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;">
+    <!-- <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;">
       <image class="mid-line-item-icon" src="/imgs/icon5.png"></image>
       <view class="mid-line-item-text">我的宝贝</view>
-    </view>
+    </view> -->
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap="GOvip">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-bottom:1rpx solid #f0f3fa;" bindtap="GOvip">
       <image class="mid-line-item-icon" src="/imgs/icon7.png"></image>
       <view class="mid-line-item-text">我的VIP</view>
     </view>

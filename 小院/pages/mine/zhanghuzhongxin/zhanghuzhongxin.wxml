@@ -52,7 +52,7 @@
         <view class="down-item-line1-text">充值卡号充值</view>
       </view>
       <view class="down-item-line2">
-        <input type = "text"  class="down-item-line2-input" bindinput="chongzhipayInput"></input>
+        <input value="{{cardValue}}" type = "text"  class="down-item-line2-input" bindinput="chongzhipayInput"></input>
         <view data-type = "chongzhika" class="down-item-line2-btn2" bindtap = "pay" hover-class='select3' hover-stay-time='500'>充值</view>
       </view>
     </view>
