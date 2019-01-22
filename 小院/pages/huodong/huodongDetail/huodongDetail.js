@@ -66,7 +66,6 @@ Page({
 
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
-      console.log(huodong)
 
       let hd_uid = huodong.userid;
 
@@ -80,6 +79,7 @@ Page({
 
       app.post(API_URL, "action=getHdUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&hd_uid=" + hd_uid, false, false, "", "", "", self).then(res => {
         let hdUserInfo = res.data.data[0];
+        console.log(hdUserInfo)
         self.setData({
           hdUserInfo: hdUserInfo
         })
@@ -509,6 +509,21 @@ Page({
     let guanzhu = e.currentTarget.dataset.guanzhu;
     wx.navigateTo({
       url: '/pages/userInfo/userInfo?userid=' + userid + "&guanzhu=" + guanzhu,
+    })
+  },
+
+  /**
+   * 导航到聊天窗口
+   */
+  GOchat:function(e){
+    let user = wx.getStorageSync('user');
+    let headpic = e.currentTarget.dataset.headpic;//点击的头像
+    let myHeadpic = user.Pic;//我的头像
+    let username = e.currentTarget.dataset.username;//点击的用户名
+
+    let toid = e.currentTarget.dataset.userid;//点击的用户id
+    wx.navigateTo({
+      url: '/pages/IM/IM?userid=' + toid + "&headpic=" + headpic + "&myHeadpic=" + myHeadpic + "&username=" + username,
     })
   }
 })

@@ -29,7 +29,7 @@
         <view class="mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
         <view class="mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
       </view>
-      <image class="mid-line1-righticon" src="/imgs/chat.png"></image>
+      <image data-headpic="{{hdUserInfo.pic}}" data-username="{{hdUserInfo.from}}" data-userid ="{{huodong.userid}}" class="mid-line1-righticon" src="/imgs/chat.png" bindtap = "GOchat" hover-class ="select2" hover-stay-time="500"></image>
     </view>
     <!-- 报名状态显示 -->
     <view class="mid-status">
