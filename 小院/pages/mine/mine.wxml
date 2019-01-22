@@ -61,7 +61,7 @@
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap = "GOIMlist">
       <image class="mid-line-item-icon" src="/imgs/icon3.png"></image>
       <view class="mid-line-item-text">我的信息</view>
-      <view class ="message">{{messages.length}}</view>
+      <view class ="message">{{userInfo.chat_Newnums}}</view>
     </view>
 
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap="GOmyhuodong">

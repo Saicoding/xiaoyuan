@@ -38,7 +38,7 @@ Page({
 
     app.post(API_URL, "action=getUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
       let userInfo = res.data.data[0];
-      console.log(userInfo)
+      console.log(userInfo);
       self.setData({
         userInfo: userInfo
       })

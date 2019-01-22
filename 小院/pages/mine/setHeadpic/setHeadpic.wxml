@@ -59,9 +59,9 @@
   <!-- 学生证认证 -->
   <view class="block" style="margin-top:15rpx;" bindtap = "upLoadImg" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">学生证认证</view>
-    <view class="right-text">{{uploadPicText}}</view>
+    <view class="right-text" style="color:{{userInfo.rz==''?'#0096fa':'rgb(192, 192, 192)'}}">{{uploadPicText}}</view>
   </view>
-    <image wx:if="{{userInfo.zs_colleage_img}}" class ="mypic" src="{{userInfo.showImage}}" bindtap = "viewImage" mode='center'></image>
+    <image wx:if="{{userInfo.zs_colleage_img}}" class ="mypic" src="{{userInfo.showImage}}" bindtap = "viewImage" mode='widthFix'></image>
 
   <!-- 保存 -->
   <view class="block save" bindtap = "save" hover-class='select1' hover-stay-time='500'>

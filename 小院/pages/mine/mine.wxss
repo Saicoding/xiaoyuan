@@ -142,6 +142,21 @@ page{
   letter-spacing: 1rpx;
 }
 
+.message{
+  position: relative;
+  width:30rpx;
+  height:30rpx;
+  border-radius: 30rpx;
+  line-height: 30rpx;
+  background: rgb(255, 60, 0);
+  text-align: center;
+  color:white;
+  font-size:20rpx;
+  left:105rpx;
+  top:-108rpx;
+  z-index: 10001
+}
+
 /* 退出登录 */
 .loginout{
   background: linear-gradient(to right,rgb(253, 172, 96),rgb(255, 123, 0));

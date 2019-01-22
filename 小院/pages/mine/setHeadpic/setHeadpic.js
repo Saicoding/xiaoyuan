@@ -40,9 +40,19 @@ Page({
   onShow: function() {
     buttonClicked: false
     let userInfo = this.data.userInfo;
+    let uploadPicText = this.data.uploadPicText;
+
     if (userInfo.zs_colleage_img){//如果有图片了，展示框就用此图片
-      userInfo.showImage = "http://neuq.chinaplat.com/app_pic/"+userInfo.zs_colleage_img
-      console.log(userInfo.zs_colleage_img)
+     
+      userInfo.showImage = userInfo.zs_colleage_img
+      if(userInfo.rz != ''){
+        uploadPicText = '已认证'
+      }
+      this.setData({
+        userInfo: userInfo,
+        pic: userInfo.zs_colleage_img,
+        uploadPicText: uploadPicText
+      })
     }
   },
 
@@ -95,7 +105,6 @@ Page({
           title: title,
           myindex: myindex
         })
-        break;
         break;
       case "学历":
         datas = ['未设置', '中专', '大专', '本科', '硕士', '博士'];
@@ -206,6 +215,15 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
     let userInfo = self.data.userInfo;
+
+    if (userInfo.rz != '') {//如果已经认证就返回
+      wx.showToast({
+        icon:'none',
+        title: '已认证,无法更改',
+        duration:3000
+      })
+      return;
+    } 
 
     self.setData({
       isLoaded: false,
