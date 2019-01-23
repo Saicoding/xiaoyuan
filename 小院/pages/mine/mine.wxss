@@ -67,8 +67,9 @@ page{
   position: relative;
   width:40rpx;
   height:40rpx;
-  top:-40rpx;
-  left:80rpx;
+  border-radius: 40rpx;
+  top:-50rpx;
+  left:85rpx;
 }
 
 .top-line1-nickname{

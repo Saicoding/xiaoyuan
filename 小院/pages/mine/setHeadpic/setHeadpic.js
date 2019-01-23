@@ -1,7 +1,9 @@
 // pages/mine/setHeadpic/setHeadpic.js
+
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let app = getApp();
 let buttonClicked = false;
+
 
 Page({
 
@@ -10,7 +12,7 @@ Page({
    */
   data: {
     headpic: '/imgs/icon8.png',
-    uploadPicText: '上传图片'
+    uploadPicText: '上传图片',
   },
 
   /**
@@ -42,10 +44,10 @@ Page({
     let userInfo = this.data.userInfo;
     let uploadPicText = this.data.uploadPicText;
 
-    if (userInfo.zs_colleage_img){//如果有图片了，展示框就用此图片
-     
+    if (userInfo.zs_colleage_img) { //如果有图片了，展示框就用此图片
+
       userInfo.showImage = userInfo.zs_colleage_img
-      if(userInfo.rz == '1'){
+      if (userInfo.rz == '1') {
         uploadPicText = '已认证'
       }
       this.setData({
@@ -143,21 +145,21 @@ Page({
     switch (title) {
       case "性别":
         datas = ['未设置', '保密', '男', '女'];
-          userInfo.Sex= datas[index]
+        userInfo.Sex = datas[index]
         break;
       case "入学年份":
         datas = ['未设置', '2014', '2015', '2016', '2017']
-        userInfo.ruxue= datas[index]
+        userInfo.ruxue = datas[index]
         break;
       case "学历":
         datas = ['未设置', '中专', '大专', '本科', '硕士', '博士']
-        userInfo.xueli=datas[index]
+        userInfo.xueli = datas[index]
         break;
     }
 
     console.log(userInfo)
     this.setData({
-      userInfo:userInfo
+      userInfo: userInfo
     })
   },
 
@@ -216,14 +218,14 @@ Page({
     let zcode = user.zcode;
     let userInfo = self.data.userInfo;
 
-    if (userInfo.rz != '') {//如果已经认证就返回
+    if (userInfo.rz != '') { //如果已经认证就返回
       wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '已认证,无法更改',
-        duration:3000
+        duration: 3000
       })
       return;
-    } 
+    }
 
     self.setData({
       isLoaded: false,
@@ -259,7 +261,7 @@ Page({
                       base64Img.long = true
                     }
 
-                    userInfo.showImage = tempFilePath//展示用图片
+                    userInfo.showImage = tempFilePath //展示用图片
 
                     self.setData({ //先保存数据
                       base64Img: base64Img,
@@ -272,7 +274,7 @@ Page({
                     app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
                       buttonClicked = false
                       if (res.data.data[0].result == "success") {
-                        userInfo.zs_colleage_img = res.data.data[0].pic//存储用参数
+                        userInfo.zs_colleage_img = res.data.data[0].pic //存储用参数
                         userInfo.showImage = res.data.data[0].pic
                         self.setData({
                           isLoaded: true,
@@ -298,7 +300,7 @@ Page({
         })
 
       },
-      fail:function(){
+      fail: function() {
         buttonClicked = false
       }
     })
@@ -336,7 +338,7 @@ Page({
     let zs_professional = userInfo.zhuanye;
     let zs_ruxue = userInfo.ruxue;
     let zs_edution = userInfo.xueli;
-    let zs_colleage_img = userInfo.zs_colleage_img ;
+    let zs_colleage_img = userInfo.zs_colleage_img;
 
     app.post(API_URL, "action=saveUserInfo" +
       "&loginrandom=" + loginrandom +
@@ -349,12 +351,33 @@ Page({
       "&zs_ruxue=" + zs_ruxue +
       "&zs_edution=" + zs_edution +
       "&zs_colleage_img=" + zs_colleage_img, true, true, "保存中", "", "", self).then(res => {
-        buttonClicked = false;
-        wx.showToast({
-          icon:'none',
-          title: '保存成功',
-          duration:3000
+      buttonClicked = false;
+      wx.showToast({
+        icon: 'none',
+        title: '保存成功',
+        duration: 3000
+      })
+    })
+  },
+
+  /**
+   * 导航到设置头像页面
+   */
+  GOavatarUpload:function(){
+    wx.chooseImage({
+      count: 1,
+      sizeType: 'compressed',
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        const src = res.tempFilePaths[0]
+
+        wx.navigateTo({
+          url: `/pages/mine/avatarUpload/avatarUpload?src=${src}`
         })
+      },
+      fail: function () {
+        buttonClicked = false
+      }
     })
   }
 })

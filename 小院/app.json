@@ -31,7 +31,8 @@
     "pages/mine/zhanghuzhongxin/jifenRecord/jifenRecord",
     "pages/mine/zhanghuzhongxin/xuebiRecord/xuebiRecord",
     "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord",
-    "pages/huodong/map/map"
+    "pages/huodong/map/map",
+    "pages/mine/avatarUpload/avatarUpload"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -77,6 +78,12 @@
         "text": "我的"
       }
     ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
   },
   "permission": {
     "scope.userLocation": {
