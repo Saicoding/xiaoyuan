@@ -1,6 +1,4 @@
 // pages/huodong/map/map.js
-let  QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
-let qqmapsdk;
 Page({
 
   /**
@@ -13,7 +11,6 @@ Page({
    * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
-
     let self = this;
     let lngsAndLats = this.bMapTransQQMap(options.address_x, options.address_y); //腾讯经纬度对象
     let currentLngsAndLats = { lat: options.currentLat , lng: options.currentLng};

@@ -1,5 +1,5 @@
 <!--pages/huodong/huodongDetail/huodongDetail.wxml-->
-<scroll-view wx:if="{{isLoaded}}" scroll-y class="myscroll" style="height:{{huodong.zhuangtai=='1'|| barIndex ==1?windowHeight-120:windowHeight-40}}rpx;" bindscrolltolower="scrolltolower">
+<scroll-view wx:if="{{isLoaded}}" scroll-y class="myscroll" style="height:{{huodong.zhuangtai=='1'|| barIndex ==1?windowHeight-120:windowHeight-40}}rpx;" bindscrolltolower="scrolltolower" bindscroll = "scroll">
   <!-- banner -->
   <image class="top" src="{{huodong.banner}}"> </image>
   <view class="top-model" bindtap='toogleShoucang'>
@@ -7,68 +7,71 @@
   </view>
 
   <!-- 标题 -->
-  <view class="title">
-    {{huodong.title}}
-    <span style="color:{{huodong.color}}"> 【{{huodong.status}}】</span>
-  </view>
+  <view id="content">
+    <view class="title">
+      {{huodong.title}}
+      <span style="color:{{huodong.color}}"> 【{{huodong.status}}】</span>
+    </view>
 
-  <!-- 校园·社团 -->
-  <view class="info">#{{huodong.typesname}}#</view>
+    <!-- 校园·社团 -->
+    <view class="info">#{{huodong.typesname}}#</view>
 
-  <!-- 线下 免费 -->
-  <view class="type">
-    <view class="type-left">线下</view>
-    <view class="type-right">{{huodong.price}}</view>
-  </view>
+    <!-- 线下 免费 -->
+    <view class="type">
+      <view class="type-left">线下</view>
+      <view class="type-right">{{huodong.price}}</view>
+    </view>
 
-  <!-- 中间部分 -->
-  <view class="mid">
-    <view class="mid-line1">
-      <image class="mid-line1-icon" src="{{hdUserInfo.pic}}"></image>
-      <view class="mid-line1-midblock">
-        <view class="mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
-        <view class="mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
+    <!-- 中间部分 -->
+    <view class="mid">
+      <view class="mid-line1">
+        <image class="mid-line1-icon" src="{{hdUserInfo.pic}}"></image>
+        <view class="mid-line1-midblock">
+          <view class="mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
+          <view class="mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
+        </view>
+        <image data-headpic="{{hdUserInfo.pic}}" data-username="{{hdUserInfo.from}}" data-userid="{{huodong.userid}}" class="mid-line1-righticon" src="/imgs/chat.png" bindtap="GOchat" hover-class="select2" hover-stay-time="500"></image>
       </view>
-      <image data-headpic="{{hdUserInfo.pic}}" data-username="{{hdUserInfo.from}}" data-userid="{{huodong.userid}}" class="mid-line1-righticon" src="/imgs/chat.png" bindtap="GOchat" hover-class="select2" hover-stay-time="500"></image>
-    </view>
-    <!-- 报名状态显示 -->
-    <view class="mid-status">
-      <view class="mid-status-line" style="background:{{huodong.style.line1}};margin-left:20rpx;width:130rpx;"></view>
-      <view class="mid-status-circle" style="background:{{huodong.style.circle1}}"></view>
-      <view class="mid-status-line" style="background:{{huodong.style.line2}}"></view>
-      <view class="mid-status-circle" style="background:{{huodong.style.circle2}}"></view>
-      <view class="mid-status-line" style="background:{{huodong.style.line3}}"></view>
-      <view class="mid-status-circle" style="background:{{huodong.style.circle3}}"></view>
-      <view class="mid-status-line" style="background:rgb(228, 228, 228);width:130rpx;"></view>
-    </view>
-    <!-- 报名状态文字 -->
-    <view class="mid-status-text">
-      <view class="mid-status-text-info" style="color:{{huodong.style.color1}}">报名中</view>
-      <view class="mid-status-text-info" style="color:{{huodong.style.color2}}">进行中</view>
-      <view class="mid-status-text-info" style="color:{{huodong.style.color3}}">已结束</view>
+      <!-- 报名状态显示 -->
+      <view class="mid-status">
+        <view class="mid-status-line" style="background:{{huodong.style.line1}};margin-left:20rpx;width:130rpx;"></view>
+        <view class="mid-status-circle" style="background:{{huodong.style.circle1}}"></view>
+        <view class="mid-status-line" style="background:{{huodong.style.line2}}"></view>
+        <view class="mid-status-circle" style="background:{{huodong.style.circle2}}"></view>
+        <view class="mid-status-line" style="background:{{huodong.style.line3}}"></view>
+        <view class="mid-status-circle" style="background:{{huodong.style.circle3}}"></view>
+        <view class="mid-status-line" style="background:rgb(228, 228, 228);width:130rpx;"></view>
+      </view>
+      <!-- 报名状态文字 -->
+      <view class="mid-status-text">
+        <view class="mid-status-text-info" style="color:{{huodong.style.color1}}">报名中</view>
+        <view class="mid-status-text-info" style="color:{{huodong.style.color2}}">进行中</view>
+        <view class="mid-status-text-info" style="color:{{huodong.style.color3}}">已结束</view>
+      </view>
+
+      <!-- <button open-type="openSetting" bindopensetting="GOmap">测试</button> -->
+      <!-- 活动时间 -->
+      <view class="mid-info">
+        <image class="mid-info-icon" src="/imgs/clock2.png"></image>
+        <view class="mid-info-text">{{huodong.dateStr}}</view>
+      </view>
+      <!-- 集合地 -->
+      <view data-address="{{huodong.address}}" class="mid-info" bindtap='GOmap' hover-class='select3' hover-stay-time='500'>
+        <image class="mid-info-icon" src="/imgs/jihe.png"></image>
+        <view class="mid-info-text">{{huodong.address}}</view>
+      </view>
     </view>
 
-    <!-- <button open-type="openSetting" bindopensetting="GOmap">测试</button> -->
-    <!-- 活动时间 -->
-    <view class="mid-info">
-      <image class="mid-info-icon" src="/imgs/clock2.png"></image>
-      <view class="mid-info-text">{{huodong.dateStr}}</view>
-    </view>
-    <!-- 集合地 -->
-    <view data-address="{{huodong.address}}" class="mid-info" bindtap='GOmap' hover-class='select3' hover-stay-time='500'>
-      <image class="mid-info-icon" src="/imgs/jihe.png"></image>
-      <view class="mid-info-text">{{huodong.address}}</view>
-    </view>
-  </view>
+    <!-- 报名的人 -->
+    <view class="record" bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
+      <view class="record-num">已有{{huodong.num_baoming}}人报名</view>
+      <view class='record-pic-blank'>
+        <image class='record-pic' src="{{pic}}" wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k"></image>
+        <image class="record-pic" style="opacity:0.3" src="/imgs/sheng.png"> </image>
 
-  <!-- 报名的人 -->
-  <view class="record" bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
-    <view class="record-num">已有{{huodong.num_baoming}}人报名</view>
-    <view class='record-pic-blank'>
-      <image class='record-pic' src="{{pic}}" wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k"></image>
-      <image class="record-pic" style="opacity:0.3" src="/imgs/sheng.png"> </image>
-
+      </view>
     </view>
+
   </view>
 
   <!-- 活动详情和动态 -->
@@ -149,20 +152,17 @@
 <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif"></image>
 
 <!-- 活动详情和活动动态的fixedbar -->
-<view wx:if ="{{show}}">
+<view wx:if="{{show}}" class="detailbar-block">
   <view class="detailbar">
-    <view class="detailbar-item" data-index="0" bindtap="changeMulu">
-      <image class="detailbar-item-icon" src="{{barIndex == 0?'/imgs/detail2.png':'/imgs/detail1.png'}}"></image>
-      <view class="detailbar-item-title" style="color:{{barIndex == 0?'#0096fa':'black'}}">活动详情</view>
+    <view class="detailbar-item-fixed" data-index="0" bindtap="changeMulu">
+      活动详情
     </view>
 
-    <view class="detailbar-item" data-index="1" bindtap="changeMulu">
-      <image class="detailbar-item-icon" src="{{barIndex == 1?'/imgs/dongtai2.png':'/imgs/dongtai1.png'}}"></image>
-      <view class="detailbar-item-title" style="color:{{barIndex == 1?'#0096fa':'black'}}">活动动态</view>
+    <view class="detailbar-item-fixed" data-index="1" bindtap="changeMulu">
+      活动动态
     </view>
   </view>
-  <view class="detail-line"></view>
-  <view class="detailbar-line" animation="{{moveData}}"></view>
+  <view class="detailbar-line-fixed" animation="{{moveData}}"></view>
 </view>
 
 <!-- 活动详情时的底部信息 -->

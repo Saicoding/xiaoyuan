@@ -6,7 +6,7 @@ let API_URL = "https://xcx2.chinaplat.com/xy/";
 let app = getApp();
 let buttonClicked = false;
 
-let QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');//地图SDK
 let qqmapsdk;
 Page({
 
@@ -52,6 +52,7 @@ Page({
         })
       }
     });
+
   },
 
   /**
@@ -71,6 +72,7 @@ Page({
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
     let h_id = self.data.h_id;
+    let windowWidth = self.data.windowWidth;
 
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
@@ -90,6 +92,23 @@ Page({
         self.setData({
           hdUserInfo: hdUserInfo
         })
+
+        wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+          success: function (res) { //转换窗口高度
+            let windowWidth = res.windowWidth;
+
+            //创建节点选择器
+            let query = wx.createSelectorQuery();
+            query.select('#content').boundingClientRect()
+            query.exec((res) => {
+              let contentHeight = res[0].height * (750 / windowWidth);
+              console.log(contentHeight)
+              self.setData({
+                contentHeight: contentHeight
+              })
+            })
+          }
+        });
       })
     })
   },
@@ -346,6 +365,24 @@ Page({
         dongtais: dongtais
       })
     })
+  },
+  
+  /**
+   * 滚动条滚动
+   */
+  scroll:function(e){
+    let windowWidth = this.data.windowWidth;
+    let scrollTop = e.detail.scrollTop * (750 / windowWidth);
+    let contentHeight = this.data.contentHeight;
+    if (scrollTop >= contentHeight+600){
+      this.setData({
+        show:true
+      })
+    }else{
+      this.setData({
+        show: false
+      })
+    }
   },
 
   /**
