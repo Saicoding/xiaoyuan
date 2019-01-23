@@ -25,6 +25,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let self = this;
+    wx.getSystemInfo({//获取设备类型
+      success: function (res) {
+        self.setData({
+          system: res.platform,//"devtools" "ios" "android"
+        })
+      }
+    })
     wx.setNavigationBarTitle({
       title: options.title,
     })
@@ -83,18 +91,29 @@ Page({
    */
   kaitong:function(e){
     let self = this;
-    wx.showModal({
-      title: '',
-      content: '开通小院VIP,即可免费观看小院所有课程',
-      confirmText:'开通',
-      confirmColor:'#0096fa',
-      success:function(e){
-        console.log(e)
-        if(e.confirm){
-          self.GOVip();
+    let system = self.data.system;
+    if(system == 'devtools'){
+      wx.showModal({
+        title: '提示',
+        content: '因Apple政策原因，IOS暂不支持小程序内开通VIP，苹果用户请使用安卓设备开通VIP！服务电话：4006-456-114',
+        showCancel:false,
+        confirmText: '了解了',
+        confirmColor: '#2983fe'
+      })
+    }else{
+      wx.showModal({
+        title: '',
+        content: '开通小院VIP,即可免费观看小院所有课程',
+        confirmText: '开通',
+        confirmColor: '#0096fa',
+        success: function (e) {
+          console.log(e)
+          if (e.confirm) {
+            self.GOVip();
+          }
         }
-      }
-    })
+      })
+    }
   },
 
   /**

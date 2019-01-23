@@ -11,6 +11,7 @@
       </view>
       <view class="pic-outcontainer">
         <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap="GOsetHeadpic"></image>
+        <image class="top-line1-mid-icon" src="/imgs/course_set.png"></image>
       </view>
       <!-- <image class ="top-line1-icon" src =""></image> -->
       <view class="top-line1-right" bindtap = "GOfensiList" hover-class='select3' hover-stay-time='500'>

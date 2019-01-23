@@ -17,13 +17,17 @@ page {
 }
 
 /* 四个按钮 */
-
 .bars {
   display: flex;
   width: 750rpx;
   height: 120rpx;
   align-items: center;
   white-space: nowrap;
+}
+
+.fixed{
+  position: fixed;
+  top:0;
 }
 
 .bars-huodong, .bars-btn {
@@ -37,6 +41,8 @@ page {
   margin-top: 30rpx;
   margin-left: 20rpx;
 }
+
+
 
 .bars-huodong {
   background: #fe555c;

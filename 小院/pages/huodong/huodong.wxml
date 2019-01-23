@@ -1,66 +1,66 @@
 <!--pages/huodong/huodong.wxml-->
-<view class="container">
-  <!-- 头部banner -->
-  <swiper class="swiper" interval="3000" autoplay="true" circular="true" indicator-dots="true" indicator-color="rgb(216, 216, 216);" indicator-active-color="white">
-    <block wx:for="{{banners}}" wx:key="k">
-      <swiper-item>
-        <image data-id="{{item.id}}" src="{{item.pic}}" class="slide-image" bindtap="GOhuodongDetail" hover-class='select2' hover-stay-time='500' />
-      </swiper-item>
-    </block>
-  </swiper>
 
-  <!-- banner下的4个按钮 -->
+<!-- 头部banner -->
+<swiper class="swiper" interval="3000" autoplay="true" circular="true" indicator-dots="true" indicator-color="rgb(216, 216, 216);" indicator-active-color="white">
+  <block wx:for="{{banners}}" wx:key="k">
+    <swiper-item>
+      <image data-id="{{item.id}}" src="{{item.pic}}" class="slide-image" bindtap="GOhuodongDetail" hover-class='select2' hover-stay-time='500' />
+    </swiper-item>
+  </block>
+</swiper>
 
-  <scroll-view scroll-x class='bars'>
-    <view wx:if="{{barsLoaded}}" class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
+<!-- banner下的4个按钮 -->
 
-    <view wx:if="{{barsLoaded}}" wx:for="{{types}}" wx:for-item="type" wx:key="t" data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};margin-right:{{index==types.length-1?20:0}}rpx;"
-      hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
-  </scroll-view>
+<scroll-view scroll-x class="bars {{className?'fixed':''}}">
+  <view wx:if="{{barsLoaded}}" class="bars-huodong" bindtap='getList' style="background:{{zuixinSelected?'#fe555c':'white'}};color:{{zuixinSelected?'white':'rgb(121, 121, 121)'}};">最新活动</view>
 
-  <!-- 热门活动 -->
-  <view wx:if="{{isLoaded}}" class="huodong">
-    <view class="title">
-      <image class="title-icon" src="/imgs/lines.png"></image>
-      <view class="title-text">{{index==-1?'最新活动':types[index].name}}</view>
-    </view>
+  <view wx:if="{{barsLoaded}}" wx:for="{{types}}" wx:for-item="type" wx:key="t" data-index="{{index}}" data-typesid="{{type.id}}" class="bars-btn" bindtap='getList' style="background:{{type.selected?'#fe555c':'white'}};color:{{type.selected?'white':'rgb(121, 121, 121)'}};margin-right:{{index==types.length-1?20:0}}rpx;"
+    hover-class='select1' hover-stay-time='500'>{{type.name}}</view>
+</scroll-view>
 
-    <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
-      <view class="huodong-detail">
-        <image data-id="{{huodong.h_id}}" class="huodong-detail-img" src="{{huodong.banner}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
-        <view data-id="{{huodong.h_id}}" class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
-          <view class="huodong-detail-down-title">{{huodong.title}}
-            <span style="color:{{huodong.color}};">【{{huodong.zhuangtaiStr}}】</span>
-          </view>
-          <view class="huodong-detail-down-info">{{huodong.money=="0"?'免费':'¥ huodong.money'}}</view>
+<!-- 热门活动 -->
+<view wx:if="{{isLoaded}}" class="huodong">
+  <view class="title">
+    <image class="title-icon" src="/imgs/lines.png"></image>
+    <view class="title-text">{{index==-1?'最新活动':types[index].name}}</view>
+  </view>
+
+  <view wx:for="{{huodongs}}" wx:for-item="huodong" wx:key="h">
+    <view class="huodong-detail">
+      <image data-id="{{huodong.h_id}}" class="huodong-detail-img" src="{{huodong.banner}}" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'></image>
+      <view data-id="{{huodong.h_id}}" class="huodong-detail-down" bindtap='GOhuodongDetail' hover-class='select2' hover-stay-time='500'>
+        <view class="huodong-detail-down-title">{{huodong.title}}
+          <span style="color:{{huodong.color}};">【{{huodong.zhuangtaiStr}}】</span>
         </view>
+        <view class="huodong-detail-down-info">{{huodong.money=="0"?'免费':'¥ huodong.money'}}</view>
+      </view>
 
-        <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>{{huodong.typesname}}</view>
+      <view class="huodong-tequan" bindtap='GOshetuanOryouhui' hover-class='select2' hover-stay-time='500'>{{huodong.typesname}}</view>
 
-        <view data-id="{{huodong.h_id}}" class="huodong-bottom" bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
-          <view class="huodong-bottom-left">
-            <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
-            </image>
-            <image class="huodong-bottom-left-icon" style="opacity:0.3" src="/imgs/sheng.png">
-            </image>
-          </view>
-          <view class="huodong-bottom-right">已报名：{{huodong.num_baoming}}人</view>
+      <view data-id="{{huodong.h_id}}" class="huodong-bottom" bindtap='GObaomingList' hover-class='select2' hover-stay-time='500'>
+        <view class="huodong-bottom-left">
+          <image class="huodong-bottom-left-icon" src="{{headPic}}" wx:for="{{huodong.bm_list}}" wx:for-item="headPic" wx:key="p">
+          </image>
+          <image class="huodong-bottom-left-icon" style="opacity:0.3" src="/imgs/sheng.png">
+          </image>
         </view>
+        <view class="huodong-bottom-right">已报名：{{huodong.num_baoming}}人</view>
       </view>
     </view>
-
-    <!-- 没有信息提示 -->
-    <view class="noHuodong" wx:if="{{!huodongs.length && isLoaded}}">
-      <image class="noHuodong-img" src="/imgs/nosearch2.png"></image>
-      <view class="noHuodong-text">没有找到相关信息o(╥﹏╥)o</view>
-    </view>
-
   </view>
-  <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/loading.gif" mode='aspectFit'></image>
 
-  <!-- 最下面的加载条 -->
-  <view class="loading-block">
-    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
-    <view class="loading-text"> {{loadingText}}</view>
+  <!-- 没有信息提示 -->
+  <view class="noHuodong" wx:if="{{!huodongs.length && isLoaded}}">
+    <image class="noHuodong-img" src="/imgs/nosearch2.png"></image>
+    <view class="noHuodong-text">没有找到相关信息o(╥﹏╥)o</view>
   </view>
+
+</view>
+
+<image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/loading.gif" mode='aspectFit'></image>
+
+<!-- 最下面的加载条 -->
+<view class="loading-block">
+  <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+  <view class="loading-text"> {{loadingText}}</view>
 </view>

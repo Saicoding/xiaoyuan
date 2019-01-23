@@ -63,6 +63,14 @@ page{
   margin-left:1rpx;
 }
 
+.top-line1-mid-icon{
+  position: relative;
+  width:40rpx;
+  height:40rpx;
+  top:-40rpx;
+  left:80rpx;
+}
+
 .top-line1-nickname{
   clear: both;
   display: flex;
