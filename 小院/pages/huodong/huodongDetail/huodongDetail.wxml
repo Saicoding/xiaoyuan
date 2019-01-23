@@ -14,7 +14,6 @@
 
   <!-- 校园·社团 -->
   <view class="info">#{{huodong.typesname}}#</view>
-  <button open-type="openSetting"  bindopensetting ="getphonenumber">测试 </button>
 
   <!-- 线下 免费 -->
   <view class="type">
@@ -30,7 +29,7 @@
         <view class="mid-line1-midblock-text1">{{hdUserInfo.uname}}</view>
         <view class="mid-line1-midblock-text2">来自 {{hdUserInfo.from}}</view>
       </view>
-      <image data-headpic="{{hdUserInfo.pic}}" data-username="{{hdUserInfo.from}}" data-userid ="{{huodong.userid}}" class="mid-line1-righticon" src="/imgs/chat.png" bindtap = "GOchat" hover-class ="select2" hover-stay-time="500"></image>
+      <image data-headpic="{{hdUserInfo.pic}}" data-username="{{hdUserInfo.from}}" data-userid="{{huodong.userid}}" class="mid-line1-righticon" src="/imgs/chat.png" bindtap="GOchat" hover-class="select2" hover-stay-time="500"></image>
     </view>
     <!-- 报名状态显示 -->
     <view class="mid-status">
@@ -48,6 +47,8 @@
       <view class="mid-status-text-info" style="color:{{huodong.style.color2}}">进行中</view>
       <view class="mid-status-text-info" style="color:{{huodong.style.color3}}">已结束</view>
     </view>
+
+    <!-- <button open-type="openSetting" bindopensetting="GOmap">测试</button> -->
     <!-- 活动时间 -->
     <view class="mid-info">
       <image class="mid-info-icon" src="/imgs/clock2.png"></image>
@@ -66,7 +67,7 @@
     <view class='record-pic-blank'>
       <image class='record-pic' src="{{pic}}" wx:for="{{huodong.bm_list}}" wx:for-item="pic" wx:key="k"></image>
       <image class="record-pic" style="opacity:0.3" src="/imgs/sheng.png"> </image>
-     
+
     </view>
   </view>
 
@@ -146,6 +147,23 @@
 </scroll-view>
 
 <image wx:if="{{!isLoaded}}" class="load-img" src="/imgs/timg.gif"></image>
+
+<!-- 活动详情和活动动态的fixedbar -->
+<view wx:if ="{{show}}">
+  <view class="detailbar">
+    <view class="detailbar-item" data-index="0" bindtap="changeMulu">
+      <image class="detailbar-item-icon" src="{{barIndex == 0?'/imgs/detail2.png':'/imgs/detail1.png'}}"></image>
+      <view class="detailbar-item-title" style="color:{{barIndex == 0?'#0096fa':'black'}}">活动详情</view>
+    </view>
+
+    <view class="detailbar-item" data-index="1" bindtap="changeMulu">
+      <image class="detailbar-item-icon" src="{{barIndex == 1?'/imgs/dongtai2.png':'/imgs/dongtai1.png'}}"></image>
+      <view class="detailbar-item-title" style="color:{{barIndex == 1?'#0096fa':'black'}}">活动动态</view>
+    </view>
+  </view>
+  <view class="detail-line"></view>
+  <view class="detailbar-line" animation="{{moveData}}"></view>
+</view>
 
 <!-- 活动详情时的底部信息 -->
 <view wx:if="{{barIndex==0 && huodong.zhuangtai == '1'}}" class="bottom">

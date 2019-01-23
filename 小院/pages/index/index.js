@@ -190,6 +190,9 @@ Page({
     let page = self.data.page;
     let dingzhiList = self.data.dingzhiList;
 
+    console.log(allpage)
+    console.log(page)
+
     if (page >= allpage) {
       self.setData({ //正在载入
         loadingText: "别扯了,我是有底线的..."

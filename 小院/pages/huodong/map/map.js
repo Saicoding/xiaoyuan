@@ -1,22 +1,101 @@
 // pages/huodong/map/map.js
+let  QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
+let qqmapsdk;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
+
     let self = this;
     let lngsAndLats = this.bMapTransQQMap(options.address_x, options.address_y); //腾讯经纬度对象
+    let currentLngsAndLats = { lat: options.currentLat , lng: options.currentLng};
+    console.log(currentLngsAndLats)
+
+    wx.setNavigationBarTitle({
+      title: options.address
+    })
+
+    let markers = [
+      {
+        id: 0,
+        latitude: currentLngsAndLats.lat,
+        longitude: currentLngsAndLats.lng,
+        iconPath: '/imgs/current.png',
+        width: '50rpx',
+        height: '50rpx',
+        callout: {
+          content: '当前位置',
+          color: '#2983fe',
+          fontSize: '25rpx',
+          bgColor: '#ffffff',
+          display: 'ALWAYS',
+          padding: '20rpx',
+          textAlign: 'center',
+          borderColor: '#2983fe',
+          borderWidth: '1rpx',
+          borderRadius: '12rpx'
+        }
+      },
+      {
+        id: 1,
+        latitude: lngsAndLats.lat,
+        longitude: lngsAndLats.lng,
+        iconPath: '/imgs/dingwei.png',
+        width: '50rpx',
+        height: '50rpx',
+        callout: {
+          content: options.address,
+          color: '#ff3c00',
+          fontSize: '25rpx',
+          bgColor: '#ffffff',
+          display: 'ALWAYS',
+          padding: '20rpx',
+          textAlign: 'center',
+          borderColor: '#ff3c00',
+          borderWidth: '1rpx',
+          borderRadius: '12rpx'
+        }
+      }
+    ]
+
+    wx.openLocation({ //​使用微信内置地图查看位置。
+      latitude: lngsAndLats.lat, //要去的纬度-地址
+      longitude: lngsAndLats.lng, //要去的经度-地址
+      name: options.address,
+      address: options.address
+    })
+
+    let polyline = [{
+      points: [{
+          latitude: currentLngsAndLats.lat,
+          longitude: currentLngsAndLats.lng
+        },
+        {
+          latitude: lngsAndLats.lat,
+          longitude: lngsAndLats.lng,
+        }
+      ],
+      color: '#FF0000DD',
+      width: 2,
+      dottedLine: true
+    }]
+
     this.setData({
-      options: options,
-      lngsAndLats: lngsAndLats
+      options:options,
+      address_x: lngsAndLats.lng,
+      address_y: lngsAndLats.lat,
+      markers: markers,
+      polyline: polyline,
+      lngsAndLats: lngsAndLats,
+      currentLngsAndLats: currentLngsAndLats
     })
   },
 
@@ -61,66 +140,45 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let options = this.data.options;
+
     let lngsAndLats = this.data.lngsAndLats;
-
-    wx.setNavigationBarTitle({
-      title: options.address
-    })
-
-
-    let markers = [{
-      id: 0,
-      latitude: lngsAndLats.lat,
-      longitude: lngsAndLats.lng,
-      iconPath: '/imgs/dingwei.png',
-      width: '50rpx',
-      height: '50rpx',
-      callout: {
-        content: options.address,
-        color: '#ff3c00',
-        fontSize: '25rpx',
-        bgColor: '#ffffff',
-        display: 'ALWAYS',
-        padding: '20rpx',
-        textAlign: 'BYCLICK',
-        borderColor: '#ff3c00',
-        borderWidth: '1rpx',
-        borderRadius: '12rpx'
-      }
-    }]
-
-    // let promise = new promise((reject, resolve) => {
-    //   let interval = setInterval(res => {
-    //     if (self.data.currentLocation) {
-    //       resolve(self.data.currentLocation);
-    //       clearInterval(interval);
-    //     }
-    //   }, 100)
-    // })
-
-    // promise.then(res => {
-    //   console.log(res);
-      // let polyline = [
-      //   {
-      //     points: [{
-      //       longitude: res.lng,
-      //       latitude: res.lat
-      //     }, {
-      //       longitude: 113.324520,
-      //       latitude: 23.21229
-      //     }],
-      //     color: '#FF0000DD',
-      //     width: 2,
-      //     dottedLine: true
-      //   }
-      // ]
-    // })
-
-    this.setData({
-      address_x: lngsAndLats.lng,
-      address_y: lngsAndLats.lat,
-      markers: markers
+    let currentLngsAndLats = this.data.currentLngsAndLats;
+    let map = wx.createMapContext('map', this);
+    map.includePoints({
+      points: [{
+          longitude: lngsAndLats.lng,
+          latitude: lngsAndLats.lat
+        },
+        {
+          longitude: currentLngsAndLats.lng,
+          latitude: currentLngsAndLats.lat
+        }
+      ],
+      padding:[40,60,40,60]
     })
   },
+
+  /**
+   * 点击标记
+   */
+  markertap:function(e){
+    let lngsAndLats = this.data.lngsAndLats;
+    let options = this.data.options;
+    wx.showModal({
+      title:'要导航到这里吗?',
+      confirmColor:'去这里',
+      confirmColor:'#2983fe',
+      success: function (res){
+        if(res.confirm) {
+          wx.openLocation({ //​使用微信内置地图查看位置。
+            latitude: lngsAndLats.lat, //要去的纬度-地址
+            longitude: lngsAndLats.lng, //要去的经度-地址
+            name: options.address,
+            address: options.address
+          })
+        }
+      }
+    })
+
+  }
 })

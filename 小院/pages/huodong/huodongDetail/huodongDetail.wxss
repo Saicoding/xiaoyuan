@@ -1,3 +1,4 @@
+
 /* pages/huodong/huodongDetail/huodongDetail.wxss */
 .myscroll{
   
@@ -468,5 +469,5 @@
 }
 
 .select3{
-  background: rgb(228, 228, 228);
+  background: rgb(236, 236, 236);
 }

@@ -3,10 +3,9 @@
     id="map" 
     longitude="{{address_x}}" 
     latitude="{{address_y}}" 
-    polyline="{{polyline}}"
     scale="14" 
     markers="{{markers}}" 
     class="map" 
-    show-location
-    style="height:300rpx">
+    bindmarkertap = "markertap"
+    style="height:{{windowHeight}}rpx">
 </map>

@@ -5,6 +5,9 @@ let easeInAnimation = animate.easeInAnimation();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let app = getApp();
 let buttonClicked = false;
+
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
+let qqmapsdk;
 Page({
 
   /**
@@ -23,6 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'RXEBZ-Z4N6K-XEJJT-ALUH6-J7WMO-7RBLV'
+    });
     let h_id = options.h_id;
     this.setData({
       h_id: h_id
@@ -67,7 +74,6 @@ Page({
 
     app.post(API_URL, "action=getActivityShow_new&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
       let huodong = res.data.data[0];
-      console.log(huodong)
 
       let hd_uid = huodong.userid;
 
@@ -81,7 +87,6 @@ Page({
 
       app.post(API_URL, "action=getHdUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode + "&hd_uid=" + hd_uid, false, false, "", "", "", self).then(res => {
         let hdUserInfo = res.data.data[0];
-        console.log(hdUserInfo)
         self.setData({
           hdUserInfo: hdUserInfo
         })
@@ -179,7 +184,6 @@ Page({
 
     if (barIndex == 1 && !isDongtaiLoaded) {
       app.post(API_URL, "action=GetHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
-        console.log(res)
         let dongtaiList = res.data.data[0];
         let dongtai_page_all = dongtaiList.page_all;
         let dongtais = dongtaiList.list;
@@ -245,21 +249,6 @@ Page({
   },
 
   /**
-   * 导航到地图页面
-   */
-  GOmap: function(e) {
-    let self = this;
-    this.getPermission(self);
-    let huodong = this.data.huodong;
-    let address_x = huodong.address_x;
-    let address_y = huodong.address_y
-    let address = e.currentTarget.dataset.address;
-    wx.navigateTo({
-      url: '/pages/huodong/map/map?address_x=' + address_x + "&address_y=" + address_y + "&address=" + address,
-    })
-  },
-
-  /**
    * 导航到添加动态页面
    */
   GOaddDongtai: function() {
@@ -274,7 +263,6 @@ Page({
    */
   GOdongtaiDetail: function(e) {
     let dongtai = e.currentTarget.dataset.dongtai;
-    console.log(dongtai)
     let h_id = this.data.h_id;
     let jsonStr = JSON.stringify(dongtai);
     jsonStr = encodeURIComponent(jsonStr);
@@ -364,7 +352,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   scrolltolower: function() {
-    console.log('ok')
     let self = this;
     let loadingMore = self.data.loadingMore;
     let h_id = self.data.h_id;
@@ -373,7 +360,6 @@ Page({
     let barIndex = self.data.barIndex; //如果当前目录是活动动态
 
     if (barIndex == 1) {
-      console.log('haah')
       let allpage = self.data.dongtai_page_all;
       let page = self.data.page;
 
@@ -402,7 +388,6 @@ Page({
         let newDongtais = dongtaiList.list;
         self.initDongtaiImages(newDongtais);
         dongtais = dongtais.concat(newDongtais); //拼接数组
-        console.log(newDongtais)
 
         self.setData({
           showLoadingGif: false,
@@ -463,7 +448,6 @@ Page({
     let zcode = user.zcode;
 
     let dongtais = self.data.dongtais;
-    console.log(dongtais)
 
     app.post(API_URL, "action=user_gz&loginrandom=" + loginrandom + "&zcode=" + zcode + "&userid=" + userid, false, false, "", "", "", self).then(res => {
       let result = res.data.data[0];
@@ -499,7 +483,6 @@ Page({
     let zcode = user.zcode;
     let huodong = self.data.huodong;
     app.post(API_URL, "action=HdShouCang&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id, false, false, "", "", "", self).then(res => {
-      console.log(res)
       if (res.data.data[0].result) {
         if (huodong.ShouCang == "" || huodong.ShouCang == "0") {
           huodong.ShouCang = "1";
@@ -553,50 +536,62 @@ Page({
   },
 
   /**
-   * 获取地理位置权限
+   * 导航到地图页面
    */
-  getPermission: function(obj) {
-    wx.chooseLocation({
+  GOmap: function (e) {
+    let self = this;
+    this.getPermission(self,e);
+  },
+
+  /**
+   * 共享方法
+   */
+  share: function (self, e,currentLat,currentLng){
+    let huodong = self.data.huodong;
+    let address_x = huodong.address_x;
+    let address_y = huodong.address_y
+    let address = e.currentTarget.dataset.address;
+    wx.navigateTo({
+      url: '/pages/huodong/map/map?address_x=' + address_x + "&address_y=" + address_y + "&address=" + address + '&currentLat=' + currentLat + '&currentLng=' + currentLng,
+    })
+  },
+
+  /**
+   * 获取地理位置
+   */
+  getPermission: function(self,e) {
+    wx.getLocation({
+      type:'gcj02',
       success: function(res) {
-        obj.setData({
-          addr: res.address //调用成功直接设置地址
-        })
+
+        self.share(self, e,res.latitude, res.longitude)
       },
       fail: function() {
-        wx.getSetting({
-          success: function(res) {
-            var statu = res.authSetting;
-            if (!statu['scope.userLocation']) {
-              wx.showModal({
-                title: '是否授权当前位置',
-                content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
-                success: function(tip) {
-                  if (tip.confirm) {
-                    wx.openSetting({
-                      success: function(data) {
-                        console.log(data)
-                        if (data.authSetting["scope.userLocation"] === true) {
-                          wx.showToast({
-                            title: '授权成功',
-                            icon: 'success',
-                            duration: 1000
-                          })
-                          //授权成功之后，再调用chooseLocation选择地方
-                          wx.chooseLocation({
-                            success: function(res) {
-                              obj.setData({
-                                addr: res.address
-                              })
-                            },
-                          })
-                        } else {
-                          wx.showToast({
-                            title: '授权失败了',
-                            icon: 'none',
-                            duration: 1000
-                          })
-                        }
-                      }
+        wx.showModal({
+          title: '是否授权当前位置',
+          content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+          success: function(tip) {
+            if (tip.confirm) {
+              wx.openSetting({
+                success: function(data) {
+                  if (data.authSetting["scope.userLocation"] === true) {
+                    wx.showToast({
+                      title: '授权成功',
+                      icon: 'success',
+                      duration: 1000
+                    })
+                    //授权成功之后，再调用chooseLocation选择地方
+                    wx.getLocation({
+                      type: 'gcj02',
+                      success: function(res) {
+                        self.share(self, res.latitude, res.longitude)
+                      },
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '授权失败了',
+                      icon: 'none',
+                      duration: 1000
                     })
                   }
                 }
@@ -604,6 +599,7 @@ Page({
             }
           },
           fail: function(res) {
+            console.log('调起失败')
             wx.showToast({
               title: '调用授权窗口失败',
               icon: 'success',
@@ -614,8 +610,4 @@ Page({
       }
     })
   },
-
-  getphonenumber:function(e){
-    console.log(e)
-  }
 })
