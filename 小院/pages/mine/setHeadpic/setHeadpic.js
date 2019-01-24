@@ -207,9 +207,6 @@ Page({
   upLoadImg: function() {
     if (buttonClicked) return;
     buttonClicked = true;
-
-    console.log('ok')
-
     let self = this;
 
     //用户信息

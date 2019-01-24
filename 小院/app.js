@@ -1,9 +1,4 @@
 //app.js
-import GlobalConfig from './config/index'
-
-const globalConfig = new GlobalConfig()
-
-globalConfig.init()
 
 App({
   onLaunch: function (options) {
@@ -116,7 +111,6 @@ App({
   },
 
   globalData: {
-    userInfo: {},
-    config: globalConfig
+    userInfo: {}
   }
 })

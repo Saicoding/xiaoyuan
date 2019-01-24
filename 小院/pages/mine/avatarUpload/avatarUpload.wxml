@@ -1,18 +1,10 @@
-<import src="../../../we-cropper/we-cropper.wxml"/>
-
-<view class="cropper-wrapper">
-  <template is="we-cropper" data="{{...cropperOpt}}"/>
-  <view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}">
-    <view
-      class="upload btn"
-      bindtap="uploadTap">
-      上传图片
-    </view>
-    <view
-      class="getCropperImage btn"
-      style="background-color: {{cropperOpt.boundStyle.color}};"
-      bindtap="getCropperImage">
-      生成图片
-    </view>
+<!--pages/mine/avatarUpload/avatarUpload.wxml-->
+<image-cropper id="image-cropper" limit_move="true" disable_rotate="true" width="{{width}}" height="{{height}}" imgSrc="{{src}}" bindload="cropperload" bindimageload="loadimage" bindtapcut="clickcut"></image-cropper>
+<view class="cropper-buttons" >
+  <view class="upload btn" bindtap="uploadTap">
+    重选图片
+  </view>
+  <view class="getCropperImage btn"  bindtap="getCropperImage">
+    选为头像
   </view>
 </view>

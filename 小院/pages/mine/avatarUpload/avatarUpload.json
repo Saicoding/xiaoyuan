@@ -1,7 +1,6 @@
 {
-  "backgroundTextStyle": "dark",
-  "navigationBarBackgroundColor": "#000",
-  "navigationBarTitleText": "裁剪头像",
-  "navigationBarTextStyle": "#fff",
+  "usingComponents": {
+    "image-cropper": "/components/imageCropper/image-cropper"
+  },
   "enablePullDownRefresh": false
 }

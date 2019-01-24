@@ -1,56 +1,36 @@
-import WeCropper from '../../../we-cropper/we-cropper.js'
-
-const app = getApp()
-const config = app.globalData.config
-
-const device = wx.getSystemInfoSync()
-const width = device.windowWidth
-const height = device.windowHeight - 50
-
 Page({
   data: {
-    cropperOpt: {
-      id: 'cropper',
-      targetId: 'targetCropper',
-      pixelRatio: device.pixelRatio,
-      width,
-      height,
-      scale: 2.5,
-      zoom: 8,
-      cut: {
-        x: (width - 300) / 2,
-        y: (height - 300) / 2,
-        width: 300,
-        height: 300
-      },
-      boundStyle: {
-        color: config.getThemeColor(),
-        mask: 'rgba(0,0,0,0.8)',
-        lineWidth: 1
-      }
-    }
+    src: '',
+    width: 250,//宽度
+    height: 250,//高度
   },
-  touchStart(e) {
-    this.cropper.touchStart(e)
+  onLoad: function (options) {
+    this.cropper = this.selectComponent("#image-cropper");
+    this.setData({
+      src: options.src,
+    });
   },
-  touchMove(e) {
-    this.cropper.touchMove(e)
+
+  cropperload(e) {
+    console.log("cropper初始化完成");
   },
-  touchEnd(e) {
-    this.cropper.touchEnd(e)
+
+  loadimage(e) {
+    console.log("图片加载完成", e.detail);
+    //重置图片角度、缩放、位置
+    this.cropper.imgReset();
   },
-  getCropperImage() {
-    this.cropper.getCropperImage((avatar) => {
-      if (avatar) {
-        //  获取到裁剪后的图片
-        wx.redirectTo({
-          url: `../index/index?avatar=${avatar}`
-        })
-      } else {
-        console.log('获取图片失败，请稍后重试')
-      }
+
+  clickcut(e) {
+    console.log(e.detail);
+    //点击裁剪框阅览图片
+    wx.previewImage({
+      current: e.detail.url, // 当前显示图片的http链接
+      urls: [e.detail.url] // 需要预览的图片http链接列表
     })
   },
+
+  //重选图片
   uploadTap() {
     const self = this
 
@@ -62,42 +42,31 @@ Page({
         const src = res.tempFilePaths[0]
         //  获取裁剪图片资源后，给data添加src属性及其值
 
-        self.cropper.pushOrign(src)
+        self.setData({
+          src: src,
+        });
       }
     })
   },
-  onLoad(option) {
-    const { cropperOpt } = this.data
 
-    cropperOpt.boundStyle.color = config.getThemeColor()
+  //生成图片
+  getCropperImage() {
+    let self = this;
+    this.cropper.returnPath(self);
+  },
 
-    this.setData({ cropperOpt })
-
-    if (option.src) {
-      console.log(option.src)
-      cropperOpt.src = option.src
-      this.cropper = new WeCropper(cropperOpt)
-        .on('ready', (ctx) => {
-          console.log(`wecropper is ready for work!`)
-        })
-        .on('beforeImageLoad', (ctx) => {
-          console.log(`before picture loaded, i can do something`)
-          console.log(`current canvas context:`, ctx)
-          wx.showToast({
-            title: '上传中',
-            icon: 'loading',
-            duration: 20000
-          })
-        })
-        .on('imageLoad', (ctx) => {
-          console.log(`picture loaded`)
-          console.log(`current canvas context:`, ctx)
-          wx.hideToast()
-        })
-        .on('beforeDraw', (ctx, instance) => {
-          console.log(`before canvas draw,i can do something`)
-          console.log(`current canvas context:`, ctx)
-        })
-    }
+  //图片回调
+  imageCallback:function(res){
+    let pages = getCurrentPages();
+    let prePage = pages[pages.length-2];
+    let userInfo = prePage.data.userInfo;
+    userInfo.Pic = res
+    console.log(userInfo)
+    prePage.setData({
+      userInfo: userInfo
+    })
+    wx.navigateBack({
+      
+    })
   }
 })
