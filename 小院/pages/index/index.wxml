@@ -20,7 +20,7 @@
       <view data-title="{{course.title}}" data-typesid="{{course.id}}" bindtap='GOViewAll' class="course" hover-class='select1' hover-stay-time='500'>
         <image wx:if="{{!isLoaded}}" class="course-icon" src="/imgs/loading1.gif" style="margin-left:100rpx;" mode="aspectFit"></image>
         <image wx:if="{{isLoaded}}" class="course-icon" src="{{course.pic}}" mode="aspectFit"></image>
-                <view wx:if="{{isLoaded}}" class="course-name">{{course.title}}</view>
+        <view wx:if="{{isLoaded}}" class="course-name">{{course.title}}</view>
       </view>
     </view>
 
@@ -38,8 +38,12 @@
       <view class="learning-text">正在学习课程</view>
     </view>
     <view class="search-block">
-      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="中仕学社" />
-      <image data-search="true" bindtap='search' class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+      <view class="input-block">
+        <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="中仕学社"  />
+        <view class="search-icon-container" bindtap='search' >
+          <image animation="{{searchAnimation}}"  data-search="true" class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+        </view>
+      </view>
       <template is="wxSearch" data="{{wxSearchData}}" />
     </view>
   </view>

@@ -75,6 +75,7 @@
   width: 100%;
   background: #2983fe;
   margin-bottom: 20rpx;
+  z-index: 100000
 }
 
 .back-container{
@@ -89,6 +90,7 @@
 }
 
 .search-block {
+  display: flex;
   width: 350rpx;
   height: 64rpx;
   border-radius: 64rpx;
@@ -100,24 +102,22 @@
 }
 
 .mywxSearch-input {
-  width: 280rpx;
+  width: 240rpx;
   height: 64rpx;
   font-size: 22rpx;
   background: white;
   outline: none;
   padding-left: 25rpx;
   line-height: 70rpx;
-  border-radius: 64rpx;
+  border-radius: 64rpx 0rpx 0rpx 64rpx;
   margin-top:12rpx;
 }
 
 .search-icon-block{
-  position: relative;
   background: white;
   width:80rpx;
   height:64rpx;
-  left:-80rpx;
-  top:12rpx;
+  margin-top:12rpx;
   border-radius:  0rpx 64rpx 64rpx 0rpx;
 }
 

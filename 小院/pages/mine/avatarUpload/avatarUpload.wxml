@@ -1,10 +1,10 @@
 <!--pages/mine/avatarUpload/avatarUpload.wxml-->
 <image-cropper id="image-cropper" limit_move="true" disable_rotate="true" width="{{width}}" height="{{height}}" imgSrc="{{src}}" bindload="cropperload" bindimageload="loadimage" bindtapcut="clickcut"></image-cropper>
 <view class="cropper-buttons" >
-  <view class="upload btn" bindtap="uploadTap">
+  <view class="upload btn" bindtap="uploadTap" hover-class='select1' hover-stay-time='500'>
     重选图片
   </view>
-  <view class="getCropperImage btn"  bindtap="getCropperImage">
+  <view class="getCropperImage btn"  bindtap="getCropperImage" hover-class='select1' hover-stay-time='500'>
     选为头像
   </view>
 </view>

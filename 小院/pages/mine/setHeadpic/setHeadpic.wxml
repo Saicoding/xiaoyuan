@@ -4,7 +4,7 @@
   <view class="block-pic" bindtap = "GOavatarUpload" hover-class='select1' hover-stay-time='500'>
     <view class="left-text">头像</view>
     <image class="pic" src="/imgs/right-rate1.png" style="margin-top:40rpx;"></image>
-    <image class="pic" src="{{userInfo.Pic}}" style="width:80rpx;height:80rpx;margin-top:20rpx;"></image>
+    <image class="pic" src="{{userInfo.Pic}}" style="width:80rpx;height:80rpx;margin-top:20rpx;border-radius:80rpx;"></image>
   </view>
 
   <!-- 昵称 -->

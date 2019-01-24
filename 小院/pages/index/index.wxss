@@ -61,29 +61,22 @@
 /* 正在学习课程和搜索 */
 .learning_search{
   clear:both;
+  display: flex;
   width:100%;
   height:120rpx;
   background: #f0f3fa;
   margin-top:180rpx;
 }
 
-.learning,.wxSearch-input,.learning-icon,.learning-text,.search-block,.search-icon{
-  display: float;
-  float:left;
-}
-
 .learning{
+  display: flex;
   height:90rpx;
   border-radius: 90rpx;
   margin-top:15rpx;
-}
-
-.learning{
-  background: #ffffff;
+    background: #ffffff;
   width:290rpx;
   margin-left:20rpx;
 }
-
 .learning-icon{
   height:60rpx;
   width:60rpx;
@@ -99,6 +92,7 @@
 }
 
 .search-block{
+  display: flex;
   width:400rpx;
   border-radius: 90rpx;
   height:90rpx;
@@ -107,14 +101,29 @@
   margin-top:15rpx;
 }
 
+.input-block{
+  display: flex;
+    justify-content: space-between;
+  position: relative;
+  z-index: 10000;
+}
+
 .wxSearch-input{
   height:68rpx;
   line-height: 90rpx;
   padding-left:30rpx;
-  width:290rpx;
   font-size:28rpx;
+  width:260rpx;
+  color:rgb(59, 59, 59);
   background: white;
-  border-radius: 90rpx;
+  border-radius: 90rpx 0rpx 0rpx 90rpx;
+}
+
+.search-icon-container{
+  height:86rpx;
+  width:90rpx;
+  background: white;
+  border-radius: 0rpx 90rpx 90rpx 0rpx;
 }
 
 .search-icon{
@@ -122,6 +131,7 @@
   height:50rpx;
   background: white;
   margin-top:20rpx;
+  margin-left:20rpx;
 }
 
 /* 定制列表 */

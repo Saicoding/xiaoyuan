@@ -3,6 +3,8 @@
 let app = getApp();
 let API_URL = "https://xcx2.chinaplat.com/xy/";
 let WxSearch = require('../../wxSearch/wxSearch.js');
+let animation = require('../../common/animate.js');
+let myanimation = animation.easeOutAnimation();
 
 let buttonClicked = false; //默认还没有点击可以导航页面的按钮
 
@@ -285,7 +287,9 @@ Page({
    */
   search:function(e){
     let self  = this;
+    let searchAnimation = animation.scale(myanimation, 2);
     self.setData({//只有点击搜索按钮时才更新Keywords
+      searchAnimation: searchAnimation,
       Keywords: self.data.wxSearchData.value == undefined ? "" : self.data.wxSearchData.value
     })
     self.GOViewAll(e);
@@ -366,14 +370,11 @@ Page({
   },
   wxSearchTap: function(e) {
     var that = this
-    WxSearch.wxSearchHiddenPancel(that);
   },
 
-  hideSearchChanle: function(e) {
+  tapBlank: function (e) {
     var that = this;
-    if (e._relatedInfo.anchorTargetText == "") {
-      WxSearch.wxSearchHiddenPancel(that);
-    }
-  },
+    WxSearch.wxSearchHiddenPancel(that);
+  }
 
 })

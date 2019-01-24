@@ -6,11 +6,11 @@
     <image class="back" src="/imgs/back.png"></image>
   </view>
   <view class="search-block">
-    <input bindinput="wxSearchInput" bindfocus="wxSearchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="mywxSearch-input" placeholder="{{title}}" />
+    <input focus='{{focus}}' bindinput="wxSearchInput" bindfocus="wxSearchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="mywxSearch-input" placeholder="{{title}}" />
     <template is="wxSearch" data="{{wxSearchData}}" />
-  </view>
-  <view class="search-icon-block" catchtap='search' >
-    <image animation="{{searchAnimation}}" data-search="true" class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+    <view class="search-icon-block" bindtap='search'>
+      <image animation="{{searchAnimation}}" data-search="true" class="search-icon" src="/imgs/search.png" mode="aspectFit"></image>
+    </view>
   </view>
 </view>
 

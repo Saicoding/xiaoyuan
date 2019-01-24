@@ -16,4 +16,9 @@
   </view>
 
   <image wx:if="{{!isLoaded}}" style="display:block;width:30rpx;height:30rpx;margin:0 auto;margin-top:200rpx;"    src="/imgs/loading.gif"> </image>
+    <!-- 最下面的加载条 -->
+  <view class="loading-block">
+    <image wx:if="{{showLoadingGif}}" class="loading-gif" src="/imgs/loading.gif"></image>
+    <view class="loading-text"> {{loadingText}}</view>
+  </view>
 </view>
