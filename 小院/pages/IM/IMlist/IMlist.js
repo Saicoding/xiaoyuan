@@ -22,7 +22,6 @@ Page({
       frontColor: '#000000',
       backgroundColor: '#ececec',
     })
-
   },
 
   /**

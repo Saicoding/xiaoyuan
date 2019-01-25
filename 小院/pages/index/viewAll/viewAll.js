@@ -155,9 +155,10 @@ Page({
     let Keywords = options.Keywords;
 
     page++;
-
-    app.post(API_URL, "action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
+    console.log(page);
+    app.post(API_URL, "action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode+"&page="+page, false, false, "", "", "", self).then(res => {
       kelist = kelist.concat(res.data.data[0].list); //课列表
+      console.log(kelist)
 
       self.setData({
         showLoadingGif: false,
