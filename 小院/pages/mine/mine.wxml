@@ -10,7 +10,7 @@
         <view class="top-line1-text">关注</view>
       </view>
       <view class="pic-outcontainer">
-        <image class="top-line1-mid" src="{{userInfo.Pic}}" mode="aspectFit" bindtap="GOsetHeadpic"></image>
+        <image class="top-line1-mid" src="{{userInfo.Pic}}?{{random}}" mode="aspectFit" bindtap="GOsetHeadpic"></image>
         <image class="top-line1-mid-icon" src="/imgs/icon.jpg"></image>
       </view>
       <!-- <image class ="top-line1-icon" src =""></image> -->

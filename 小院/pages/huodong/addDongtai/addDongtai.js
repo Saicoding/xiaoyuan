@@ -113,7 +113,7 @@ Page({
             success:function(res2){
               //获取图片信息
               wx.getImageInfo({
-                src: tempFilePath,
+                src: res2.tempFilePath,
                 success: function (res1) {
                   wx.getFileSystemManager().readFile({
                     filePath: res1.path, //选择图片返回的相对路径
@@ -139,7 +139,7 @@ Page({
 
                       res3.data = encodeURIComponent(res3.data);//需要编码
                       base64Imgs[i + length].isLoaded = false
-                      console.log("action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data)
+
                       app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
                         console.log('进来了')
                         if(res.data.data[0].result == "success"){

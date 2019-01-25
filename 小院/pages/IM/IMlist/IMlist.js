@@ -123,6 +123,7 @@ Page({
     let chatList = self.data.chatList;
     page++;
 
+    console.log("action=getChatUserList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page)
     app.post(API_URL, "action=getChatUserList&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page="+page, false, false, "", "", "", self).then(res => {
       let newchatList = res.data.data;
       chatList = chatList.concat(newchatList);

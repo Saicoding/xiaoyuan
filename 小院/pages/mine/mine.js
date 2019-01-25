@@ -62,10 +62,13 @@ Page({
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
+    this.setData({//设置随机数
+      random: new Date().getTime()
+    })
 
     app.post(API_URL, "action=getUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
       let userInfo = res.data.data[0];
-
+      console.log(userInfo)
       self.setData({
         userInfo: userInfo
       })

@@ -47,11 +47,11 @@ Component({
      */
     'disable_width': {
       type: Boolean,
-      value: false
+      value: true
     },
     'disable_height': {
       type: Boolean,
-      value: false
+      value: true
     },
     /**
      * 生成的图片尺寸相对剪裁框的比例
@@ -345,6 +345,7 @@ Component({
      * 设置剪裁框尺寸
      */
     setCutSize(w, h) {
+      console.log(w,h)
       this.setData({
         width: w,
         height: h
@@ -368,6 +369,7 @@ Component({
      * 设置剪裁框宽度-即将废弃
      */
     setWidth(width) {
+      console.log(1)
       this.setData({
         width: width
       });
@@ -1020,6 +1022,7 @@ Component({
       })
     }
   },
+  
   _preventTouchMove() {
 
   }

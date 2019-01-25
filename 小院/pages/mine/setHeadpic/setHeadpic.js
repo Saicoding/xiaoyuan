@@ -12,7 +12,7 @@ Page({
    */
   data: {
     headpic: '/imgs/icon8.png',
-    uploadPicText: '上传图片',
+    uploadPicText: '上传图片'
   },
 
   /**
@@ -43,6 +43,9 @@ Page({
     buttonClicked: false
     let userInfo = this.data.userInfo;
     let uploadPicText = this.data.uploadPicText;
+    this.setData({
+      random: new Date().getTime()
+    })
 
     if (userInfo.zs_colleage_img) { //如果有图片了，展示框就用此图片
 
@@ -287,7 +290,7 @@ Page({
                     })
                   },
                   fail: function(res4) {
-                 
+
                   }
                 })
               }
@@ -358,19 +361,19 @@ Page({
   /**
    * 导航到设置头像页面
    */
-  GOavatarUpload:function(){
+  GOavatarUpload: function() {
     wx.chooseImage({
       count: 1,
       sizeType: 'compressed',
       sourceType: ['album', 'camera'],
-      success: function (res) {
+      success: function(res) {
         const src = res.tempFilePaths[0]
 
         wx.navigateTo({
           url: `/pages/mine/avatarUpload/avatarUpload?src=${src}`
         })
       },
-      fail: function () {
+      fail: function() {
         buttonClicked = false
       }
     })

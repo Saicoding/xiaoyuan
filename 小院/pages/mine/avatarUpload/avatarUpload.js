@@ -1,3 +1,6 @@
+let app = getApp();
+let API_URL = "https://xcx2.chinaplat.com/xy/";
+
 Page({
   data: {
     src: '',
@@ -57,13 +60,37 @@ Page({
     let pages = getCurrentPages();
     let prePage = pages[pages.length-2];
     let userInfo = prePage.data.userInfo;
-    userInfo.Pic = res
+    let user = wx.getStorageSync('user');
+    let loginranom = user.Login_random;
+    let zcode =user.zcode;
 
-    prePage.setData({
-      userInfo: userInfo
-    })
-    wx.navigateBack({
-      
+    //压缩图片
+    wx.compressImage({
+      src: res, // 图片路径
+      quality: 10, // 压缩质量
+      success: function (res2) {
+        wx.showLoading({
+          title: '设置头像中...',
+        })
+        wx.getFileSystemManager().readFile({
+          filePath: res2.tempFilePath, //选择图片返回的相对路径
+          encoding: 'base64', //编码格式
+          success: res3 => { //成功的回调
+
+            res3.data = encodeURIComponent(res3.data);//需要编码
+
+            app.post(API_URL, "action=saveHeadPic&loginrandom=" + loginranom + "&zcode=" + zcode + "&Pic=" + res3.data,false,false,"","","",self).then(res4=>{
+              wx.hideLoading({
+              })
+              console.log(res4)
+              prePage.setData({
+                userInfo: userInfo
+              })
+              wx.navigateBack({})
+            })
+          }
+        })
+      }
     })
   }
 })

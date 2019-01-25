@@ -69,8 +69,6 @@ App({
         },
         success: function(res) { //服务器返回数据
           let status = res.data.code;
-          let errorCode =res.data.errorCode;//错误码
-          let errorMessage = res.data.errorMessage;//错误信息
           if (status != 1) {
             console.log('异常')
             console.log(res)

@@ -107,11 +107,6 @@ Page({
   login: function() {
     let self = this;
 
-    //限制连续点击
-    if (buttonClicked) return;
-    buttonClicked = true;
-
-
     let userText = self.data.userText; //当前输入的账户
     let pwdText = self.data.pwdText; //当前输入的密码
     let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
