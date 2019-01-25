@@ -35,7 +35,7 @@
 
   <!-- 下面充值部分 -->
   <view class="down">
-    <view class="down-item">
+    <view class="down-item" wx:if ="{{platform !='ios'}}">
       <view class="down-item-line1">
         <image class="down-item-line1-icon" src="/imgs/weixinzhifu.png"></image>
         <view class="down-item-line1-text">微信充值</view>

@@ -41,7 +41,7 @@ Page({
       let result = res.data.data[0];
       let list = result.list;
       let page_all = result.page_all;
-      console.log(list)
+
       self.setData({
         list:list,
         page_all:page_all,
@@ -88,7 +88,6 @@ Page({
     let list = self.data.list;
     page++;
 
-    console.log("action=getJifenRecords&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=" + page)
     app.post(API_URL, "action=getJifenRecords&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page="+page, false, false, "", "", "", self).then(res => {
       let newlist = res.data.data[0].list;
       list = list.concat(newlist);

@@ -1,6 +1,6 @@
 <!--pages/login/login.wxml-->
 <view class="container">
-  <view class="top-black"></view>
+  <view wx:if ="{{platform !='ios'}}" class="top-black"></view>
   <!-- 头部信息 -->
   <image class="head" src="/imgs/head.jpg" mode="aspectfit"></image>
 

@@ -87,14 +87,12 @@ function getNum(word) {
 function monitorConnectType(self){
   //侦测网络情况
   let isOn = wx.getStorageSync('turnonWifiPrompt');
-  console.log(isOn+"网络类型")
 
   if (isOn == "" || isOn == 0) {
     let interval = setInterval((res) => {
       wx.getNetworkType({ //查看当前的网络类型,如果是非wifi,就不自动播放,如果多次是同一类型就只执行一次
         success: function (res) {
           let networkType = res.networkType
-          console.log(networkType)
           
           if (networkType != "wifi") {
             let lastType = self.data.lastType;

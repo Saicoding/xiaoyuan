@@ -40,9 +40,9 @@ Page({
     app.post(API_URL, "action=getXuebiRecords&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res => {
       let result = res.data.data[0];
       let list = result.list;
-      console.log(list)
+
       let page_all = result.page_all;
-      console.log(list)
+
       self.setData({
         list: list,
         page_all: page_all,

@@ -202,7 +202,7 @@ Page({
 
     pics.splice(index, 1);
     base64Imgs.splice(index, 1);
-    console.log()
+
     self.setData({
       pics: pics,
       base64Imgs: base64Imgs

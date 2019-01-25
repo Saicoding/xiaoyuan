@@ -87,8 +87,6 @@ Page({
         page: 1
       })
 
-      console.log(chatList)
-
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
     })

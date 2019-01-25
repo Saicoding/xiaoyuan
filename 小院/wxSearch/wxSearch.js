@@ -128,7 +128,6 @@ function wxSearchBlur(e, that, callBack) {
 function wxSearchHiddenPancel(that) {
   var temData = that.data.wxSearchData;
   temData.view.isShow = false;
-  console.log('ol')
   that.setData({
     wxSearchData: temData
   });

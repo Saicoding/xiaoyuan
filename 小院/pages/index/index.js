@@ -36,6 +36,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        app.globalData.userInfo = res.userInfo
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -43,9 +44,11 @@ Page({
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
+      console.log(3)
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
+          console.log(res.userInfo)
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
@@ -121,7 +124,6 @@ Page({
         })
 
         app.post(API_URL, "action=getCourseTypes_index&loginrandom=" + loginrandom + "&zcode=" + zcode + "&page=1", false, false, "", "", "", self).then(res1 => {
-          console.log(res1)
           let dingzhiList = res1.data.data;
           let page_all = dingzhiList[0].page_all;
 

@@ -83,7 +83,7 @@ Page({
       self.setData({
         isLoaded: false
       })
-      console.log("action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode)
+
       app.post(API_URL, "action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
         let kelist = res.data.data[0].list; //课列表
         let pageall = res.data.data[0].pageall; //总页数
@@ -93,7 +93,7 @@ Page({
             hasKecheng: false
           })
         }
-        console.log(kelist)
+
         self.setData({
           kelist: kelist,
           pageall: pageall,
@@ -155,10 +155,9 @@ Page({
     let Keywords = options.Keywords;
 
     page++;
-    console.log(page);
+
     app.post(API_URL, "action=getCourseList&typesid=" + typesid + "&buy=" + buy + "&favorite=" + favorite + "&Keywords=" + Keywords + "&loginrandom=" + loginrandom + "&zcode=" + zcode+"&page="+page, false, false, "", "", "", self).then(res => {
       kelist = kelist.concat(res.data.data[0].list); //课列表
-      console.log(kelist)
 
       self.setData({
         showLoadingGif: false,
@@ -239,7 +238,6 @@ Page({
     WxSearch.wxSearchInput(e, that);
   },
   wxSearchFocus: function(e) {
-    console.log('我来了')
     var that = this
     WxSearch.wxSearchFocus(e, that);
   },
@@ -260,7 +258,7 @@ Page({
     WxSearch.wxSearchDeleteAll(that);
   },
   wxSearchTap: function(e) {
-    console.log(e)
+    
   },
 
   tapBlank: function(e) {

@@ -30,9 +30,11 @@ Page({
       title: '选择学校',
     })
 
+    console.log(app.globalData.userInfo)
     let city = app.globalData.userInfo.city; //个人信息在全局变量里面
 
     app.post(API_URL, "action=getColleage&city=" + city + "&keywords=", false, false, "").then(res => {
+      console.log(res)
       self.processRequest(res);
     })
   },
@@ -128,7 +130,6 @@ Page({
 
     let schoolArray = res.data.list;
     schoolArray = schoolArray.sort(self.compare('word'));
-    console.log(schoolArray)
 
     let lastLetter = "";//上一次的拼音首字母，用于遍历数组时控制字母是否有变化
     let lastIndex = -1;

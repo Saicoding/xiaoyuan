@@ -782,7 +782,6 @@ Component({
             quality: this.data.quality,
             canvasId: this.data.el,
             success: (res) => {
-              console.log(res)
               self.imageCallback(res.tempFilePath);         
             }
           }, this)

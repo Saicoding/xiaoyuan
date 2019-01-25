@@ -157,7 +157,6 @@ Page({
         break;
     }
 
-    console.log(userInfo)
     this.setData({
       userInfo: userInfo
     })
@@ -288,7 +287,7 @@ Page({
                     })
                   },
                   fail: function(res4) {
-                    console.log(res4)
+                 
                   }
                 })
               }
@@ -319,7 +318,6 @@ Page({
    * 保存信息
    */
   save: function() {
-    console.log(buttonClicked)
     let self = this;
     if (buttonClicked) return;
     buttonClicked = true;

@@ -17,11 +17,11 @@ Page({
     })
 
     let isOn = wx.getStorageSync('turnonWifiPrompt') == 0 ? true : false;//检查非wifi开启状态
-    console.log(isOn)
+
     if (isOn === "") {//如果没有本地缓存说明是第一次载入，默认是开启状态
       isOn = true
     }
-    console.log(isOn)
+
     this.setData({
       isOn: isOn
     })

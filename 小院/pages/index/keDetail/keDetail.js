@@ -92,7 +92,7 @@ Page({
   kaitong:function(e){
     let self = this;
     let system = self.data.system;
-    if(system == 'devtools'){
+    if(system == 'ios'){
       wx.showModal({
         title: '提示',
         content: '因Apple政策原因，IOS暂不支持小程序内开通VIP，苹果用户请使用安卓设备开通VIP！服务电话：4006-456-114',

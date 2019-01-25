@@ -26,7 +26,22 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    let self = this;
 
+    //获得dialog组件
+    wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+      success: function (res) { //转换窗口高度
+        let windowHeight = res.windowHeight;
+        let windowWidth = res.windowWidth;
+        let platform = res.platform;
+        windowHeight = (windowHeight * (750 / windowWidth));
+        self.setData({
+          platform: platform,
+          windowWidth: windowWidth,
+          windowHeight: windowHeight
+        })
+      }
+    });
   },
 
   /**
@@ -226,7 +241,7 @@ Page({
                     })
                   },
                   fail: function(res) {
-                    console.log(res)
+     
                   }
                 }
                 wx.requestPayment(myObject)

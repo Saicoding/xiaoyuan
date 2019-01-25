@@ -123,7 +123,6 @@ Page({
     //如果粉丝已经载入就不执行
     if (barIndex == 1 && !fensi_first) {
       app.post(API_URL, "action=getFans&loginrandom=" + loginrandom + "&zcode=" + zcode + "&types=1" + "&page=1", false, false, "", "", "", self).then(res => {
-        console.log(res)
         let result = res.data.data[0];
         let fensi_allpage = result.allpage; //粉丝总页数
         let fensi_records = result.records; //粉丝总数

@@ -15,7 +15,8 @@ Page({
     showPwd: true,
     openId: '', //用户唯一标识  
     unionId: '',
-    encryptedData: ''
+    encryptedData: '',
+    platform:'android'
   },
 
   /**
@@ -52,6 +53,27 @@ Page({
    */
   onShow: function() {
     buttonClicked = false;
+  },
+
+  /**
+   * 生命周期函数
+   */
+  onReady:function(){
+    let self = this;
+    //获得dialog组件
+    wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+      success: function (res) { //转换窗口高度
+        let windowHeight = res.windowHeight;
+        let windowWidth = res.windowWidth;
+        let platform = res.platform;
+        windowHeight = (windowHeight * (750 / windowWidth));
+        self.setData({
+          windowWidth: windowWidth,
+          windowHeight: windowHeight,
+          platform: platform
+        })
+      }
+    });
   },
 
   /**
@@ -171,7 +193,7 @@ Page({
 
               let ifGoPage = self.data.ifGoPage //是否返回上一级菜单
               let url = self.data.url; //需要导航的url
-              console.log("action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex)
+
               app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, false, false, "").then((res) => {
                 let user = res.data.list[0];
                 self.processSelectScholl(user, ifGoPage); 

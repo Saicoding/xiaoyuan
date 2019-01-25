@@ -86,12 +86,12 @@ Page({
     let zcode = user.zcode;
     //获取价格信息
     app.post(API_URL, 'action=VipInfo&loginrandom=' + loginrandom + '&zcode=' + zcode, false, false, "", "", "", self).then(res => {
-      console.log(res);
+
     })
 
     app.post(API_URL, 'action=getUserInfo&loginrandom=' + loginrandom + '&zcode=' + zcode, false, false, "", "", "", self).then(res => {
       let userInfo = res.data.data[0];
-      console.log(userInfo);
+
     })
   },
 
