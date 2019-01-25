@@ -65,7 +65,7 @@ Component({
      */
     'quality': {
       type: Number,
-      value: 1
+      value: 0.1
     },
     'cut_top': {
       type: Number,

@@ -4,18 +4,17 @@ let API_URL = "https://xcx2.chinaplat.com/xy/";
 Page({
   data: {
     src: '',
-    width: 250,//宽度
-    height: 250,//高度
+    width: 250, //宽度
+    height: 250, //高度
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.cropper = this.selectComponent("#image-cropper");
     this.setData({
       src: options.src,
     });
   },
 
-  cropperload(e) {
-  },
+  cropperload(e) {},
 
   loadimage(e) {
     //重置图片角度、缩放、位置
@@ -56,40 +55,71 @@ Page({
   },
 
   //图片回调
-  imageCallback:function(res){
+  imageCallback: function(pic) {
+    let self = this;
     let pages = getCurrentPages();
-    let prePage = pages[pages.length-2];
+    let prePage = pages[pages.length - 2];
     let userInfo = prePage.data.userInfo;
     let user = wx.getStorageSync('user');
     let loginranom = user.Login_random;
-    let zcode =user.zcode;
+    let zcode = user.zcode;
 
-    //压缩图片
-    wx.compressImage({
-      src: res, // 图片路径
-      quality: 10, // 压缩质量
-      success: function (res2) {
-        wx.showLoading({
-          title: '设置头像中...',
-        })
-        wx.getFileSystemManager().readFile({
-          filePath: res2.tempFilePath, //选择图片返回的相对路径
-          encoding: 'base64', //编码格式
-          success: res3 => { //成功的回调
+    wx.showLoading({
+      title: '设置头像中...',
+    })
 
-            res3.data = encodeURIComponent(res3.data);//需要编码
+    wx.getImageInfo({
+      src: pic,
+      success: function(res) {
+        var ctx = wx.createCanvasContext('photo_canvas');
+        var ratio = 2;
+        var canvasWidth = res.width
+        var canvasHeight = res.height;
+        // 保证宽高均在200以内
+        while (canvasWidth > 200 || canvasHeight > 200) {
+          //比例取整
+          canvasWidth = Math.trunc(res.width / ratio)
+          canvasHeight = Math.trunc(res.height / ratio)
+          ratio++;
+        }
+        self.setData({
+          canvasWidth: canvasWidth,
+          canvasHeight: canvasHeight
+        }) //设置canvas尺寸
+        ctx.drawImage(pic, 0, 0, canvasWidth, canvasHeight)
+        ctx.draw()
+        //下载canvas图片
+        setTimeout(function() {
+          wx.canvasToTempFilePath({
+            canvasId: 'photo_canvas',
+            success: function(res1) {
+              console.log(res1.tempFilePath)
+              wx.getFileSystemManager().readFile({
+                filePath: res1.tempFilePath, //选择图片返回的相对路径
+                encoding: 'base64', //编码格式
+                success: res3 => { //成功的回调
+                  console.log(res3.data)
+                  res3.data = encodeURIComponent(res3.data); //需要编码
 
-            app.post(API_URL, "action=saveHeadPic&loginrandom=" + loginranom + "&zcode=" + zcode + "&Pic=" + res3.data,false,false,"","","",self).then(res4=>{
-              wx.hideLoading({
+                  app.post(API_URL, "action=saveHeadPic&loginrandom=" + loginranom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res4 => {
+                    wx.hideLoading({})
+                    console.log(res4)
+                    prePage.setData({
+                      userInfo: userInfo
+                    })
+                    wx.navigateBack({})
+                  })
+                }
               })
-              console.log(res4)
-              prePage.setData({
-                userInfo: userInfo
-              })
-              wx.navigateBack({})
-            })
-          }
-        })
+            },
+            fail: function(error) {
+              console.log(error)
+            }
+          })
+        }, 100)
+      },
+      fail: function(error) {
+        console.log(error)
       }
     })
   }
