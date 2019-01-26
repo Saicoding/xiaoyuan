@@ -25,6 +25,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '添加动态',
     })
+
     this.setData({
       h_id: options.h_id
     })
@@ -236,7 +237,7 @@ Page({
     let imgs = base64Imgs.map(res=>{//模拟服务器图片数组
       return "http://neuq.chinaplat.com/app_pic/"+res.url
     })
-    console.log(imgs)
+
     //用户信息
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
@@ -245,7 +246,6 @@ Page({
     let images = self.getImgsStr(base64Imgs);//根据图片数组对象得到服务器存储的图片字符串,以逗号分隔
 
     app.post(API_URL, "action=SaveHdDongtai&loginrandom=" + loginrandom + "&zcode=" + zcode + "&h_id=" + h_id + "&content=" + content + "&images=" + images,true,false,"发布中","","",self).then(res=>{
-      console.log(res)
       if(res.data.Message == '成功发布'){
         let pages = getCurrentPages();
         let prePage = pages[pages.length-2];

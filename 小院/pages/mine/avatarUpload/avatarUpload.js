@@ -19,9 +19,6 @@ Page({
   loadimage(e) {
     //重置图片角度、缩放、位置
     this.cropper.imgReset();
-  },
-
-  clickcut(e) {
     //点击裁剪框阅览图片
     wx.previewImage({
       current: e.detail.url, // 当前显示图片的http链接
