@@ -28,6 +28,7 @@ page {
 .fixed{
   position: fixed;
   top:0;
+  background: #2983fe;
 }
 
 .bars-huodong, .bars-btn {
