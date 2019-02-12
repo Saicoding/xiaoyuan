@@ -58,7 +58,7 @@
         <view data-keindex="{{index}}" bindtap="changeVideo" class="list-block">
           <image class="list-block-icon" src="{{ke.selected?'/imgs/play2.png':'/imgs/play1.png'}}" mode="aspectFit"></image>
           <view class="list-block-title" style="color:{{ke.selected?'#0096fa':'balck'}}">{{ke.files_title}}</view>
-          <view wx:if="{{ke.shiting == 1}}" class="list-block-try">
+          <view wx:if="{{ke.shiting == 1 && buy !=1}}" class="list-block-try">
             <image class="list-block-try-icon" src="/imgs/try.png"></image>
             <view class="list-block-try-text">试听</view>
           </view>
