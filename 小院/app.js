@@ -1,7 +1,7 @@
 //app.js
 
 App({
-  onLaunch: function (options) {
+  onLaunch: function(options) {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -12,7 +12,7 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-  
+
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -24,6 +24,21 @@ App({
       }
     })
 
+    let res = wx.getLaunchOptionsSync(); //用户入口信息
+
+    let str = "";
+    switch (res.scene) {
+      case 1001:
+        str = "发现栏小程序主入口";
+        break;
+      case 1011:
+        str = "扫描二维码";
+        break;
+      default:
+        str = res.scene;
+        break;
+    }
+    console.log('小程序入口:' + str);
     // wx.clearStorage();
   },
 
@@ -38,14 +53,14 @@ App({
    * @return {Promise}    promise 返回promise供后续操作
    */
 
-      //  {
-      //   "pagePath": "pages/guangchang/guangchang",
-      //   "selectedColor": "#13b7f6",
-      //   "iconPath": "/imgs/guangchang1.png",
-      //   "selectedIconPath": "/imgs/guangchang2.png",
-      //   "color": "#000000",
-      //   "text": "广场"
-      // },
+  //  {
+  //   "pagePath": "pages/guangchang/guangchang",
+  //   "selectedColor": "#13b7f6",
+  //   "iconPath": "/imgs/guangchang1.png",
+  //   "selectedIconPath": "/imgs/guangchang2.png",
+  //   "color": "#000000",
+  //   "text": "广场"
+  // },
   post: function(url, data, ifShow, ifCanCancel, title, pageUrl, ifGoPage, self) {
     if (ifShow) {
       wx.showLoading({
@@ -87,7 +102,7 @@ App({
               url: '/pages/login/login?url=' + pageUrl + '&ifGoPage=' + ifGoPage
             })
 
-          } else{
+          } else {
             console.log(status);
             console.log(message);
             wx.showToast({
@@ -106,6 +121,10 @@ App({
       })
     });
     return promise;
+  },
+
+  onError(msg) {
+    console.log(msg)
   },
 
   globalData: {

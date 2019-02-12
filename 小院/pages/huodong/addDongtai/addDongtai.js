@@ -103,72 +103,106 @@ Page({
         let newTempFilePaths = res.tempFilePaths//选择的所有图片
         let newBase64Imgs = newTempFilePaths.map(function (res) { })   
         pics = pics.concat(newTempFilePaths);    
-        base64Imgs = base64Imgs.concat(newBase64Imgs);      
+        base64Imgs = base64Imgs.concat(newBase64Imgs);   
+        self.setData({
+          base64Imgs: base64Imgs,
+          pics: pics
+        })   
+        
 
-        for (let i = 0; i < newTempFilePaths.length;i++){
+        for (let i = 0; i < base64Imgs.length;i++){
           let tempFilePath = newTempFilePaths[i];
-          //压缩图片
-          wx.compressImage({
-            src: tempFilePath, // 图片路径
-            quality: 10,// 压缩质量
-            success:function(res2){
-              //获取图片信息
-              wx.getImageInfo({
-                src: res2.tempFilePath,
-                success: function (res1) {
-                  wx.getFileSystemManager().readFile({
-                    filePath: res1.path, //选择图片返回的相对路径
-                    encoding: 'base64', //编码格式
-                    success: res3 => { //成功的回调
-                      ce++;
-                      console.log(base64Imgs);
-                      console.log(ce)
-                      base64Imgs[i+length] = {};
-                      base64Imgs[i + length].type = res1.type;
-                      base64Imgs[i + length].base64 = res3.data;
-                      base64Imgs[i + length].width = res1.width;
-                      base64Imgs[i + length].height = res1.height;
-                      if(res1.width >res1.height){
-                        base64Imgs[i].long = true
-                      }
+          self.drawCanvas(newTempFilePaths[i], base64Imgs, length, loginrandom, zcode,i);
+        }
+      }
+    })
+  },
 
-                      self.setData({//先保存数据
-                        pics: pics,
-                        base64Imgs: base64Imgs
-                      }) 
+  /**
+   * 缩放图片
+   * 参数：
+   *      1.tempFilePath 图片路径
+   *      2.index 第几章图片
+   */
+  drawCanvas: function (tempFilePath, base64Imgs, length, loginrandom, zcode,i) {//参数：
+    let self = this;
+    base64Imgs[i + length] = {};
+    wx.getImageInfo({
+      src: tempFilePath,
+      success:res=>{
+        let width = res.width;
+        let height = res.height;
+        console.log(width+"||"+height)
 
+        var ratio = 2;
+        var canvasWidth = res.width
+        var canvasHeight = res.height;
+        // 保证宽高均在200以内
+        while (canvasWidth > 100 || canvasHeight > 100) {
+          //比例取整
+          canvasWidth = Math.trunc(res.width / ratio)
+          canvasHeight = Math.trunc(res.height / ratio)
+          ratio++;
+        }
 
-                      res3.data = encodeURIComponent(res3.data);//需要编码
-                      base64Imgs[i + length].isLoaded = false
+        console.log(canvasWidth + "||" + canvasHeight)
+        base64Imgs[i + length].rate = width / height;
+        base64Imgs[i + length].width = canvasWidth;
+        base64Imgs[i + length].height = canvasHeight;
+        self.setData({
+          base64Imgs: base64Imgs
+        })
 
-                      app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
-                        console.log('进来了')
-                        if(res.data.data[0].result == "success"){
-                          base64Imgs[i + length].isLoaded = true;
-                          base64Imgs[i + length].url = res.data.data[0].pic;//服务器存储的pic名称
-                          num++;
-                          if (num >= newTempFilePaths.length){
-                            self.setData({
-                              isLoadedAll: true
-                            })
-                          }
-                        }
-                       
-                                    
-                        self.setData({
-                          base64Imgs: base64Imgs
-                        })
-                      })
-                    },
-                    fail:function(res4){
-                      console.log(res4)
+        const ctx = wx.createCanvasContext('photo_canvas' + i);
+        ctx.drawImage(tempFilePath, 0, 0, canvasWidth, canvasHeight);
+        ctx.draw();
+        //下载canvas图片
+        setTimeout(function () {
+          wx.canvasToTempFilePath({
+            canvasId: 'photo_canvas' + i,
+            success: function (res1) {
+              console.log(res1.tempFilePath)
+              wx.getFileSystemManager().readFile({
+                filePath: res1.tempFilePath, //选择图片返回的相对路径
+                encoding: 'base64', //编码格式
+                success: res3 => { //成功的回调
+                console.log('haha')
+                  res3.data = encodeURIComponent(res3.data); //需要编码
+                  base64Imgs[i + length].type = res1.type;
+                  base64Imgs[i + length].base64 = res3.data;
+                  base64Imgs[i + length].width = res1.width;
+                  base64Imgs[i + length].height = res1.height;
+                  if (res1.width > res1.height) {
+                    base64Imgs[i + length].long = true
+                  }
+
+                  self.setData({//先保存数据
+                    base64Imgs: base64Imgs
+                  })
+
+                  res3.data = encodeURIComponent(res3.data);//需要编码
+                  base64Imgs[i + length].isLoaded = false
+
+                  console.log("action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data)
+                  app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
+                    console.log('进来了')
+                    if (res.data.data[0].result == "success") {
+                      base64Imgs[i + length].isLoaded = true;
+                      base64Imgs[i + length].url = res.data.data[0].pic;//服务器存储的pic名称
                     }
+
+                    self.setData({
+                      base64Imgs: base64Imgs
+                    })
                   })
                 }
               })
+            },
+            fail: function (error) {
+              console.log(error)
             }
           })
-        }
+        }, 1000)
       }
     })
   },

@@ -183,7 +183,8 @@ Page({
         disabled: false,
         color: '#388ff8',
         text: '获取验证码',
-        code: ''
+        code: '',
+        codeText:"",
       })
     } else if (toStatu == 0) {
       wx.navigateBack({
@@ -200,7 +201,8 @@ Page({
         disabled: false,
         color: '#388ff8',
         text: '获取验证码',
-        code: ''
+        code: '',
+        codeText:'',
       })
     }
 
@@ -484,8 +486,8 @@ Page({
 
     if (code == identifyCode && code != undefined) { //如果相等
       //开始登录
-      console.log("action=SaveReg&mobile=" + self.data.phone + "&yzm=" + code + "&pwd=" + pwd)
-      app.post(API_URL, "action=Reg&uid=" + self.data.phone + "&yzm=" + code + "&pwd=" + pwd, true, true, "注册中").then((res) => {
+      console.log("action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd)
+      app.post(API_URL1, "action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd, true, true, "注册中").then((res) => {
         let user = res.data.list[0];
 
         wx.showToast({
