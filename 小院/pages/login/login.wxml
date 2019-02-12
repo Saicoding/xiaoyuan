@@ -27,7 +27,7 @@
       <image class="pwd-opt-icon" src="{{rememberPwd?'/imgs/remember.png':'/imgs/forget.png'}}" mode="aspectfit"></image>
       <view class="pwd-opt-text">记住密码</view>
     </view>
-    <view class="pwd-opt-text" style="float:right;margin-right:10rpx;">忘记密码</view>
+    <view data-index="3" class="pwd-opt-text" style="float:right;margin-right:10rpx;" bindtap = "GOsignAndFindPwd">忘记密码</view>
   </view>
 
   <!-- 登录方式按钮，账户登录和微信授权登录 -->
@@ -36,7 +36,7 @@
     <image class="login-icon" src="/imgs/wx-login.png" mode="aspectfit"></image>
     <view class="login-text" style="margin-left:20rpx;">微信授权登录</view>
   </button>
-  <view class="login-bottom">还没有账号?
+  <view  data-index="2" class="login-bottom" bindtap="GOsignAndFindPwd">还没有账号?
     <span style="color:#159ed5">立即注册</span>
   </view>
 

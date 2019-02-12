@@ -204,6 +204,18 @@ Page({
   },
 
   /**
+   * 导航到找回密码或者注册页面
+   */
+  GOsignAndFindPwd:function(e){
+    let index = e.currentTarget.dataset.index;
+    let ifGoPage = this.data.ifGoPage;
+    let url1 = this.data.url1;
+    wx.navigateTo({
+      url: '/pages/signAndFindPwd/signAndFindPwd?statuIndex=' + index+"&ifGoPage="+ifGoPage+"&url1="+url1,
+    })
+  },
+
+  /**
    * 根据是否选择学校来处理登录逻辑
    */
   processSelectScholl: function(user, ifGoPage) {

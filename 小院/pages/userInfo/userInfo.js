@@ -197,7 +197,7 @@ Page({
         })
         wx.showToast({
           icon: 'none',
-          title: userInfo.guanzhu == 0 ? '取消关注成功' : '关注成功',
+          title: guanzhu == 0 ? '取消关注成功' : '关注成功',
           duration: 3000
         })
 

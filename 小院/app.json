@@ -32,7 +32,8 @@
     "pages/mine/zhanghuzhongxin/xuebiRecord/xuebiRecord",
     "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord",
     "pages/huodong/map/map",
-    "pages/mine/avatarUpload/avatarUpload"
+    "pages/mine/avatarUpload/avatarUpload",
+    "pages/signAndFindPwd/signAndFindPwd"
   ],
   "window": {
     "backgroundTextStyle": "dark",
