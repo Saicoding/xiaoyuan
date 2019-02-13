@@ -67,25 +67,24 @@ Page({
    * 添加图片
    */
   addpic:function(){
-    if(buttonClicked) return;
-    buttonClicked = true;
+    if(buttonClicked) return;//如果已经点击一次按钮，就不继续执行
+    buttonClicked = true;//如果执行到这里说明已经点击过，就把是否点击设置为真
 
     let self = this;
-    let num = 0;
 
-    //用户信息
+    //用户信息,用于接口
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
-    let pics = self.data.pics;//现在的pics数组
+    let pics = self.data.pics;//现在的pics数组(图片src地址数组)
     let base64Imgs = self.data.base64Imgs;//现在的base64数组
 
-    self.setData({
+    self.setData({//设置全部图片是否全部载入完毕，默认没有全部载入完毕
       isLoadedAll:false
     })
 
-    let length = pics.length;
+    let length = pics.length;//选择图片前已经被选择的图片数量
     if (base64Imgs.length>=9){
       wx.showToast({
         icon:'none',
@@ -96,7 +95,7 @@ Page({
     }
 
     wx.chooseImage({
-      count: 9 - pics.length,
+      count: 1,
       sizeType: 'compressed',
       sourceType: ['album', 'camera'],
       success:function(res){
@@ -108,7 +107,7 @@ Page({
           base64Imgs: base64Imgs,
           pics: pics
         })   
-        
+
 
         for (let i = 0; i < base64Imgs.length;i++){
           let tempFilePath = newTempFilePaths[i];
@@ -132,13 +131,12 @@ Page({
       success:res=>{
         let width = res.width;
         let height = res.height;
-        console.log(width+"||"+height)
 
         var ratio = 2;
         var canvasWidth = res.width
         var canvasHeight = res.height;
-        // 保证宽高均在200以内
-        while (canvasWidth > 100 || canvasHeight > 100) {
+        // 保证宽高均在100以内
+        while (canvasWidth > 300 || canvasHeight > 300) {
           //比例取整
           canvasWidth = Math.trunc(res.width / ratio)
           canvasHeight = Math.trunc(res.height / ratio)

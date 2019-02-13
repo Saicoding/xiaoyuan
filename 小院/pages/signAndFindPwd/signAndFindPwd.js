@@ -486,6 +486,7 @@ Page({
 
     if (code == identifyCode && code != undefined) { //如果相等
       //开始登录
+      pwd = md5.md5(pwd).toLowerCase();
       console.log("action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd)
       app.post(API_URL1, "action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd, true, true, "注册中").then((res) => {
         let user = res.data.list[0];
