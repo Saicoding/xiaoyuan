@@ -10,7 +10,7 @@
     <view data-url="{{pics[index]}}" class="slide-image" style="background:url('data:image/{{base64Img.type}};base64,{{base64Img.base64}}');background-position:center;background-size:cover;background-repeat:no-repeat" catchtap="viewImage">
       <image wx:if="{{base64Img.isLoaded}}" data-url="{{pics[index]}}" class="delete" src="/imgs/delete.png" catchtap="delete"></image>
       <view wx:if="{{!base64Img.isLoaded}}" class="model"></view>
-      <image wx:if="{{!base64Img.isLoaded}}" src="/imgs/loading.gif" class="imgLoadingimg"></image>
+      <image wx:if="{{!base64Img.isLoaded}}" src="/imgs/loading2.gif" class="imgLoadingimg"></image>
     </view>
   </view>
 
@@ -32,6 +32,6 @@
 </view>
 
 <view wx:for="{{base64Imgs}}" >
-  <canvas  canvas-id="photo_canvas{{index}}"  style="width:{{item.width}}px;height:{{item.height}}px;"></canvas>
+  <canvas  canvas-id="photo_canvas{{item.id}}"  style="width:{{item.width}}px;height:{{item.height}}px;position:absolute;left:-300px;top:-300px;"></canvas>
 </view>
 

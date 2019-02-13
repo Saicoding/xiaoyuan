@@ -3,6 +3,7 @@ let API_URL = "https://xcx2.chinaplat.com/xy/";
 let app = getApp();
 let buttonClicked = false;
 let ce = 0;
+let flagnum = 20;//canvas标记数字
 
 Page({
 
@@ -100,7 +101,12 @@ Page({
       sourceType: ['album', 'camera'],
       success:function(res){
         let newTempFilePaths = res.tempFilePaths//选择的所有图片
-        let newBase64Imgs = newTempFilePaths.map(function (res) { })   
+        flagnum++;
+        let newBase64Imgs = newTempFilePaths.map(function (res, index) { 
+          return {
+            id: flagnum+index
+          }
+        })   
         pics = pics.concat(newTempFilePaths);    
         base64Imgs = base64Imgs.concat(newBase64Imgs);   
         self.setData({
@@ -108,10 +114,11 @@ Page({
           pics: pics
         })   
 
-
-        for (let i = 0; i < base64Imgs.length;i++){
+        console.log(base64Imgs)
+        for (let i = 0; i < newTempFilePaths.length;i++){//只画新增加的图片
           let tempFilePath = newTempFilePaths[i];
-          self.drawCanvas(newTempFilePaths[i], base64Imgs, length, loginrandom, zcode,i);
+          flagnum +=1;
+          self.drawCanvas(newTempFilePaths[i], base64Imgs, length, loginrandom, zcode, newTempFilePaths.length, i);
         }
       }
     })
@@ -123,9 +130,9 @@ Page({
    *      1.tempFilePath 图片路径
    *      2.index 第几章图片
    */
-  drawCanvas: function (tempFilePath, base64Imgs, length, loginrandom, zcode,i) {//参数：
+  drawCanvas: function (tempFilePath, base64Imgs, length, loginrandom, zcode,selectedNums,i) {//参数：
     let self = this;
-    base64Imgs[i + length] = {};
+
     wx.getImageInfo({
       src: tempFilePath,
       success:res=>{
@@ -136,7 +143,7 @@ Page({
         var canvasWidth = res.width
         var canvasHeight = res.height;
         // 保证宽高均在100以内
-        while (canvasWidth > 300 || canvasHeight > 300) {
+        while (canvasWidth > 100 || canvasHeight > 100) {
           //比例取整
           canvasWidth = Math.trunc(res.width / ratio)
           canvasHeight = Math.trunc(res.height / ratio)
@@ -151,13 +158,13 @@ Page({
           base64Imgs: base64Imgs
         })
 
-        const ctx = wx.createCanvasContext('photo_canvas' + i);
+        const ctx = wx.createCanvasContext('photo_canvas' + base64Imgs[i + length].id);
         ctx.drawImage(tempFilePath, 0, 0, canvasWidth, canvasHeight);
         ctx.draw();
         //下载canvas图片
         setTimeout(function () {
           wx.canvasToTempFilePath({
-            canvasId: 'photo_canvas' + i,
+            canvasId: 'photo_canvas' + base64Imgs[i + length].id,
             success: function (res1) {
               console.log(res1.tempFilePath)
               wx.getFileSystemManager().readFile({
@@ -183,7 +190,13 @@ Page({
 
                   console.log("action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data)
                   app.post(API_URL, "action=savePic&loginrandom=" + loginrandom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res => {
-                    console.log('进来了')
+                    ce++;
+                    if (ce >= selectedNums){
+                      ce = 0;
+                      self.setData({//设置全部图片是否全部载入完毕，默认没有全部载入完毕
+                        isLoadedAll: true
+                      })
+                    }
                     if (res.data.data[0].result == "success") {
                       base64Imgs[i + length].isLoaded = true;
                       base64Imgs[i + length].url = res.data.data[0].pic;//服务器存储的pic名称
