@@ -489,35 +489,25 @@ Page({
       pwd = md5.md5(pwd).toLowerCase();
       console.log("action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd)
       app.post(API_URL1, "action=SaveReg&uid=" + self.data.phone + "&code=" + code + "&pwd=" + pwd, true, true, "注册中").then((res) => {
-        let user = res.data.list[0];
+        if(res.data.code ==1){
+          let pages = getCurrentPages();
+          let prepage = pages[pages.length-2];
+          prepage.setData({
+            pwdText:'',
+            userText: self.data.phone
+          })
 
-        wx.showToast({
-          icon: 'none',
-          title: '注册成功',
-          duration: 3000
-        })
-
-        wx.setStorage({
-          key: 'user',
-          data: user,
-          success: function () {
-            wx.navigateBack({
-              delta:2
-            })
-
-            if (ifGoPage == "true") {
-              wx.navigateTo({
-                url: url,
-              })
-            }
-          },
-          fail: function () {
-            console.log('存储失败')
-          }
-        })
+          wx.navigateBack({
+            delta: 1
+          })
+          wx.showToast({
+            icon: 'none',
+            title: '注册成功',
+            duration: 3000
+          })
+        }
       })
     } else if (code == undefined) {
-      console.log('heihei')
       wx.showToast({
         title: '验证码不能为空',
         icon: 'none',
@@ -566,6 +556,13 @@ Page({
       pwd = md5.md5(pwd).toLowerCase();
       app.post(API_URL, "action=GetPwd&mobile=" + self.data.phone + "&yzm=" + code + "&pwd=" + pwd, true, true, "修改密码中...").then((res) => {
         if (res.data.status == '1') {
+          let pages = getCurrentPages();
+          let prepage = pages[pages.length - 2];
+          prepage.setData({
+            pwdText: '',
+            userText: self.data.phone
+          })
+          
           wx.navigateBack({
             
           })

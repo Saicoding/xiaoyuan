@@ -95,7 +95,7 @@ Page({
     }
 
     wx.chooseImage({
-      count: 1,
+      count: 9 - pics.length,
       sizeType: 'compressed',
       sourceType: ['album', 'camera'],
       success:function(res){
