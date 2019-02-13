@@ -57,6 +57,15 @@ Page({
     wx.navigateTo({
       url: '/pages/mine/fankui/fankui',
     })
+  },
+
+  /**
+   * 导航到修改密码
+   */
+  GOmodifypwd:function(){
+    wx.navigateTo({
+      url: '/pages/signAndFindPwd/signAndFindPwd?statuIndex=4',
+    })
   }
 
 })

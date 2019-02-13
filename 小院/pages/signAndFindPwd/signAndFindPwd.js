@@ -48,6 +48,13 @@ Page({
         ph_user: '请输入找回密码的手机帐号',
         ph_user2: '设置新密码',
         confirm_text: '确定'
+      },
+      {
+        code: 4,
+        title: '修改密码',
+        ph_user: '请输入修改密码的手机帐号',
+        ph_user2: '设置新密码',
+        confirm_text: '确定'
       }
     ]
   },
@@ -350,6 +357,7 @@ Page({
         this.sign(); //注册
         break;
       case 3:
+      case 4:
         this.findPwd();//找回密码
         break;
     }
