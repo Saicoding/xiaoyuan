@@ -5,7 +5,7 @@
   <view class="top">
     <!-- 第一行 -->
     <view class="top-line1">
-      <view class="top-line1-left" bindtap = "GOguanzhuList" hover-class='select3' hover-stay-time='500'>
+      <view class="top-line1-left" bindtap="GOguanzhuList" hover-class='select3' hover-stay-time='500'>
         <view class="top-line1-text" style="line-height:50rpx;">{{guanzhu_records}}</view>
         <view class="top-line1-text">关注</view>
       </view>
@@ -14,7 +14,7 @@
         <image class="top-line1-mid-icon" src="/imgs/icon.jpg"></image>
       </view>
       <!-- <image class ="top-line1-icon" src =""></image> -->
-      <view class="top-line1-right" bindtap = "GOfensiList" hover-class='select3' hover-stay-time='500'>
+      <view class="top-line1-right" bindtap="GOfensiList" hover-class='select3' hover-stay-time='500'>
         <view class="top-line1-text" style="line-height:50rpx;">0</view>
         <view class="top-line1-text">粉丝</view>
       </view>
@@ -27,21 +27,21 @@
 
     <!-- 第二行 -->
     <view class="top-line2">
-      <view class="top-line2-block" bindtap= "GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500' >
+      <view class="top-line2-block" bindtap="GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500'>
         <view class="top-line2-text">{{userInfo.Jifen}}</view>
         <view class="top-line2-text">积分</view>
       </view>
 
       <view class="line"></view>
 
-      <view class="top-line2-block" bindtap= "GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500' >
+      <view class="top-line2-block" bindtap="GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500'>
         <view class="top-line2-text">{{userInfo.Money}}</view>
         <view class="top-line2-text">学币</view>
       </view>
 
       <view class="line"></view>
 
-      <view class="top-line2-block" bindtap= "GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500' >
+      <view class="top-line2-block" bindtap="GOzhanghuzhongxin" hover-class='select4' hover-stay-time='500'>
         <view class="top-line2-text">{{userInfo.xueshi}}</view>
         <view class="top-line2-text">学时</view>
       </view>
@@ -59,10 +59,10 @@
       <view class="mid-line-item-text">我的爆料</view>
     </view> -->
 
-    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap = "GOIMlist">
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap="GOIMlist">
       <image class="mid-line-item-icon" src="/imgs/icon3.png"></image>
       <view class="mid-line-item-text">我的信息</view>
-      <view hidden="{{userInfo.chat_Newnums =='0' || userInfo.chat_Newnums != undefined}}" class ="message">{{userInfo.chat_Newnums}}</view>
+      <view hidden="{{userInfo.chat_Newnums =='0' || userInfo.chat_Newnums != undefined}}" class="message">{{userInfo.chat_Newnums}}</view>
     </view>
 
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;border-bottom:1rpx solid #f0f3fa;" bindtap="GOmyhuodong">
@@ -80,10 +80,16 @@
       <view class="mid-line-item-text">我的VIP</view>
     </view>
 
+    <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap='GOtuijian'>
+      <image class="mid-line-item-icon" src="/imgs/xiaochengxu.png"></image>
+      <view class="mid-line-item-text">精品推荐</view>
+    </view>
+
     <view hover-class='select1' hover-stay-time='500' class="mid-line-item" style="border-right:1rpx solid #f0f3fa;" bindtap='GOset'>
       <image class="mid-line-item-icon" src="/imgs/icon8.png"></image>
       <view class="mid-line-item-text">相关设置</view>
     </view>
+
   </view>
 
   <view class="loginout" hover-class='select2' hover-stay-time='500' bindtap='loginout'>退出登录</view>

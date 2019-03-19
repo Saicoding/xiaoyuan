@@ -155,6 +155,12 @@ Page({
     })
   },
 
+  pay2:function(){
+    wx.navigateTo({
+      url: '/pages/pay/pay',
+    })
+  },
+
   /**
    * 支付
    */

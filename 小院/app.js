@@ -1,5 +1,7 @@
 //app.js
 
+
+
 App({
   onLaunch: function(options) {
     // 获取用户信息
@@ -83,7 +85,7 @@ App({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function(res) { //服务器返回数据
-          let status = res.data.code;
+          let status = res.data.code ? res.data.code:res.data.status;
           if (status != 1) {
             console.log('异常')
             console.log(res)

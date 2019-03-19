@@ -143,6 +143,15 @@ Page({
   },
 
   /**
+   * 支付2
+   */
+  pay2:function(){
+    wx.navigateTo({
+      url: '/pages/pay/pay',
+    })
+  },
+
+  /**
    * 支付
    */
   pay: function(e) {

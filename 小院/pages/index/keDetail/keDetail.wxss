@@ -316,8 +316,8 @@
 .comment-input {
   background: white;
   height: 60rpx;
-  border-radius: 5rpx;
-  width: 485rpx;
+  border-radius: 10rpx;
+  width: 525rpx;
   margin-top: 10rpx;
   font-size: 25rpx;
   padding-left: 70rpx;
@@ -341,8 +341,8 @@
   font-size: 25rpx;
   text-align: center;
   line-height: 60rpx;
-  border-radius: 5rpx;
-  margin-left: 45rpx;
+  border-radius: 10rpx;
+  margin-left: 15rpx;
   background: rgb(253, 23, 23);
 }
 

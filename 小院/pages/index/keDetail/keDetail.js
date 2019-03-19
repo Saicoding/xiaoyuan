@@ -29,7 +29,7 @@ Page({
     wx.getSystemInfo({//获取设备类型
       success: function (res) {
         self.setData({
-          system: res.platform,//"devtools" "ios" "android"
+          system: res.platform,
         })
       }
     })

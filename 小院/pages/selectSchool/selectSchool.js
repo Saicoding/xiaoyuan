@@ -30,8 +30,11 @@ Page({
       title: '选择学校',
     })
 
-    console.log(app.globalData.userInfo)
-    let city = app.globalData.userInfo.city ? app.globalData.userInfo.city:''; //个人信息在全局变量里面
+    let city = "";
+
+    if(app.globalData.userInfo != null){
+      city = app.globalData.userInfo.city ? app.globalData.userInfo.city : ''; //个人信息在全局变量里面
+    }
 
     app.post(API_URL, "action=getColleage&city=" + city + "&keywords=", false, false, "").then(res => {
       console.log(res)
@@ -144,6 +147,8 @@ Page({
       }
       letterSchools[lastIndex].push(school);//往对应字母的数组里添加学校元素
     }
+
+    console.log('ok')
 
     self.setData({
       letterSchools: letterSchools,

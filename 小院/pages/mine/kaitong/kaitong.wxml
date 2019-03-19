@@ -26,7 +26,7 @@
     </view>
 
     <view class="mid-pay">
-      <view data-type="wx" bindtap = "pay" hover-class='select1' hover-stay-time='500' class="mid-pay-block">
+      <view data-type="wx" bindtap = "pay2" hover-class='select1' hover-stay-time='500' class="mid-pay-block">
         <image class="mid-pay-icon" src="/imgs/wxpay.png" mode="aspectFit"></image>
         <view class="mid-pay-text">微信支付</view>
       </view>

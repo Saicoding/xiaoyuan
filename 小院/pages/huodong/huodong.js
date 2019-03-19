@@ -6,7 +6,8 @@ Page({
 
   /**
    * 页面的初始数据
-   */
+   *
+  */
   data: {
     first: true, //第一次载入默认首次载入
     zuixinSelected:true,//默认显示最新活动
@@ -29,7 +30,7 @@ Page({
    */
   onReady: function() {
     let self  =this;
-
+    
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
       success: function (res) { //转换窗口高度
         let windowHeight = res.windowHeight;
@@ -370,5 +371,5 @@ Page({
         wx.stopPullDownRefresh() //停止下拉刷新
       })
     }
-  },
+  }
 })

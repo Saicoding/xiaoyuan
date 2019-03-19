@@ -1,0 +1,64 @@
+/* pages/pay/pay.wxss */
+
+.down {
+  clear: both;
+  width: 100%;
+  height: 260rpx;
+  display: float;
+  float: left;
+  margin-top: 25rpx;
+}
+
+.service {
+  width: 690rpx;
+  margin:0 auto;
+  padding-top: 20rpx;
+  text-align: center;
+  margin-top:20rpx;
+  padding-bottom:10rpx;
+  box-shadow: rgb(226, 226, 226) 3rpx 3rpx 8rpx 1rpx;
+}
+
+.service-text1 {
+  width: 690rpx;
+  font-weight: bold;
+  font-size: 35rpx;
+  letter-spacing: 6rpx;
+  color: #204674;
+}
+
+.company {
+  text-align: center;
+  height: 50rpx;
+  display: table;
+  margin: 50rpx auto;
+  line-height: 50rpx;
+}
+
+.address {
+  text-align: center;
+  font-size: 25rpx;
+}
+
+.company-name, .company-phone, .company-tel {
+  display: float;
+  float: left;
+  font-size: 30rpx;
+}
+
+.company-tel {
+  margin-left: 10rpx;
+}
+
+.company-name {
+  font-size: 38rpx;
+  width: 100%;
+  text-align: center;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+}
+
+.company-phone {
+  width: 36rpx;
+  height: 36rpx;
+  margin-top: 7rpx;
+}

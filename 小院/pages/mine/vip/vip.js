@@ -14,9 +14,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
-      title:"我的VIP"
+      title: "我的VIP"
     })
 
     let user = wx.getStorageSync('user');
@@ -29,21 +29,21 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     buttonClicked = false;
     let self = this;
     let user = wx.getStorageSync('user');
     let loginrandom = user.Login_random;
     let zcode = user.zcode;
 
-    app.post(API_URL,"action=getUserInfo&loginrandom="+loginrandom+"&zcode="+zcode,false,false,"","","",self).then(res=>{
+    app.post(API_URL, "action=getUserInfo&loginrandom=" + loginrandom + "&zcode=" + zcode, false, false, "", "", "", self).then(res => {
       let userInfo = res.data.data[0];
       self.setData({
         userInfo: userInfo
@@ -55,7 +55,7 @@ Page({
   /**
    * 导航到开通vip页面
    */
-  GOkaitong:function(){
+  GOkaitong: function() {
     if (buttonClicked) return;
     buttonClicked = true;
     let vip = this.data.userInfo.Vip;
@@ -64,5 +64,6 @@ Page({
     wx.navigateTo({
       url: '/pages/mine/kaitong/kaitong?Vip='+vip+"&Ktime="+Ktime+"&Jtime="+Jtime,
     })
+
   }
 })

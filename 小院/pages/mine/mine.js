@@ -92,6 +92,14 @@ Page({
     })
   },
   /**
+ * 导航到精品推荐
+ */
+  GOtuijian: function () {
+    wx.navigateTo({
+      url: '/pages/mine/tuijian/tuijian',
+    })
+  },
+  /**
    * 导航到账户中心
    */
   GOzhanghuzhongxin:function(){

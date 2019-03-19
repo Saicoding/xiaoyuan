@@ -28,21 +28,4 @@
   <view wx:if="{{!submit_disabled}}"  class="submit" bindtap="submit" hover-class='select2' hover-stay-time='500' >{{statu.confirm_text}}</view>
 
   <view wx:if="{{submit_disabled}}"  class="submit" style="background: linear-gradient(to right,#cacaca,#858585);">{{statu.confirm_text}}</view>
-
-  <!-- 快速登录 -->
-  <view class="line">
-    <view class="line-border"></view>
-    <view class="line-text" style="margin-left:30rpx;">快速登录</view>
-    <view class="line-border" style="margin-left:30rpx;"></view>
-  </view>
-
-  <!-- 快速登录的两个图标 -->
-  <view class="fastlogin">
-    <view data-statu="1" bindtap="changeLoginType" hover-class='select1' hover-stay-time='200'>
-      <image class="fastlogin-icon" src="/imgs/phone3.png"></image>
-    </view>
-    <view bindtap="wxLogin" hover-class='select1' hover-stay-time='500'>
-      <image class="fastlogin-icon" src="/imgs/wx.png" style="margin-left:80rpx;"></image>
-    </view>
-  </view>
 </view>

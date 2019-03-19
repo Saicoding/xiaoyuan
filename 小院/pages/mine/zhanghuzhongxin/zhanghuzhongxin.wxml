@@ -36,15 +36,19 @@
   <!-- 下面充值部分 -->
   <view class="down">
     <view class="down-item" wx:if ="{{platform !='ios'}}">
-      <view class="down-item-line1">
+      <view class="down-item-line1" style = "  justify-content: space-between;">
+        <view style = "display:flex;">
         <image class="down-item-line1-icon" src="/imgs/weixinzhifu.png"></image>
-        <view class="down-item-line1-text">微信充值</view>
+        <view class="down-item-line1-text" >微信充值</view>
+        </view>
+        <view data-type = "wx" class="down-item-line2-btn1" style = "margin-right:30rpx;" bindtap = "pay2" hover-class='select2' hover-stay-time='500'>充值</view>
       </view>
-      <view class="down-item-line2" >
+      <!-- <view class="down-item-line2" >
         <input value="{{lastvalue}}" type = "digit" class="down-item-line2-input" bindinput="wxpayInput"></input>
         <view data-type = "wx" class="down-item-line2-btn1" bindtap = "pay" hover-class='select2' hover-stay-time='500'>充值</view>
-      </view>
+      </view> -->
     </view>
+    <view style ="width:100%;height:15rpx;background:#f0f3fa;"></view>
 
     <view class="down-item">
       <view class="down-item-line1">

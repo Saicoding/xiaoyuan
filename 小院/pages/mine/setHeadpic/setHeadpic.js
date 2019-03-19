@@ -42,13 +42,13 @@ Page({
   onShow: function() {
     buttonClicked: false
     let userInfo = this.data.userInfo;
+    console.log(userInfo)
     let uploadPicText = this.data.uploadPicText;
     this.setData({
       random: new Date().getTime()
     })
 
     if (userInfo.zs_colleage_img) { //如果有图片了，展示框就用此图片
-
       userInfo.showImage = userInfo.zs_colleage_img
       if (userInfo.rz == '1') {
         uploadPicText = '已认证'
@@ -56,7 +56,8 @@ Page({
       this.setData({
         userInfo: userInfo,
         pic: userInfo.zs_colleage_img,
-        uploadPicText: uploadPicText
+        uploadPicText: uploadPicText,
+        uploadPicText:'审核中'
       })
     }
   },

@@ -33,7 +33,9 @@
     "pages/mine/zhanghuzhongxin/xueshiRecord/xueshiRecord",
     "pages/huodong/map/map",
     "pages/mine/avatarUpload/avatarUpload",
-    "pages/signAndFindPwd/signAndFindPwd"
+    "pages/signAndFindPwd/signAndFindPwd",
+    "pages/pay/pay",
+    "pages/mine/tuijian/tuijian"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -80,10 +82,15 @@
       }
     ]
   },
-  "pageOrientation": "landscape",
   "permission": {
     "scope.userLocation": {
       "desc": "需要获取您的地理位置，请确认授权，否则地图功能将无法使用"
     }
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx4bfad2a6c360e9c4",
+    "wx274bc5c5c5ce0434",
+    "wx1264a65218ad1fab",
+    "wxf90a298a65cfaca8" 
+  ]
 }
