@@ -16,7 +16,7 @@ Page({
     openId: '', //用户唯一标识  
     unionId: '',
     encryptedData: '',
-    platform:'android'
+    platform: 'android'
   },
 
   /**
@@ -58,11 +58,11 @@ Page({
   /**
    * 生命周期函数
    */
-  onReady:function(){
+  onReady: function() {
     let self = this;
     //获得dialog组件
     wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
-      success: function (res) { //转换窗口高度
+      success: function(res) { //转换窗口高度
         let windowHeight = res.windowHeight;
         let windowWidth = res.windowWidth;
         let platform = res.platform;
@@ -79,18 +79,18 @@ Page({
   /**
    * 处理输入完账号后直接点击密码框自动关闭键盘的BUG
    */
-  setFocus:function(e){
+  setFocus: function(e) {
     let type = e.currentTarget.dataset.type;
     let self = this;
-    if(type=="user"){
-      setTimeout(function () {
+    if (type == "user") {
+      setTimeout(function() {
         self.setData({
           userFocus: true,
-          pwdFocus:false
+          pwdFocus: false
         })
       }, 100)
-    }else{
-      setTimeout(function () {
+    } else {
+      setTimeout(function() {
         self.setData({
           userFocus: false,
           pwdFocus: true
@@ -129,9 +129,11 @@ Page({
       })
     } else {
       let md5Pwd = MD5.md5(pwdText).toLowerCase(); //小写md5加密密码
-
+      wx.showLoading({
+        title: '登录中',
+      })
       console.log("action=Login&user=" + userText + "&pwd=" + md5Pwd)
-      app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd, true, false, "登录中").then(res => {
+      app.post(API_URL, "action=Login&user=" + userText + "&pwd=" + md5Pwd, false, false, "").then(res => {
         let user = res.data.data[0];
         let rememberPwd = self.data.rememberPwd; //是否记住密码
         if (rememberPwd) { //如果选择了记住密码就存储本地缓存
@@ -175,7 +177,7 @@ Page({
           let openid = res.data.openid;
 
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               let wxid = ""; //openId
               let session_key = ""; //
 
@@ -196,14 +198,13 @@ Page({
 
               app.post(API_URL, "action=LoginWx&unionId=" + unionid + "&openid=" + openid + "&nickname=" + nickname + "&headurl=" + headurl + "&sex=" + sex, false, false, "").then((res) => {
                 let user = res.data.list[0];
-                wx.hideLoading();
-                self.processSelectScholl(user, ifGoPage); 
+                self.processSelectScholl(user, ifGoPage);
               })
             }
           })
         })
       },
-      fail:function(){
+      fail: function() {
 
       }
     })
@@ -212,12 +213,12 @@ Page({
   /**
    * 导航到找回密码或者注册页面
    */
-  GOsignAndFindPwd:function(e){
+  GOsignAndFindPwd: function(e) {
     let index = e.currentTarget.dataset.index;
     let ifGoPage = this.data.ifGoPage;
     let url1 = this.data.url1;
     wx.navigateTo({
-      url: '/pages/signAndFindPwd/signAndFindPwd?statuIndex=' + index+"&ifGoPage="+ifGoPage+"&url1="+url1,
+      url: '/pages/signAndFindPwd/signAndFindPwd?statuIndex=' + index + "&ifGoPage=" + ifGoPage + "&url1=" + url1,
     })
   },
 
@@ -241,14 +242,21 @@ Page({
         content: '请绑定您所在学校',
         showCancel: false,
         success(res) {
-          wx.navigateTo({ //导航到选择学校页面
-            url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
-          })
+          wx.hideLoading();
+          if (res.confirm) {
+            wx.navigateTo({ //导航到选择学校页面
+              url: '/pages/selectSchool/selectSchool?loginrandom=' + loginrandom + "&zcode=" + zcode,
+            })
+          }
         }
       })
     } else { //如果选择学校
       wx.setStorageSync('user', user)
-      wx.navigateBack({}) //先回到登录前的页面
+      wx.navigateBack({
+        success: function() {
+          wx.hideLoading();
+        }
+      }) //先回到登录前的页面
 
       if (ifGoPage == 'true') {
         wx.navigateTo({
@@ -306,7 +314,7 @@ Page({
   /**
    * 返回上一页面
    */
-  back:function(){
+  back: function() {
     wx.navigateBack({})
   }
 })

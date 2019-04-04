@@ -442,8 +442,8 @@ Component({
     },
     imageLoad(e) {
       setTimeout(() => {
+        console.log(this.data.imageObject)
         this.triggerEvent('imageload', this.data.imageObject);
-
       }, 1000)
     },
     /**

@@ -14,16 +14,41 @@ Page({
     });
   },
 
-  cropperload(e) {},
+  /**
+* 生命周期函数
+*/
+  onReady: function () {
+    let self = this;
+    //获得dialog组件
+    wx.getSystemInfo({ //得到窗口高度,这里必须要用到异步,而且要等到窗口bar显示后再去获取,所以要在onReady周期函数中使用获取窗口高度方法
+      success: function (res) { //转换窗口高度
+        let windowHeight = res.windowHeight;
+        let windowWidth = res.windowWidth;
+        let platform = res.platform;
+        windowHeight = (windowHeight * (750 / windowWidth));
+        self.setData({
+          windowWidth: windowWidth,
+          windowHeight: windowHeight,
+          platform: platform
+        })
+      }
+    });
+  },
+
+  cropperload(e) {
+
+  },
 
   loadimage(e) {
     //重置图片角度、缩放、位置
     this.cropper.imgReset();
     //点击裁剪框阅览图片
-    wx.previewImage({
-      current: e.detail.url, // 当前显示图片的http链接
-      urls: [e.detail.url] // 需要预览的图片http链接列表
-    })
+    if (e.detail.url){
+      wx.previewImage({
+        current: e.detail.url, // 当前显示图片的http链接
+        urls: [e.detail.url] // 需要预览的图片http链接列表
+      })
+    }
   },
 
   //重选图片
@@ -60,6 +85,7 @@ Page({
     let user = wx.getStorageSync('user');
     let loginranom = user.Login_random;
     let zcode = user.zcode;
+    let windowWidth = self.data.windowWidth;
 
     wx.showLoading({
       title: '设置头像中...',
@@ -69,38 +95,19 @@ Page({
       src: pic,
       success: function(res) {
         var ctx = wx.createCanvasContext('photo_canvas');
-        var ratio = 2;
-        var canvasWidth = res.width
-        var canvasHeight = res.height;
-        // 保证宽高均在200以内
-        while (canvasWidth > 200 || canvasHeight > 200) {
-          //比例取整
-          canvasWidth = Math.trunc(res.width / ratio)
-          canvasHeight = Math.trunc(res.height / ratio)
-          ratio++;
-        }
-        self.setData({
-          canvasWidth: canvasWidth,
-          canvasHeight: canvasHeight
-        }) //设置canvas尺寸
-        ctx.drawImage(pic, 0, 0, canvasWidth, canvasHeight)
-        ctx.draw()
-        //下载canvas图片
-        setTimeout(function() {
+        ctx.drawImage(pic, 0, 0, 120 * windowWidth / 750, 120 * windowWidth / 750);
+        ctx.draw(true, function (res) {
+          //下载canvas图片
           wx.canvasToTempFilePath({
             canvasId: 'photo_canvas',
-            success: function(res1) {
-              console.log(res1.tempFilePath)
+            success: function (res1) {
               wx.getFileSystemManager().readFile({
                 filePath: res1.tempFilePath, //选择图片返回的相对路径
                 encoding: 'base64', //编码格式
                 success: res3 => { //成功的回调
-                  console.log(res3.data)
                   res3.data = encodeURIComponent(res3.data); //需要编码
-
                   app.post(API_URL, "action=saveHeadPic&loginrandom=" + loginranom + "&zcode=" + zcode + "&Pic=" + res3.data, false, false, "", "", "", self).then(res4 => {
                     wx.hideLoading({})
-                    console.log(res4)
                     prePage.setData({
                       userInfo: userInfo
                     })
@@ -109,11 +116,12 @@ Page({
                 }
               })
             },
-            fail: function(error) {
+            fail: function (error) {
               console.log(error)
             }
           })
-        }, 100)
+        })
+
       },
       fail: function(error) {
         console.log(error)

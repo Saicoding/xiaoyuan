@@ -64,20 +64,21 @@
 
 .pic-outcontainer {
   margin-top: 40rpx;
-  margin-left:40rpx;
+  margin-left:20rpx;
 }
 
 .info, .info-text1, .info-text2 {
-  width: 280rpx;
+  width: 360rpx;
   text-align: left;
 }
 
 .up-button,.up-button-block,.up-button-block2{
-  width:230rpx;
+  width:180rpx;
 }
 
 .up-button{
   margin-top:60rpx;
+  margin-left:20rpx;
 }
 
 .up-button-block2{

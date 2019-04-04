@@ -113,8 +113,9 @@ App({
               duration: 3000
             })
           }
-
-          wx.hideLoading();
+          if (ifShow) {
+            wx.hideLoading();
+          }
         },
         error: function(e) {
           console.log('错误')

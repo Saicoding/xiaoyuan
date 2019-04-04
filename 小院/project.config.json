@@ -9,7 +9,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"autoAudits": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.0",
@@ -19,6 +19,11 @@
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"scripts": {
+		"beforeCompile": "view",
+		"beforePreview": "on",
+		"beforeUpload": "up"
+	},
 	"condition": {
 		"search": {
 			"current": -1,
