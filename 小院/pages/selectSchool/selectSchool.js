@@ -36,6 +36,8 @@ Page({
       city = app.globalData.userInfo.city ? app.globalData.userInfo.city : ''; //个人信息在全局变量里面
     }
 
+    city = "";
+
     app.post(API_URL, "action=getColleage&city=" + city + "&keywords=", false, false, "").then(res => {
       console.log(res)
       self.processRequest(res);
@@ -71,6 +73,7 @@ Page({
     let city = app.globalData.userInfo.city; //个人信息在全局变量里面
 
     app.post(API_URL, "action=getColleage&city=&keywords=" + schoolWord, false, false, "").then(res => {
+      console.log(res)
       self.processRequest(res);
     })
   },
