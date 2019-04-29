@@ -95,10 +95,8 @@ Page({
           userFocus: false,
           pwdFocus: true
         })
-      }, 100)
+      }, 1000)
     }
-
-
   },
 
   /**
